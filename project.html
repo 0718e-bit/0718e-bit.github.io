@@ -492,6 +492,14 @@ nav{
 .tlc-items{list-style:none;padding:11px 14px;display:flex;flex-direction:column;gap:5px}
 .tlc-items li{font-size:11px;color:var(--ink2);line-height:1.5;padding-left:10px;position:relative}
 .tlc-items li::before{content:'·';position:absolute;left:0;color:var(--accent2)}
+
+/* AI드림쌤 서비스 가치 카드 */
+.ds-value-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.ds-value-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:18px 20px;transition:border-color .2s}
+.ds-value-card:hover{border-color:rgba(123,163,236,.3)}
+.dsv-icon{font-size:22px;margin-bottom:10px}
+.dsv-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3}
+.dsv-desc{font-size:12px;color:var(--ink2);line-height:1.65}
 </style>
 </head>
 <body>
@@ -1822,6 +1830,7 @@ function buildMegaRenewalSections(){
 /* ── AI드림쌤 플러스 섹션 ── */
 function buildAiDreamsamSections(){
   return `
+  <!-- Pain vs Solution -->
   <section class="sec">
     <div class="sec-inner">
       <div class="sec-label">Painpoint — AI 선생님이 아이와 실제로 '대화'할 수 없었다</div>
@@ -1834,6 +1843,7 @@ function buildAiDreamsamSections(){
               {icon:'🗣️',title:'부정확한 발음 인식 불가',sub:'아이들 발음을 AI가 못 알아들음',detail:['중학생의 불완전한 영어 발음·한국어 혼용 인식 실패','특수문자·숫자·화폐단위($,£,%) STT 처리 불가','음성 입력 실패 → 학습 흥미 저하']},
               {icon:'🚧',title:'학습 외 대화 통제 불가',sub:'아이들이 엉뚱한 대화 유도',detail:['학습과 무관한 주제 유도 시 통제 방법 없음','욕설·부적절 표현 필터링 체계 미비','학습 이탈 후 대화 흐름 복구 어려움']},
               {icon:'🎭',title:'단일 AI 페르소나',sub:'모든 학생에게 같은 AI 선생님',detail:['성격·톤·음성이 고정된 단일 캐릭터','학생 성향에 맞는 교사 선택 불가','장기 사용 시 흥미 저하']},
+              {icon:'📅',title:'상담 예약 체계 부재',sub:'상담 시간 관리가 안 됨',detail:['학생이 직접 상담 일정을 잡을 수 있는 구조 없음','상담 이력과 다음 일정이 분리되어 관리 어려움','예약 시스템 없어 상담 지속성 저하']},
             ].map(c=>`
               <div class="pvs-card pain-card" onclick="toggleCard(this)">
                 <div class="pvs-card-head">
@@ -1852,9 +1862,10 @@ function buildAiDreamsamSections(){
           <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
           <div class="pvs-cards">
             ${[
-              {icon:'🎙️',title:'아동 특화 STT 모델',sub:'부정확한 발음·혼용 언어 인식',detail:['중학생 발음 패턴에 최적화된 음성인식 모델 학습','특수문자·숫자·화폐단위($,£,%) 인식 모델 학습','한국어 혼용·단어 수준 영어 입력도 정상 처리']},
-              {icon:'🛡️',title:'학습 가드레일 설계',sub:'학습 범위 이탈 방지 2중 레이어',detail:['학습 주제별 대화 범위 정의 + LLM 프롬프트 제어','이탈 시 자연스럽게 학습 주제로 복귀하는 로직','욕설·부적절 표현 필터링 + 연령 적합 가이드라인']},
-              {icon:'🎭',title:'멀티 페르소나 버추얼 휴먼',sub:'성격·음성·입모양이 다른 AI 선생님',detail:['페르소나별 다른 성격·톤·음성으로 캐릭터 차별화','버추얼 휴먼 립싱크 — 발화 내용에 맞춰 입모양 동기화','학생이 선호 교사 캐릭터 직접 선택 가능']},
+              {icon:'🎙️',title:'아동 특화 STT 모델',sub:'부정확한 발음·혼용 언어 인식',detail:['중학생 발음 패턴에 최적화된 음성인식 모델 학습','특수문자·숫자·화폐단위($,£,%) 인식 모델 학습','한국어 혼용·단어 수준 영어 입력도 정상 처리','일 1,600만건 학습 빅데이터 기반 분석 노하우']},
+              {icon:'🛡️',title:'학습 가드레일 2중 레이어',sub:'학습 범위 이탈 방지 시스템',detail:['학습 주제별 대화 범위 정의 + LLM 프롬프트 제어','이탈 시 자연스럽게 학습 주제로 복귀하는 로직','욕설·부적절 표현 필터링 + 연령 적합 가이드라인']},
+              {icon:'🎭',title:'멀티 페르소나 버추얼 휴먼',sub:'성격·음성·입모양이 다른 AI 선생님',detail:['페르소나별 다른 성격·톤·음성으로 캐릭터 차별화','버추얼 휴먼 립싱크 — 발화에 맞춘 입모양 동기화','홈런 타임즈 기반 레벨별 맞춤 영어 대화 제공']},
+              {icon:'📅',title:'상담 예약 프로그램 도입',sub:'학생이 직접 스케줄링',detail:['학생이 직접 상담 일정을 예약하는 시스템 기획·도입','최대 4개까지 다음 상담 일정 사전 예약 가능','한국어/영어, 요일·시간까지 세분화된 예약 정책 설계']},
             ].map(c=>`
               <div class="pvs-card sol-card" onclick="toggleCard(this)">
                 <div class="pvs-card-head">
@@ -1872,32 +1883,53 @@ function buildAiDreamsamSections(){
     </div>
   </section>
 
+  <!-- 서비스 핵심 가치 -->
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
-      <div class="sec-label">핵심 기술 구조 — 워크플로우 설계</div>
-      <div style="font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--accent2);margin-bottom:14px">5분 상담 플로우</div>
-      <div class="dreamsam-flow">
+      <div class="sec-label">서비스 핵심 가치</div>
+      <div class="ds-value-grid">
         ${[
-          {step:'STEP 1',label:'Warm-up',desc:'일상 대화 + 지난 주 학습 피드백',color:'rgba(75,123,224,.12)',border:'rgba(75,123,224,.25)'},
-          {step:'STEP 2',label:'중심 대화',desc:'영어 주제 대화 or 학습마음 대화',color:'rgba(62,207,106,.08)',border:'rgba(62,207,106,.25)'},
-          {step:'STEP 3',label:'감정 선택',desc:'대화 후 현재 감정 선택',color:'rgba(245,200,66,.08)',border:'rgba(245,200,66,.25)'},
-          {step:'STEP 4',label:'AI 요약',desc:'대화 내용 + 감정 자동 요약',color:'rgba(168,85,247,.08)',border:'rgba(168,85,247,.25)'},
+          {icon:'📰',title:'홈런 타임즈 기반 영어 대화',desc:'최신 뉴스 기사를 소재로 AI와 실전 영어 대화. 레벨별 맞춤 대화로 영어 상호작용 능력과 자신감을 동시에 향상.'},
+          {icon:'📊',title:'생활기록부 연계 AI 학습 분석',desc:'매 상담 실시간 요약·피드백 제공. 학습 태도·패턴을 AI가 자동 분석해 상담이 쌓일수록 더 정확한 맞춤 피드백.'},
+          {icon:'💬',title:'학습마음 대화로 자기주도 습관',desc:'시험 스트레스, 친구 관계, 진로 고민까지. AI가 경청하고 감정·학습 습관을 돌보며 성장 기록을 함께 만들어감.'},
+          {icon:'🧠',title:'교육 특화 생성형 언어 모델',desc:'아이스크림 홈런만의 교육 특화 LLM. 일 1,600만건 학습 데이터·11만명 상담 데이터 기반의 학습 빅데이터 분석.'},
+        ].map(v=>`
+          <div class="ds-value-card">
+            <div class="dsv-icon">${v.icon}</div>
+            <h4 class="dsv-title">${v.title}</h4>
+            <p class="dsv-desc">${v.desc}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- 기술 구조 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">기술 구조 — 5분 상담 워크플로우</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-bottom:14px">상담 플로우</div>
+      <div class="dreamsam-flow" style="margin-bottom:28px">
+        ${[
+          {step:'Pre-Check',label:'사전 확인',desc:'홈런타임즈 기사\nPre-Check 제공',color:'rgba(75,123,224,.12)',border:'rgba(75,123,224,.25)'},
+          {step:'STEP 1',label:'Warm-up',desc:'일상 대화 +\n지난 주 학습 피드백',color:'rgba(62,207,106,.08)',border:'rgba(62,207,106,.25)'},
+          {step:'STEP 2',label:'중심 대화',desc:'영어주제 대화\nor 학습마음 대화',color:'rgba(245,200,66,.08)',border:'rgba(245,200,66,.25)'},
+          {step:'STEP 3',label:'감정 선택',desc:'현재 나의\n기분은?',color:'rgba(168,85,247,.08)',border:'rgba(168,85,247,.25)'},
+          {step:'STEP 4',label:'AI 요약',desc:'대화+감정\n자동 요약',color:'rgba(62,207,106,.1)',border:'rgba(62,207,106,.3)'},
         ].map((s,i)=>`
           <div class="dsf-item" style="background:${s.color};border:1px solid ${s.border}">
             <div class="dsf-step">${s.step}</div>
             <div class="dsf-label">${s.label}</div>
-            <div class="dsf-desc">${s.desc}</div>
+            <div class="dsf-desc">${s.desc.replace(/\n/g,'<br>')}</div>
           </div>
-          ${i<3?'<div class="dsf-arrow">→</div>':''}`).join('')}
+          ${i<4?'<div class="dsf-arrow">→</div>':''}`).join('')}
       </div>
-
-      <div style="font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--accent2);margin:24px 0 14px">기술 레이어</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-bottom:14px">기술 레이어</div>
       <div class="tech-layers">
         ${[
           {layer:'입력',icon:'🎙️',title:'음성 입력 (STT)',items:['아동 발음 특화 STT 모델 학습','특수문자·숫자·화폐단위 처리','마이크/키보드 전환 모드','STT 텍스트 타이핑 애니메이션']},
-          {layer:'처리',icon:'🧠',title:'LLM + 가드레일',items:['학습 주제별 대화 범위 프롬프트 설계','학습 이탈 시 자연스러운 복귀 로직','연령 적합 필터링 (2중 레이어)','한국어/영어 동시 응답 구조']},
-          {layer:'출력',icon:'🎭',title:'버추얼 휴먼 (TTS)',items:['페르소나별 음성·성격·톤 차별화','립싱크 — 발화에 맞춘 입모양 동기화','한국어 번역 ON/OFF 토글','영어 문법 솔루션 피드백']},
-          {layer:'분석',icon:'📊',title:'AI 요약 & 감정 분석',items:['대화 후 AI 자동 요약 생성','감정 추이 + 키워드 분석','포트폴리오 누적 (활동 기록)','교사·부모 요약본 별도 제공']},
+          {layer:'처리',icon:'🧠',title:'LLM + 가드레일',items:['교육 특화 생성형 언어 모델','학습 주제별 대화 범위 프롬프트','학습 이탈 시 자연스러운 복귀','연령 적합 2중 필터링']},
+          {layer:'출력',icon:'🎭',title:'버추얼 휴먼 (TTS)',items:['페르소나별 음성·성격·톤','립싱크 — 입모양 동기화','한국어 번역 ON/OFF','레벨별 맞춤 영어 응답']},
+          {layer:'분석',icon:'📊',title:'AI 요약 & 생활기록부',items:['대화 후 AI 자동 요약','감정 추이 + 키워드 분석','학습 패턴 누적 분석','교사·부모 요약본 제공']},
         ].map(t=>`
           <div class="tech-layer-card">
             <div class="tlc-header">
@@ -1913,10 +1945,59 @@ function buildAiDreamsamSections(){
     </div>
   </section>
 
-  <section class="sec">
+  <!-- 산출물 — 스토리보드 → 실제 화면 -->
+  <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
-      <div class="sec-label">화면 · 산출물</div>
-      <div class="browser-frame">
+      <div class="sec-label">화면 · 산출물 — 기획서가 실제 서비스로</div>
+
+      <!-- 스토리보드 -->
+      <div style="margin-bottom:28px">
+        <div style="font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+          <span style="background:var(--surface);border:1px solid var(--border);color:var(--ink3);padding:2px 8px;border-radius:4px;font-size:10px">기획서</span>
+          스토리보드 v1.1 — 전체 화면 설계
+        </div>
+        <div class="img-frame">
+          <div class="img-bar">
+            <div class="img-dot" style="background:#FF5F57"></div>
+            <div class="img-dot" style="background:#FFBD2E"></div>
+            <div class="img-dot" style="background:#28CA41"></div>
+          </div>
+          <img src="images/dreamsam-storyboard.png" alt="AI드림쌤 스토리보드 v1.1" loading="lazy"
+            style="filter:saturate(0.8) brightness(0.92);transition:filter .3s"
+            onmouseover="this.style.filter='saturate(1) brightness(1)'"
+            onmouseout="this.style.filter='saturate(0.8) brightness(0.92)'">
+          <div class="img-cap">AI드림쌤 메인 화면 스토리보드 — Pre-Check·예약시스템·지난이야기 UX 설계</div>
+        </div>
+      </div>
+
+      <!-- 실제 구현 화면 -->
+      <div style="font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+        <span style="background:rgba(62,207,106,.12);border:1px solid rgba(62,207,106,.3);color:#3ECF6A;padding:2px 8px;border-radius:4px;font-size:10px">실제 구현</span>
+        기획서 → 실제 서비스 화면
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        ${[
+          {src:'images/dreamsam-screen1.png',cap:'영어 대화 — Korea\'s Badminton Hero 기사 기반 실전 영어 상담 (버추얼 휴먼 Chloe)'},
+          {src:'images/dreamsam-screen2.png',cap:'AI드림쌤 메인 — Pre-Check 제공 + 상담 예약 일정 + 지난 이야기 목록'},
+          {src:'images/dreamsam-screen3.png',cap:'우리의 이야기 노트 — AI 요약·감정 분석·학습 습관 개선 키워드 (한국어 대화)'},
+          {src:'images/dreamsam-screen4.png',cap:'영어 대화 — APEC 기사 기반 상담 + 번역 ON 모드 + 버추얼 휴먼 립싱크'},
+        ].map(({src,cap})=>`
+          <div class="img-frame">
+            <div class="img-bar">
+              <div class="img-dot" style="background:#FF5F57"></div>
+              <div class="img-dot" style="background:#FFBD2E"></div>
+              <div class="img-dot" style="background:#28CA41"></div>
+            </div>
+            <img src="${src}" alt="${cap}" loading="lazy"
+              style="filter:saturate(0.85) brightness(0.93);transition:filter .3s"
+              onmouseover="this.style.filter='saturate(1) brightness(1)'"
+              onmouseout="this.style.filter='saturate(0.85) brightness(0.93)'">
+            <div class="img-cap">${cap}</div>
+          </div>`).join('')}
+      </div>
+
+      <!-- 실제 서비스 링크 -->
+      <div class="browser-frame" style="margin-top:20px">
         <div class="browser-bar">
           <div class="b-dot" style="background:#FF5F57"></div>
           <div class="b-dot" style="background:#FFBD2E"></div>
@@ -1924,35 +2005,36 @@ function buildAiDreamsamSections(){
           <div class="b-url">mid.home-learn.co.kr/homelearn/aiDreamssam</div>
           <div class="b-badge">🌐 실제 서비스 운영 중</div>
         </div>
-        <div style="background:#0F1420;padding:28px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:160px">
-          <div style="font-size:28px">🤖</div>
-          <div style="font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink)">AI드림쌤 플러스 — 홈런 중등</div>
-          <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:420px">버추얼 휴먼 AI 선생님과 영어·학습마음 상담을 진행하는 실제 운영 중인 서비스입니다.</div>
+        <div style="background:#0F1420;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+          <div>
+            <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px">AI드림쌤 플러스 — 홈런 중등</div>
+            <div style="font-size:12px;color:var(--ink2)">버추얼 휴먼 AI 선생님과 영어·학습마음 상담 · 130만+ 회원 운영 중</div>
+          </div>
           <a href="https://mid.home-learn.co.kr/homelearn/aiDreamssam" target="_blank"
-            style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;text-decoration:none;transition:opacity .2s"
+            style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:13px;font-weight:600;padding:9px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:opacity .2s;flex-shrink:0"
             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
             실제 서비스 보기 →
           </a>
         </div>
       </div>
-      <div class="result-desc-wrap" style="margin-top:16px">
-        <div style="font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--accent2);margin-bottom:10px">산출물</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          ${['스토리보드 v1.1','LLM 프롬프트 설계서','데이터 정책서','마이크 입력 프로세스 정의','가드레일 정책 문서'].map(d=>`
-            <span style="font-size:12px;font-family:var(--mono);border:1px solid var(--border);color:var(--ink2);padding:4px 10px;border-radius:4px">${d}</span>`).join('')}
-        </div>
+
+      <!-- 산출물 목록 -->
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        ${['스토리보드 v1.1 (전체 화면 설계)','LLM 프롬프트 설계서','데이터 정책서','상담 예약 시스템 정책','마이크 입력 프로세스 정의','가드레일 정책 문서'].map(d=>`
+          <span style="font-size:12px;font-family:var(--mono);border:1px solid var(--border);color:var(--ink2);padding:4px 10px;border-radius:4px">${d}</span>`).join('')}
       </div>
     </div>
   </section>
 
+  <!-- 성과 -->
   <section class="sec result-section" style="background:var(--bg)">
     <div class="sec-inner">
       <div class="sec-label">성과</div>
       <div class="result-grid">
         ${[
           {eyebrow:'서비스 규모',num:130,unit:'만+',label:'홈런 중등 누적 회원 수',pct:100},
+          {eyebrow:'학습 빅데이터',num:1600,unit:'만건/일',label:'학습 데이터 기반 분석',pct:100},
           {eyebrow:'버추얼 휴먼',num:3,unit:'종+',label:'페르소나별 AI 선생님 캐릭터',pct:75},
-          {eyebrow:'STT 처리',num:4,unit:'종',label:'발음·특수문자·숫자·화폐단위',pct:80},
           {eyebrow:'가드레일',num:2,unit:'레이어',label:'학습범위 제한 + 연령 필터링',pct:66},
         ].map(r=>`
           <div class="result-cell">
@@ -1964,22 +2046,20 @@ function buildAiDreamsamSections(){
       </div>
       <div class="result-desc-wrap">
         <p class="result-desc">
-          <strong>버추얼 휴먼</strong> 기반 AI 선생님이 학생과 음성으로 대화 — 페르소나별 성격·음성·립싱크(입모양 동기화)까지 기획.
-          중학생 발음 특화 STT 모델 학습으로 <strong>부정확한 발음·한국어 혼용·특수문자·숫자·화폐단위</strong> 처리.
-          학습 이탈을 막는 <strong>가드레일 + 연령 필터링 2중 레이어</strong> 설계.
-          <strong>130만+ 회원</strong> 홈런 중등에 실제 서비스로 런칭.
+          <strong>버추얼 휴먼</strong> AI 선생님과 음성 대화 — 페르소나별 성격·음성·립싱크 기획. 중학생 발음 특화 STT 모델로 <strong>부정확한 발음·특수문자·숫자·화폐단위</strong> 처리. 학습 이탈 방지 <strong>가드레일 2중 레이어</strong> + <strong>상담 예약 프로그램</strong> 직접 기획·도입. 일 <strong>1,600만건 학습 빅데이터</strong> 기반 AI 분석. <strong>130만+ 회원</strong> 홈런 중등에 실제 서비스 런칭.
         </p>
       </div>
     </div>
   </section>
 
+  <!-- 회고 -->
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
       <div class="sec-label">회고</div>
       <div class="learn-list">
         ${[
           {type:'keep',label:'KEEP',text:'<strong>가드레일을 프롬프트 + UX 두 레이어에 동시 설계한 것</strong> — LLM만 믿으면 뚫리기 때문에 UX 흐름 자체가 학습 범위를 벗어나지 않도록 이중으로 막는 구조가 핵심이었음.'},
-          {type:'learn',label:'LEARN',text:'<strong>아동 STT는 일반 모델로는 안 된다</strong> — 중학생의 부정확한 발음, 한국어 혼용, 특수문자·화폐단위 표현이 일반 STT에서 모두 실패. 타깃 연령대 데이터로 별도 모델 학습이 필수였음.'},
+          {type:'learn',label:'LEARN',text:'<strong>아동 STT는 일반 모델로는 안 된다</strong> — 중학생의 부정확한 발음, 한국어 혼용, 특수문자·화폐단위가 일반 STT에서 모두 실패. 타깃 연령대 데이터로 별도 모델 학습이 필수였음.'},
           {type:'next',label:'NEXT',text:'<strong>영어 문법 솔루션 고도화</strong> — 학생 발화의 문법 오류를 실시간으로 부드럽게 교정하는 피드백 루프 기획 예정. 거부감 없는 교정 UX 설계가 핵심.'},
         ].map(l=>`
           <div class="learn-item">
@@ -1991,8 +2071,6 @@ function buildAiDreamsamSections(){
   </section>`;
 }
 
-
-/* ── AI 디지털교과서 섹션 ── */
 function buildAiTextbookSections(){
   return `
   <section class="sec">
