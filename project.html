@@ -308,6 +308,26 @@ nav{
   transition:filter .3s;
 }
 .real-screen-item:hover img{filter:saturate(1) brightness(1)}
+
+/* QA 전용 */
+.qa-filter-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px}
+.qa-filter-item{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.qa-filter-val{color:var(--ink2);margin-left:4px}
+.qa-filter-btn{margin-left:auto;font-family:var(--mono);font-size:11px;font-weight:600;background:var(--accent);color:#fff;padding:5px 12px;border-radius:5px;cursor:pointer}
+.qa-summary-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.qa-sum-cell{background:var(--bg);padding:12px 14px}
+.qa-sum-val{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1}
+.qa-sum-label{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:4px}
+.qa-table{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.qa-table-header{display:grid;grid-template-columns:80px 70px 100px 1fr 80px 60px;padding:8px 14px;font-family:var(--mono);font-size:10px;color:var(--ink3);border-bottom:1px solid var(--border);gap:8px}
+.qa-table-row{display:grid;grid-template-columns:80px 70px 100px 1fr 80px 60px;padding:10px 14px;gap:8px;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;align-items:center}
+.qa-table-row:last-child{border-bottom:none}
+.qa-table-row:hover{background:rgba(255,255,255,.02)}
+.qa-agent{font-weight:600;color:var(--ink)}
+.qa-date{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.qa-summary{color:var(--ink2);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qa-score{font-family:var(--mono);font-weight:700}
+.qa-screen-caption{margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--ink3)}
 </style>
 </head>
 <body>
@@ -762,70 +782,145 @@ function buildAgentSections(){
 /* ── NOA QA 섹션 ── */
 function buildQaSections(){
   return `
+  <!-- Pain Point → 해결방안 탭 -->
   <section class="sec">
     <div class="sec-inner">
-      <div class="sec-label">Painpoint vs Solution</div>
+      <div class="sec-label">Painpoint — 기존 QA의 한계</div>
       <blockquote class="pain-quote">"QA는 하고 있었지만, 아무도 그 결과를 믿지 않았다."</blockquote>
-      <div class="pain-vs">
-        <div class="pain-col left">
-          <h3>Pain Point</h3>
+
+      <div class="flow-tabs">
+        <button class="flow-tab active" onclick="switchTab('qa','pain',this)">Pain Point</button>
+        <button class="flow-tab" onclick="switchTab('qa','sol',this)">해결방안</button>
+      </div>
+
+      <div id="qa-pain" class="flow-panel active">
+        <div class="flow-grid">
           ${[
-            {icon:'📉',title:'Low Coverage',desc:'샘플링 방식이라 전체 상담의 일부만 평가 — 패턴 파악과 지표 누적이 불가능'},
-            {icon:'⏰',title:'피드백 지연',desc:'QA 결과가 수일~수주 뒤에 나와 즉각적인 코칭이 불가'},
-            {icon:'🤖',title:'Manual QA 한계',desc:'수기 평가는 평가자마다 기준이 달라 일관성 없는 결과'},
-            {icon:'📏',title:'Rule QA 한계',desc:'룰 기반 자동화는 맥락 이해 불가 — 오탐 많고 유연한 기준 적용 불가'},
-            {icon:'🗂️',title:'관리 어려움',desc:'QA 결과가 분산되어 센터 전체 품질 현황 파악 불가'},
-          ].map(p=>`
-            <div class="pain-item" onclick="togglePain(this)">
-              <div class="pain-item-head">
-                <span class="pain-item-icon">${p.icon}</span>
-                <span class="pain-item-title">${p.title}</span>
-                <span class="pain-item-arrow">›</span>
-              </div>
-              <div class="pain-item-body"><p>${p.desc}</p></div>
+            {icon:'📉',title:'Low Coverage',sub:'샘플링으로는 전체를 볼 수 없다',detail:['전체 상담의 5~10%만 평가 — 나머지는 블랙박스','패턴 파악 불가 → 반복 문제가 반복됨','지표 누적이 안 되니 개선 방향도 없음']},
+            {icon:'⏰',title:'피드백 지연',sub:'결과가 수일 뒤에 나온다',detail:['평가 결과가 수일~수주 뒤에 공유','이미 지나간 상담에 대한 코칭은 효과 반감','실시간 대응이 필요한 이슈도 사후 발견']},
+            {icon:'✋',title:'Manual QA 한계',sub:'사람마다 기준이 다르다',detail:['평가자에 따라 다른 기준으로 점수 편차 발생','주관적 판단으로 일관성 없는 평가 결과','QA 담당자 리소스에 의존하는 구조']},
+            {icon:'🤖',title:'Rule QA 한계',sub:'맥락을 이해하지 못한다',detail:['키워드 기반 룰은 대화 맥락 이해 불가','오탐·미탐이 많아 현장 신뢰도 낮음','유연한 기준 적용과 예외 처리 불가']},
+            {icon:'🗂️',title:'관리 어려움',sub:'결과가 흩어져 있다',detail:['QA 결과가 스프레드시트·메일·채팅에 분산','센터 전체 품질 현황을 한눈에 볼 수 없음','코칭 기록·이력 추적 불가']},
+          ].map(c=>`
+            <div class="flow-card" onclick="toggleCard(this)">
+              <div class="flow-icon">${c.icon}</div>
+              <h4>${c.title}</h4>
+              <div class="fc-sub">${c.sub}</div>
+              <div class="flow-detail"><div class="flow-detail-inner"><ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul></div></div>
             </div>`).join('')}
         </div>
-        <div class="pain-vs-arrow">→</div>
-        <div class="pain-col right">
-          <h3>해결방안</h3>
+      </div>
+
+      <div id="qa-sol" class="flow-panel">
+        <div class="flow-grid">
           ${[
-            {icon:'📊',title:'실시간 전수 분석',desc:'모든 상담건을 AI가 자동 평가 — 커버리지 100% 달성'},
-            {icon:'⚡',title:'실시간 모니터링',desc:'상담 직후 즉시 QA 결과 제공 — 당일 코칭 가능'},
-            {icon:'📋',title:'QA 항목 체계 정의',desc:'항목별·종합 점수 구조를 설계해 일관된 평가 기준 확보'},
-            {icon:'🔔',title:'리스크 알림',desc:'품질 이상 징후 감지 시 즉시 알림으로 선제적 대응'},
-            {icon:'📈',title:'운영 Insight',desc:'기간별 센터 종합 품질·상담사 코칭 보고서로 활용'},
-          ].map(s=>`
-            <div class="pain-item sol" onclick="togglePain(this)">
-              <div class="pain-item-head">
-                <span class="pain-item-icon">${s.icon}</span>
-                <span class="pain-item-title">${s.title}</span>
-                <span class="pain-item-arrow">›</span>
-              </div>
-              <div class="pain-item-body"><p>${s.desc}</p></div>
+            {icon:'📊',title:'실시간 전수 분석',sub:'모든 상담을 AI가 자동 평가',detail:['커버리지 100% — 샘플링 없이 전체 상담 평가','상담 종료 즉시 QA 결과 생성','패턴·추이를 데이터로 축적하고 분석']},
+            {icon:'🎯',title:'QA 항목 체계 정의',sub:'일관된 평가 기준 확보',detail:['항목별 점수(태도·솔루션·커뮤니케이션 등) + 종합 점수','모든 평가자가 동일 기준 적용','커스텀 항목 추가로 고객사별 유연 대응']},
+            {icon:'📋',title:'스코어카드',sub:'모든 상담건 품질을 한눈에',detail:['상담건별 점수·요약·리스크를 카드로 표시','항목별 상세 점수와 개선 포인트 제공','기간·담당자·센터별 필터링']},
+            {icon:'🔔',title:'리스크 알림',sub:'이상 징후 즉시 감지',detail:['품질 점수 급락·특정 패턴 감지 시 즉시 알림','선제적 대응으로 문제 확산 방지','알림 기준 커스텀 가능']},
+            {icon:'📈',title:'운영 Insight',sub:'코칭·보고서에 바로 활용',detail:['기간별 센터 종합 품질 리포트 자동 생성','상담사별 코칭 포인트 추출','경영진 보고용 대시보드 제공']},
+          ].map(c=>`
+            <div class="flow-card" onclick="toggleCard(this)">
+              <div class="flow-icon">${c.icon}</div>
+              <h4>${c.title}</h4>
+              <div class="fc-sub">${c.sub}</div>
+              <div class="flow-detail"><div class="flow-detail-inner"><ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul></div></div>
             </div>`).join('')}
         </div>
       </div>
     </div>
   </section>
 
+  <!-- 화면 산출물 — 탭 구성 -->
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
       <div class="sec-label">화면 · 산출물</div>
-      <div class="img-stack">
-        ${[
-          ['images/noa-qa-pain.jpg','Pain Point → 해결방안 구조 (실시간 모니터링·분석·코칭·운영 Insight)'],
-          ['images/noa-qa-screen.jpg','스코어카드 목록 및 상세 화면 — 항목별 점수·요약·리스크 표시'],
-        ].map(([src,cap])=>`
-          <div class="img-frame">
-            <div class="img-bar">
-              <div class="img-dot" style="background:#FF5F57"></div>
-              <div class="img-dot" style="background:#FFBD2E"></div>
-              <div class="img-dot" style="background:#28CA41"></div>
-            </div>
-            <img src="${src}" alt="${cap}" loading="lazy">
-            <div class="img-cap">${cap}</div>
-          </div>`).join('')}
+
+      <div class="screen-tabs" id="qa-screen-tabs">
+        <button class="stab active" onclick="switchQaScreen(0,this)">QA 구조 설계</button>
+        <button class="stab real-tab" onclick="switchQaScreen(1,this)">📸 실제 구현 화면</button>
       </div>
+
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="b-dot" style="background:#FF5F57"></div>
+          <div class="b-dot" style="background:#FFBD2E"></div>
+          <div class="b-dot" style="background:#28CA41"></div>
+          <div class="b-url">app.noa.ai / qa</div>
+          <div class="b-badge"><span class="sdot" style="margin-right:4px"></span>제품기획 100%</div>
+        </div>
+
+        <!-- QA 구조 설계 화면 -->
+        <div class="app-screen active" id="qa-screen-0" style="background:#13131F;padding:20px 24px;min-height:420px">
+          <div class="screen-header">
+            <h2 class="screen-title">QA 스코어카드</h2>
+            <div class="screen-meta">모든 상담을 동일한 평가 포맷으로 분석합니다</div>
+          </div>
+
+          <!-- QA 필터 바 -->
+          <div class="qa-filter-bar">
+            <div class="qa-filter-item">날짜 <span class="qa-filter-val">2024-12-01 ~ 2025-12-05</span></div>
+            <div class="qa-filter-item">센터 <span class="qa-filter-val">서울센터 1</span></div>
+            <div class="qa-filter-item">담당자 <span class="qa-filter-val">전체</span></div>
+            <div class="qa-filter-btn">QA 조회</div>
+          </div>
+
+          <!-- 요약 수치 -->
+          <div class="qa-summary-row">
+            ${[
+              {label:'건수',val:'4',color:'var(--ink)'},
+              {label:'평균 시간',val:'77분',color:'#7BA3EC'},
+              {label:'평균 품질점수',val:'87점',color:'#3ECF6A'},
+              {label:'90점 이상',val:'0',color:'var(--ink3)'},
+              {label:'60점 미만',val:'0',color:'#FF6B6B'},
+            ].map(s=>`
+              <div class="qa-sum-cell">
+                <div class="qa-sum-val" style="color:${s.color}">${s.val}</div>
+                <div class="qa-sum-label">${s.label}</div>
+              </div>`).join('')}
+          </div>
+
+          <!-- 스코어카드 목록 -->
+          <div class="qa-table">
+            <div class="qa-table-header">
+              <span>담당자</span><span>고객</span><span>일시</span><span>요약</span><span>품질점수</span><span>리스크</span>
+            </div>
+            ${[
+              {name:'김나연',customer:'박민수',date:'2025-11-28',summary:'대출 이자율 문의, 정책 안내 및 감정 안정화 상공',score:84,risk:false,color:'#3ECF6A'},
+              {name:'이동진',customer:'김라라',date:'2025-11-28',summary:'대출 한도 중복 문의, 상세 안내 완료',score:87,risk:false,color:'#3ECF6A'},
+              {name:'정승연',customer:'송인제',date:'2025-11-28',summary:'계좌이체 한도 초과, 즉시 처리 완료',score:88,risk:false,color:'#3ECF6A'},
+              {name:'최혜민',customer:'화제인',date:'2025-11-28',summary:'인터넷뱅킹 등록 및 OTP 발급 관련',score:84,risk:true,color:'#F5C842'},
+            ].map(r=>`
+              <div class="qa-table-row">
+                <span class="qa-agent">${r.name}</span>
+                <span>${r.customer}</span>
+                <span class="qa-date">${r.date}</span>
+                <span class="qa-summary">${r.summary}</span>
+                <span class="qa-score" style="color:${r.color}">${r.score}점</span>
+                <span>${r.risk?'⚠️':'-'}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+
+        <!-- 실제 구현 화면 -->
+        <div class="app-screen" id="qa-screen-1" style="background:#13131F;padding:20px 24px;min-height:420px">
+          <div class="screen-header">
+            <h2 class="screen-title">실제 구현 화면</h2>
+            <div class="real-badge">📸 실제 납품·배포된 화면입니다</div>
+          </div>
+          <div class="real-screens">
+            <div class="real-screen-item">
+              <div class="real-screen-label">스코어카드 목록 및 상세 화면 — 항목별 점수·요약·리스크 표시</div>
+              <img src="images/noa-qa-screen-real.png" alt="NOA AI QA 실제 화면" loading="lazy"
+                style="filter:saturate(0.75) brightness(0.9);transition:filter .3s"
+                onmouseover="this.style.filter='saturate(1) brightness(1)'"
+                onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="qa-screen-caption" id="qa-caption">QA 스코어카드 — AI가 자동 평가한 상담 품질 결과를 한눈에 확인</div>
     </div>
   </section>
 
@@ -1029,6 +1124,19 @@ function animateSentimentBars(){
     document.querySelectorAll('.risk-fill').forEach(el=>{ el.style.width = el.style.width; });
   }, 100);
 }
+
+function switchQaScreen(idx, btn){
+  document.querySelectorAll('#qa-screen-tabs .stab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  ['qa-screen-0','qa-screen-1'].forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('active', i===idx);
+  });
+  const captions=['QA 스코어카드 — AI가 자동 평가한 상담 품질 결과를 한눈에 확인','실제 구현 화면 — NOA AI QA 스코어카드 목록 및 상세 화면'];
+  const cap=document.getElementById('qa-caption');
+  if(cap) cap.textContent=captions[idx]||'';
+}
+
 function toggleCard(el){
   el.classList.toggle('expanded');
 }
