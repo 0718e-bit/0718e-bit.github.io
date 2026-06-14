@@ -1080,99 +1080,176 @@ function buildQaSections(){
 /* ── NOA Insight 섹션 ── */
 function buildInsightSections(){
   return `
+  <!-- Pain vs Solution -->
   <section class="sec">
     <div class="sec-inner">
-      <div class="sec-label">문제 정의 흐름 — AS-IS에서 실행형 인사이트 TO-BE로</div>
+      <div class="sec-label">Painpoint — 이슈는 보였지만 실행으로 연결되지 않았다</div>
       <blockquote class="pain-quote">"이슈는 보였다. 하지만 왜인지, 어떻게 해야 하는지는 아무도 몰랐다."</blockquote>
 
-      <div class="flow-tabs">
-        <button class="flow-tab active" onclick="switchTab('insight','asis',this)">① AS-IS 현상</button>
-        <button class="flow-tab" onclick="switchTab('insight','problem',this)">② 구조 문제</button>
-        <button class="flow-tab" onclick="switchTab('insight','tobe',this)">③ TO-BE 실행형</button>
-      </div>
-
-      <div id="insight-asis" class="flow-panel active">
-        <div class="flow-grid">
-          ${[
-            {icon:'🔍',title:'FACT만 확인',sub:'현상 파악 중심 운영',detail:['이슈 발생 사실만 확인 — 맥락·원인 수동 파악','분석 결과가 참고용 소모에 그침','위험 신호 우선순위 판단 어려움, 대응 지연']},
-            {icon:'❓',title:'CONTEXT 부재',sub:'원인 파악 불가',detail:['왜 이런 이슈가 발생했는지 연결 안 됨','팀마다 다른 해석으로 일관된 대응 불가']},
-            {icon:'📊',title:'참고용 분석',sub:'실행으로 연결 안 됨',detail:['분석은 있지만 액션으로 이어지지 않음','보고서로 끝나는 분석 사이클 반복']},
-            {icon:'⏱️',title:'늦은 대응',sub:'사후 처리 중심',detail:['이슈 발생 후 대응 — 선제적 감지 불가','피해 확산 후 뒤늦은 수습']},
-          ].map(c=>`
-            <div class="flow-card" onclick="toggleCard(this)">
-              <div class="flow-icon">${c.icon}</div>
-              <h4>${c.title}</h4>
-              <div class="fc-sub">${c.sub}</div>
-              <div class="flow-detail"><div class="flow-detail-inner"><ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul></div></div>
-            </div>`).join('')}
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🔍',title:'FACT만 확인',sub:'현상 파악에서 멈추는 운영',detail:['이슈 발생 사실만 확인 — 맥락·원인 수동 파악','분석 결과가 참고용 소모에 그침','위험 신호 우선순위 판단 어려움, 대응 지연']},
+              {icon:'⚖️',title:'리스크 정의 불일치',sub:'조직·고객별 해석이 다름',detail:['리스크 정의·분류 일관성 부재','같은 이슈도 팀마다 다르게 해석해 대응 엇갈림','분석 결과 신뢰도 저하로 의사결정 혼선']},
+              {icon:'🔀',title:'분리된 확인-액션',sub:'분석과 실행 사이 단절',detail:['지표·카드·대시보드·액션이 각각 분리된 구조','무엇을, 어디서, 어떻게 할지가 연결 안 됨','PoC 성과를 보여도 현장 적용 기준 없어 계약 전환 어려움']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
         </div>
-      </div>
 
-      <div id="insight-problem" class="flow-panel">
-        <div class="flow-grid">
-          ${[
-            {icon:'⚖️',title:'리스크 정의 불일치',sub:'조직/고객별 해석 다름',detail:['리스크 정의·분류 일관성 부재','같은 이슈도 팀마다 다르게 해석','분석 결과 신뢰도 저하']},
-            {icon:'🔀',title:'분리된 확인-액션',sub:'지표·카드·대시보드·액션이 분리',detail:['무엇을, 어디서, 무엇을 할지가 분리됨','확인과 액션 사이 단절로 실행 안 됨']},
-            {icon:'🚧',title:'PoC 현장 적용 기준 부족',sub:'성과가 계약으로 이어지지 않음',detail:['PoC에서 성과를 보여도 도입 기준 없음','현장 적용 기준 부재로 계약 전환 어려움']},
-          ].map(c=>`
-            <div class="flow-card" onclick="toggleCard(this)">
-              <div class="flow-icon">${c.icon}</div>
-              <h4>${c.title}</h4>
-              <div class="fc-sub">${c.sub}</div>
-              <div class="flow-detail"><div class="flow-detail-inner"><ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul></div></div>
-            </div>`).join('')}
-        </div>
-      </div>
+        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
 
-      <div id="insight-tobe" class="flow-panel">
-        <div class="flow-grid">
-          ${[
-            {icon:'🎯',title:'리스크 정의 체계',sub:'분류 축·필터·정책 정립',detail:['리스크/변화 신호 분류 기준을 일관되게 정립','조직·고객별 커스텀 분류 축 지원','일관된 해석 기준으로 신뢰도 확보']},
-            {icon:'🔗',title:'의미·원인·영향 연결',sub:'근거 대화로 연결',detail:['리스크 유형·원인·예상 영향을 구조화해 표시','분석 카드에서 근거 대화로 직접 연결','맥락 파악에서 실행 판단까지 한 흐름']},
-            {icon:'🔄',title:'PoC 표준화',sub:'컨설팅→PoC→계약 루프',detail:['기업 데이터 기반 컨설팅으로 시작','PoC 성과를 표준화된 기준으로 검증','제품 로드맵으로 개선 루프 연결']},
-          ].map(c=>`
-            <div class="flow-card" onclick="toggleCard(this)">
-              <div class="flow-icon">${c.icon}</div>
-              <h4>${c.title}</h4>
-              <div class="fc-sub">${c.sub}</div>
-              <div class="flow-detail"><div class="flow-detail-inner"><ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul></div></div>
-            </div>`).join('')}
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🎯',title:'리스크 정의 체계',sub:'분류 축·필터·정책 정립',detail:['리스크/변화 신호 분류 기준을 일관되게 정립','조직·고객별 커스텀 분류 축 지원','일관된 해석 기준으로 분석 신뢰도 확보']},
+              {icon:'🔗',title:'의미·원인·영향 연결',sub:'근거 대화에서 실행까지 한 흐름',detail:['리스크 유형·원인·예상 영향을 분석 카드로 구조화','카드에서 근거 대화로 직접 연결 — 맥락 즉시 파악','확인에서 액션 판단까지 한 화면에서 완결']},
+              {icon:'🔄',title:'PoC 표준화 → 계약',sub:'컨설팅→PoC→로드맵 루프',detail:['기업 데이터 기반 컨설팅으로 시작','PoC 성과를 표준화된 기준으로 검증해 계약 전환','제품 로드맵으로 개선 루프 지속 연결']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- 화면 산출물 — 실제 화면만 -->
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
       <div class="sec-label">화면 · 산출물</div>
-      <div class="img-stack">
-        ${[
-          ['images/noa-insight-flow.jpg','문제 정의 흐름 — AS-IS에서 실행형 인사이트 TO-BE로'],
-          ['images/noa-insight-screen.jpg','대화/메시지 분석 화면 — 리스크 유형·원인·예상 영향 구조화'],
-          ['images/noa-insight-storyboard.jpg','Figma 스토리보드 — 전체 화면 설계'],
-          ['images/noa-insight-result.jpg','성과 — 가온전선·금융CS·대출상담 PoC 후 계약 체결'],
-        ].map(([src,cap])=>`
-          <div class="img-frame">
-            <div class="img-bar">
-              <div class="img-dot" style="background:#FF5F57"></div>
-              <div class="img-dot" style="background:#FFBD2E"></div>
-              <div class="img-dot" style="background:#28CA41"></div>
-            </div>
-            <img src="${src}" alt="${cap}" loading="lazy">
-            <div class="img-cap">${cap}</div>
-          </div>`).join('')}
+      <div class="screen-tabs" id="insight-screen-tabs">
+        <button class="stab active" onclick="switchInsightScreen(0,this)">분석 대시보드</button>
+        <button class="stab real-tab" onclick="switchInsightScreen(1,this)">📸 실제 구현 화면</button>
       </div>
+
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="b-dot" style="background:#FF5F57"></div>
+          <div class="b-dot" style="background:#FFBD2E"></div>
+          <div class="b-dot" style="background:#28CA41"></div>
+          <div class="b-url">app.noa.ai / insight</div>
+          <div class="b-badge"><span class="sdot" style="margin-right:4px"></span>제품기획 100%</div>
+        </div>
+
+        <!-- 분석 대시보드 화면 -->
+        <div class="app-screen active" id="insight-screen-0" style="background:#13131F;padding:20px 24px;min-height:420px">
+          <div class="screen-header">
+            <h2 class="screen-title">AI Insight 대시보드</h2>
+            <div style="display:flex;gap:8px">
+              <div class="b-badge">파트너 × 리스크 유형</div>
+            </div>
+          </div>
+
+          <!-- 필터 바 -->
+          <div class="qa-filter-bar" style="margin-bottom:14px">
+            <span class="qa-filter-item">기간 <span class="qa-filter-val">2025-12-01 ~ 2025-12-07</span></span>
+            <span class="qa-filter-item">센터 <span class="qa-filter-val">1센터</span></span>
+            <span class="qa-filter-item">파트너 <span class="qa-filter-val">가온전선</span></span>
+            <span class="qa-filter-item">리스크 유형 <span class="qa-filter-val">전체</span></span>
+          </div>
+
+          <!-- 리스크 알림 배너 -->
+          <div class="alert-banner" style="margin-bottom:14px">
+            <div class="alert-dot"></div>
+            <div>
+              <div class="alert-title">리스크 감지 — Alert Banner</div>
+              <div class="alert-desc">동월 집합도(인접도) 33%이상의 수치가 최근 3회까지 노출</div>
+            </div>
+            <div class="alert-badge">상세 보기</div>
+          </div>
+
+          <!-- 리스크 히트맵 -->
+          <div class="insight-grid" style="grid-template-columns:1fr 1fr;gap:12px">
+            <div class="insight-card">
+              <div class="ic-title">리스크 유형 분포 <span class="ic-sub">파트너 × 리스크 유형별</span></div>
+              <div class="risk-list">
+                ${[
+                  {label:'배송 지연',pct:42,color:'#FF6B6B'},
+                  {label:'품질 불량',pct:28,color:'#F5C842'},
+                  {label:'결제 오류',pct:18,color:'#4B7BE0'},
+                  {label:'계약 분쟁',pct:12,color:'#A855F7'},
+                ].map(r=>`
+                  <div class="risk-row">
+                    <span class="risk-label">${r.label}</span>
+                    <div class="risk-track"><div class="risk-fill" style="width:${r.pct}%;background:${r.color}"></div></div>
+                    <span class="risk-pct">${r.pct}%</span>
+                  </div>`).join('')}
+              </div>
+            </div>
+            <div class="insight-card">
+              <div class="ic-title">근거 대화 연결</div>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+                ${[
+                  {role:'QA 관리자',msg:'현재 수기 샘플링 방식으로는 전체 통화 품질을 파악하기가 너무 어렵습니다.',color:'#4B7BE0'},
+                  {role:'솔루션 전문가',msg:'스코어카드와 대시보드를 통해 리스크를 즉시 감지하고 피드백 루프를 만들어 지속적인 개선이 가능합니다.',color:'#3ECF6A'},
+                ].map(m=>`
+                  <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;padding:10px 12px">
+                    <div style="font-family:var(--mono);font-size:10px;font-weight:600;color:${m.color};margin-bottom:4px">${m.role}</div>
+                    <div style="font-size:11px;color:var(--ink2);line-height:1.5">${m.msg}</div>
+                  </div>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 실제 구현 화면 -->
+        <div class="app-screen" id="insight-screen-1" style="background:#13131F;padding:20px 24px;min-height:420px">
+          <div class="screen-header">
+            <h2 class="screen-title">실제 구현 화면</h2>
+            <div class="real-badge">📸 실제 납품·배포된 화면입니다</div>
+          </div>
+          <div class="real-screens">
+            <div class="real-screen-item">
+              <div class="real-screen-label">대화/메시지 분석 화면 — 리스크 유형·원인·예상 영향 구조화</div>
+              <img src="images/noa-insight-screen.jpg" alt="NOA Insight 실제 화면" loading="lazy"
+                style="filter:saturate(0.75) brightness(0.9);transition:filter .3s"
+                onmouseover="this.style.filter='saturate(1) brightness(1)'"
+                onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+            </div>
+            <div class="real-screen-item">
+              <div class="real-screen-label">Figma 스토리보드 — 전체 화면 설계</div>
+              <img src="images/noa-insight-storyboard.jpg" alt="NOA Insight Figma 스토리보드" loading="lazy"
+                style="filter:saturate(0.75) brightness(0.9);transition:filter .3s"
+                onmouseover="this.style.filter='saturate(1) brightness(1)'"
+                onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="insight-caption" id="insight-caption">AI Insight 대시보드 — 리스크 유형·원인·예상 영향을 구조화하고 근거 대화로 연결</div>
     </div>
   </section>
 
+  <!-- 성과 -->
   <section class="sec result-section" style="background:var(--bg)">
     <div class="sec-inner">
       <div class="sec-label">성과</div>
       <div class="result-grid">
         ${[
           {eyebrow:'계약 전환',num:3,unit:'개+',label:'PoC 후 정식 계약 체결',pct:60},
-          {eyebrow:'산업 확장',num:3,unit:'개',label:'제조·금융CS·대출 산업군',pct:75},
-          {eyebrow:'인사이트',num:100,unit:'%',label:'실행 연결 가능한 분석 구조',pct:100},
+          {eyebrow:'산업 다양성',num:3,unit:'개',label:'제조·금융CS·대출 산업군',pct:75},
+          {eyebrow:'인사이트 연결',num:100,unit:'%',label:'의미·원인·영향 실행 연결',pct:100},
         ].map(r=>`
           <div class="result-cell">
             <div class="result-eyebrow">${r.eyebrow}</div>
@@ -1182,11 +1259,15 @@ function buildInsightSections(){
           </div>`).join('')}
       </div>
       <div class="result-desc-wrap">
-        <p class="result-desc"><strong>가온전선(제조 데이터 혁신), 금융CS 상담(고객 경험 개선), 대출상담(프로세스 효율화)</strong> PoC를 통해 모두 정식 계약으로 전환. 단편적 현상 모니터링에서 <strong>의미·원인·영향이 연결되는 실행형 인사이트</strong> 제품화를 달성.</p>
+        <p class="result-desc">
+          <strong>가온전선(제조 데이터 혁신)</strong>, <strong>금융CS 상담(고객 경험 개선)</strong>, <strong>대출상담(프로세스 효율화)</strong> —
+          3개 산업군 PoC가 모두 정식 계약으로 전환. 단편적 현상 모니터링에서 <strong>의미·원인·영향이 연결되는 실행형 인사이트</strong> 제품화를 달성.
+        </p>
       </div>
     </div>
   </section>
 
+  <!-- 회고 -->
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
       <div class="sec-label">회고</div>
@@ -1240,6 +1321,19 @@ function animateSentimentBars(){
     });
     document.querySelectorAll('.risk-fill').forEach(el=>{ el.style.width = el.style.width; });
   }, 100);
+}
+
+
+function switchInsightScreen(idx, btn){
+  document.querySelectorAll('#insight-screen-tabs .stab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  ['insight-screen-0','insight-screen-1'].forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('active', i===idx);
+  });
+  const caps=['AI Insight 대시보드 — 리스크 유형·원인·예상 영향을 구조화하고 근거 대화로 연결','실제 구현 화면 — 대화/메시지 분석 화면 및 Figma 스토리보드'];
+  const cap=document.getElementById('insight-caption');
+  if(cap) cap.textContent=caps[idx]||'';
 }
 
 function switchQaScreen(idx, btn){
