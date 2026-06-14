@@ -68,18 +68,17 @@ nav{
   object-fit:contain;object-position:bottom center;
   pointer-events:none;user-select:none;
   animation:photoFadeIn .9s .4s both;
-  mix-blend-mode:luminosity;
-  filter:brightness(0.92);
+  filter:drop-shadow(0 0 40px rgba(75,123,224,.15));
 }
-/* 상단 흰 배경을 다크로 녹이는 오버레이 */
+/* 상단·하단 그라데이션 오버레이 */
 .hero-right::before{
   content:'';
   position:absolute;inset:0;z-index:1;
   background:linear-gradient(
     to bottom,
     var(--bg) 0%,
-    transparent 28%,
-    transparent 70%,
+    transparent 22%,
+    transparent 72%,
     var(--bg) 100%
   );
   pointer-events:none;
@@ -502,40 +501,50 @@ nav{
 
 <script>
 const projects=[
-  {id:"noa-agent",n:"01",co:"㈜스펙트라 · NOA",title:"NOA AI Agent 제품화",
+  {id:"noa-agent",n:"01",co:"㈜스펙트라 · NOA",company:"spectra",title:"NOA AI Agent 제품화",
    pain:"기술 데모 상태의 챗봇 → 고객이 실제로 쓸 수 있는 AI 동료 플랫폼으로",
-   tags:["AI Agent","RAG","LLM"],active:true,date:"2025.05 – 진행중",
+   tags:["AI Agent","B2B SaaS","LLM","RAG"],arts:["doc","figma"],
+   active:true,date:"2025.05 – 진행중",
    colors:["#1A2035","#1E2D50"],nodes:[[30,40],[70,25],[50,70],[85,55],[20,75],[60,45]]},
-  {id:"noa-qa",n:"02",co:"㈜스펙트라 · NOA",title:"NOA AI QA 출시",
+  {id:"noa-qa",n:"02",co:"㈜스펙트라 · NOA",company:"spectra",title:"NOA AI QA 출시",
    pain:"수기·샘플링 QA의 한계 — 전수 자동 분석으로 일관된 품질 지표 확보",
-   tags:["AI Agent","B2B SaaS","어드민"],active:true,date:"2025.08",
+   tags:["AI Agent","B2B SaaS","어드민"],arts:["proto","doc"],
+   active:true,date:"2025.08 – 출시",
    colors:["#0F2A22","#163D30"],nodes:[[25,35],[60,20],[45,65],[80,50],[15,70],[55,45],[70,75]]},
-  {id:"noa-insight",n:"03",co:"㈜스펙트라 · NOA",title:"NOA AI Insight 출시",
+  {id:"noa-insight",n:"03",co:"㈜스펙트라 · NOA",company:"spectra",title:"NOA AI Insight 출시",
    pain:"이슈는 보여도 원인·영향·액션까지 연결 안 됨 — 실행형 인사이트로",
-   tags:["AI Agent","NLP","B2B SaaS"],active:true,date:"2025.10",
+   tags:["AI Agent","B2B SaaS","NLP"],arts:["doc","figma"],
+   active:true,date:"2025.10 – 출시",
    colors:["#201530","#2E1D45"],nodes:[[35,30],[65,22],[50,60],[82,48],[18,68],[58,42],[72,72]]},
-  {id:"ai-dreamsam",n:"04",co:"㈜아이스크림에듀 · 홈런 중등",title:"AI드림쌤 플러스",
+  {id:"ai-dreamsam",n:"04",co:"㈜아이스크림에듀 · 홈런 중등",company:"icream",title:"AI드림쌤 플러스",
    pain:"학습 데이터가 쌓이는데 AI 활용이 없다 — 개인 맞춤 학습 관리 AI 서비스로",
-   tags:["AI 교육","LLM","B2C"],arts:["doc"],company:"icream",thumb:"th-teal",date:"2021 – 2023",n:"04"},
-  {id:"ai-textbook",n:"05",co:"㈜아이스크림에듀",title:"AI 디지털교과서 수학",
+   tags:["AI 교육","LLM","B2C"],arts:["doc"],
+   date:"2021 – 2023",
+   colors:["#1A2535","#1E3050"],nodes:[[35,30],[65,20],[50,60],[80,45],[20,55],[55,75]]},
+  {id:"ai-textbook",n:"05",co:"㈜아이스크림에듀",company:"icream",title:"AI 디지털교과서 수학",
    pain:"학생 개인 수준에 맞는 맞춤형 교육 경험 — 30억 규모 사업 수주",
-   tags:["AI 교육","LLM","어드민"],date:"2023.10 – 2024.11",
+   tags:["AI 교육","LLM","어드민"],arts:["proto","doc"],
+   date:"2023.10 – 2024.11",
    colors:["#2A1F10","#3D2D15"],nodes:[[40,35],[70,28],[30,65],[75,60],[20,45],[55,75]]},
-  {id:"math-cells",n:"06",co:"㈜아이스크림에듀",title:"수학의 세포들",
+  {id:"math-cells",n:"06",co:"㈜아이스크림에듀",company:"icream",title:"수학의 세포들",
    pain:"AI 추천 모델(DKT) 자체 개발 — 협력사 의존 없는 맞춤형 학습 서비스",
-   tags:["AI 교육","DKT","특허"],date:"2022.04 – 2022.11",
+   tags:["AI 교육","DKT","특허"],arts:["proto","doc"],
+   date:"2022.04 – 2022.11",
    colors:["#2A1020","#3D1530"],nodes:[[50,25],[30,50],[70,50],[50,75],[20,32],[80,32]]},
-  {id:"tutor-admin",n:"07",co:"㈜아이스크림에듀",title:"Tutor Edition 관리자",
+  {id:"tutor-admin",n:"07",co:"㈜아이스크림에듀",company:"icream",title:"Tutor Edition 관리자",
    pain:"분산된 상담 도구 → AI 기반 All-in-One 고효율 학습상담 시스템",
-   tags:["AI 교육","B2B SaaS","어드민"],date:"2020.09 – 2021.09",
+   tags:["AI 교육","B2B SaaS","어드민"],arts:["proto","doc"],
+   date:"2020.09 – 2021.09",
    colors:["#102A1A","#153D25"],nodes:[[25,40],[55,25],[80,45],[60,70],[30,70]]},
-  {id:"mock-exam",n:"08",co:"㈜아이스크림에듀",title:"모의고사 서비스",
+  {id:"mock-exam",n:"08",co:"㈜아이스크림에듀",company:"icream",title:"모의고사 서비스",
    pain:"IRT 기반 학습 진단 + 전국 백분위 — 숨은 니즈를 발굴해 매출 증대",
-   tags:["AI 교육","IRT"],date:"2019.07 – 2021.01",
+   tags:["AI 교육","IRT"],arts:["proto","doc"],
+   date:"2019.07 – 2021.01",
    colors:["#151A2A","#1C2540"],nodes:[[30,30],[65,20],[50,55],[82,45],[55,80]]},
-  {id:"mega-renewal",n:"09",co:"㈜메가스터디",title:"메가스터디 학원 메인 리뉴얼",
+  {id:"mega-renewal",n:"09",co:"㈜메가스터디",company:"mega",title:"메가스터디 학원 메인 리뉴얼",
    pain:"학원별 개별 운영의 일관성 부재 → 관리자 기반 통합 운영 체계 구축",
-   tags:["B2B SaaS","어드민"],date:"2017.06 – 2017.11",
+   tags:["B2B SaaS","어드민"],arts:["doc"],
+   date:"2017.06 – 2017.11",
    colors:["#1A1510","#2A2015"],nodes:[[35,35],[65,28],[50,60],[78,55],[22,55]]},
 ];
 
@@ -594,24 +603,22 @@ const io=new IntersectionObserver(entries=>{
 },{threshold:.1});
 items.forEach(el=>io.observe(el));
 
-// 카운트업
-const nums=document.querySelectorAll('[data-target]');
-const co=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting) return;
-    const el=e.target, target=+el.dataset.target;
+// 카운트업 — 페이지 로드 후 1초 뒤 바로 실행
+function runCountUp(){
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=+el.dataset.target;
     const start=performance.now();
+    const dur=1400;
     (function step(now){
-      const p=Math.min((now-start)/1000,1);
+      const p=Math.min((now-start)/dur,1);
       const ease=1-Math.pow(1-p,3);
       el.textContent=Math.floor(ease*target);
       if(p<1) requestAnimationFrame(step);
       else el.textContent=target;
     })(start);
-    co.unobserve(el);
   });
-},{threshold:.5});
-nums.forEach(el=>co.observe(el));
+}
+setTimeout(runCountUp, 800);
 </script>
 </body>
 </html>
