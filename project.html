@@ -515,9 +515,42 @@ const DATA = {
     type:"math-cells",
     next:"tutor-admin"
   },
-  "tutor-admin":{title:"Tutor Edition 관리자",wip:true,next:"mock-exam"},
-  "mock-exam":{title:"모의고사 서비스",wip:true,next:"mega-renewal"},
-  "mega-renewal":{title:"메가스터디 학원 메인 리뉴얼",wip:true,next:"noa-agent"},
+  "tutor-admin":{
+    co:"㈜아이스크림에듀",period:"2020.09 – 2021.09",role:"PM · 기획 총괄",active:false,
+    title:"Tutor Edition 관리자",
+    tags:["AI 교육","B2B SaaS","어드민","학습상담"],
+    summary:[
+      {label:"배경", text:"상담 지원 도구가 분산되어 교사·상담사가 여러 시스템을 오가야 했던 비효율 — <strong>AI 기반 All-in-One 고효율 학습상담 시스템</strong>으로 일원화"},
+      {label:"내가 한 일", text:"상담 지원 도구 일원화(All-in-One) 프로젝트 총괄 PM. <strong>AI 학습 분석 기록부, 데이터 기반 상담 프로세스 자동화</strong>, 화면 설계 전 과정 주도"},
+      {label:"성격", text:"<strong>B2B 어드민 시스템</strong> — 교사·상담사의 업무 효율을 극대화하는 AI 통합 관리 플랫폼"},
+    ],
+    type:"tutor-admin",
+    next:"mock-exam"
+  },
+  "mock-exam":{
+    co:"㈜아이스크림에듀",period:"2019.07 – 2021.01",role:"PM · 기획 총괄",active:false,
+    title:"모의고사 서비스",
+    tags:["AI 교육","IRT","B2C","성적 분석"],
+    summary:[
+      {label:"배경", text:"<strong>IRT(문항반응이론) 기반 학습 진단</strong>과 숨겨진 니즈인 전국 백분위 정보를 반영해 기존 모의고사 서비스의 경쟁력을 강화"},
+      {label:"내가 한 일", text:"AI 기술 기반 서비스 기획·구축 총괄. <strong>IRT 기반 학습 문제 진단 로직 설계</strong>, 전국 백분위 서비스 런칭, 화면 설계 주도"},
+      {label:"성격", text:"<strong>숨은 니즈 발굴</strong> — 전국 백분위라는 학생·학부모의 핵심 관심사를 서비스로 구현해 매출 증대"},
+    ],
+    type:"mock-exam",
+    next:"mega-renewal"
+  },
+  "mega-renewal":{
+    co:"㈜메가스터디",period:"2017.06 – 2017.11",role:"서비스 기획 대리",active:false,
+    title:"메가스터디 학원별 메인 리뉴얼",
+    tags:["B2B SaaS","어드민","UI 설계","브랜딩"],
+    summary:[
+      {label:"배경", text:"학원별로 제각각 운영되던 메인 페이지 — <strong>배너 가이드 체계화와 관리자 기반 통합 운영</strong>으로 일관성 확보 및 운영 리소스 절감"},
+      {label:"내가 한 일", text:"광고영역 레이아웃 변경, 학년별 아이덴티 컬러·학원별 슬로건 적용. <strong>배너·아이콘 관리자 시스템 기획</strong>으로 효율적 운영 구조 설계"},
+      {label:"성격", text:"<strong>운영 효율화</strong> — 수작업 관리에서 관리자 기반 자동화 운영으로 전환"},
+    ],
+    type:"mega-renewal",
+    next:"noa-agent"
+  },
 };
 
 /* ===================== 섹션 빌더 ===================== */
@@ -1368,6 +1401,356 @@ function animateSentimentBars(){
 
 
 
+
+/* ── Tutor Edition 관리자 섹션 ── */
+function buildTutorAdminSections(){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">Painpoint — 분산된 도구, 낮은 상담 효율</div>
+      <blockquote class="pain-quote">"상담사가 상담보다 시스템 전환에 더 많은 시간을 쓰고 있었다."</blockquote>
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🔀',title:'도구 분산',sub:'상담·학습·관리가 따로따로',detail:['상담 이력, 학습 데이터, 과제 관리가 별도 시스템','시스템 전환에 시간 낭비 — 상담 흐름 끊김','데이터 연계 없어 맥락 파악 어려움']},
+              {icon:'📋',title:'수기 기록 중심',sub:'AI 없는 데이터 관리',detail:['상담 내용을 수기로 기록 — 누락·오류 빈발','학습 데이터와 상담 기록 연계 불가','상담사마다 다른 기록 방식으로 일관성 없음']},
+              {icon:'⏱️',title:'상담 준비 시간 과다',sub:'자료 수집에 시간 낭비',detail:['학생 현황 파악을 위해 여러 화면 이동','이전 상담 기록 찾는 데 시간 소요','AI 인사이트 없어 상담 방향 설정 어려움']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🤖',title:'AI 생활기록부',sub:'학습·상담 데이터 자동 연계',detail:['학습 데이터 기반 AI가 자동으로 상담 인사이트 생성','한 화면에서 학습 현황·상담 이력·과제 관리','데이터 기반 개인화 상담 방향 제안']},
+              {icon:'📊',title:'학습 분석 대시보드',sub:'한눈에 보는 학생 현황',detail:['학습 진도·성취도·취약점을 시각화','기간별 학습 추이와 비전 리포트 제공','상담 전 학생 현황을 빠르게 파악']},
+              {icon:'⚡',title:'상담 프로세스 자동화',sub:'수기 → 자동 기록·알림',detail:['상담 내용 자동 기록 및 업무요청 관리','팀장 게시판 연동으로 이슈 즉시 공유','과제 관리·계획 수립 원클릭 자동화']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">화면 · 산출물</div>
+      <div class="img-stack">
+        ${[
+          ['images/tutor-admin-screen.jpg','Tutor Edition 관리자 — 화면설계안 · AI 생활기록부 · 학습 분석 대시보드'],
+          ['images/tutor-admin-design.jpg','상담창 화면설계안 · 학습상담 실제 화면'],
+          ['images/tutor-admin-design1.jpg','화면설계안 1 — 업무요청 Case03 목록 · 학습계획 만들기'],
+          ['images/tutor-admin-design2.jpg','화면설계안 2 — 상세 화면 설계'],
+        ].map(([src,cap])=>`
+          <div class="img-frame">
+            <div class="img-bar">
+              <div class="img-dot" style="background:#FF5F57"></div>
+              <div class="img-dot" style="background:#FFBD2E"></div>
+              <div class="img-dot" style="background:#28CA41"></div>
+            </div>
+            <img src="${src}" alt="${cap}" loading="lazy"
+              style="filter:saturate(0.75) brightness(0.9);transition:filter .3s"
+              onmouseover="this.style.filter='saturate(1) brightness(1)'"
+              onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+            <div class="img-cap">${cap}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec result-section" style="background:var(--bg)">
+    <div class="sec-inner">
+      <div class="sec-label">성과</div>
+      <div class="result-grid">
+        ${[
+          {eyebrow:'통합 효율',num:1,unit:'개',label:'All-in-One 상담 시스템 구축',pct:100},
+          {eyebrow:'자동화',num:3,unit:'종',label:'AI 기록·분석·알림 자동화',pct:75},
+          {eyebrow:'운영 기간',num:12,unit:'개월',label:'2020.09 – 2021.09',pct:60},
+        ].map(r=>`
+          <div class="result-cell">
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
+            <div class="result-label">${r.label}</div>
+            <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
+          </div>`).join('')}
+      </div>
+      <div class="result-desc-wrap">
+        <p class="result-desc">분산된 상담·학습·관리 도구를 <strong>AI 기반 All-in-One 시스템으로 일원화</strong>. 상담사가 시스템 전환 없이 한 화면에서 학생 현황 파악 → 상담 → 기록 → 과제 관리까지 완결. <strong>상담 준비 시간 단축과 데이터 기반 맞춤 상담 품질 향상</strong> 달성.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">회고</div>
+      <div class="learn-list">
+        ${[
+          {type:'keep',label:'KEEP',text:'<strong>현장 상담사 인터뷰 선행</strong> — 실제 상담 흐름을 따라가며 불편함을 직접 목격한 것이 기능 우선순위 결정의 핵심 근거가 됐음.'},
+          {type:'learn',label:'LEARN',text:'<strong>AI 인사이트의 신뢰성 확보</strong> — AI가 제안하는 상담 방향이 상담사에게 신뢰받으려면 근거와 설명가능성을 함께 설계해야 했음.'},
+          {type:'next',label:'NEXT',text:'<strong>모바일 최적화</strong> — 이동 중 상담 현황을 확인하는 교사 시나리오에 맞는 모바일 버전 기획 필요.'},
+        ].map(l=>`
+          <div class="learn-item">
+            <span class="lb lb-${l.type}">${l.label}</span>
+            <p class="learn-text">${l.text}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ── 모의고사 서비스 섹션 ── */
+function buildMockExamSections(){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">Painpoint — AI 기술로 경쟁력 강화</div>
+      <blockquote class="pain-quote">"성적이 나왔는데 '전국에서 내가 어디쯤인지'를 알 수 없었다."</blockquote>
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'📊',title:'단순 점수만 제공',sub:'맥락 없는 성적 결과',detail:['맞은 문항 수·점수만 제공 — 분석 없음','내가 어느 수준인지 가늠하기 어려움','학습 방향 설정에 도움이 안 됨']},
+              {icon:'🔍',title:'전국 백분위 부재',sub:'숨겨진 핵심 니즈',detail:['전국 모의고사 응시 후 전국 대비 위치 불명','학부모·학생의 가장 궁금한 정보가 빠져있음','경쟁사 대비 핵심 차별화 포인트 부재']},
+              {icon:'🎯',title:'맞춤 학습 연계 없음',sub:'결과에서 학습으로 연결 안 됨',detail:['취약 영역을 알아도 학습으로 바로 연결 불가','모의고사가 일회성으로 끝나는 구조','IRT 기반 정밀 진단이 없어 오개념 파악 어려움']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'📈',title:'전국 백분위 정보',sub:'숨은 니즈를 핵심 기능으로',detail:['전국 응시자 대비 백분위 실시간 제공','학교별·지역별·전국 비교 분석 제공','학부모·학생이 가장 원하는 정보를 서비스화']},
+              {icon:'🧠',title:'IRT 기반 학습 진단',sub:'정밀한 취약점 분석',detail:['문항반응이론(IRT)으로 능력치 정밀 측정','취약 개념·유형별 상세 분석 제공','오개념 파악 → 맞춤 학습 경로 연결']},
+              {icon:'🔗',title:'학습 연계 시스템',sub:'모의고사→학습 원스톱',detail:['취약 영역 바로 학습 연결 (개념카드·문제)','시험실전연습·홈런모의고사 통합 운영','성취 데이터 누적으로 성장 추이 확인']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">화면 · 산출물</div>
+      <div class="img-stack">
+        ${[
+          ['images/mock-exam-screen.jpg','모의고사 서비스 — 화면설계안 · 성적 분석 · 전국백분위 화면'],
+          ['images/mock-exam-design.jpg','화면설계안 — 홈런모의고사 · 시험실전연습 · 특별학습'],
+        ].map(([src,cap])=>`
+          <div class="img-frame">
+            <div class="img-bar">
+              <div class="img-dot" style="background:#FF5F57"></div>
+              <div class="img-dot" style="background:#FFBD2E"></div>
+              <div class="img-dot" style="background:#28CA41"></div>
+            </div>
+            <img src="${src}" alt="${cap}" loading="lazy"
+              style="filter:saturate(0.75) brightness(0.9);transition:filter .3s"
+              onmouseover="this.style.filter='saturate(1) brightness(1)'"
+              onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+            <div class="img-cap">${cap}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec result-section" style="background:var(--bg)">
+    <div class="sec-inner">
+      <div class="sec-label">성과</div>
+      <div class="result-grid">
+        ${[
+          {eyebrow:'핵심 기능',num:1,unit:'개',label:'전국 백분위 서비스 최초 도입',pct:100},
+          {eyebrow:'AI 기술',num:2,unit:'종',label:'IRT 진단 + 맞춤 학습 연계',pct:66},
+          {eyebrow:'운영 기간',num:18,unit:'개월',label:'2019.07 – 2021.01',pct:75},
+        ].map(r=>`
+          <div class="result-cell">
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
+            <div class="result-label">${r.label}</div>
+            <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
+          </div>`).join('')}
+      </div>
+      <div class="result-desc-wrap">
+        <p class="result-desc">학생·학부모의 <strong>숨은 니즈(전국 백분위)</strong>를 발굴해 서비스화. IRT 기반 학습 진단으로 단순 점수 제공을 넘어 <strong>취약점 분석 → 맞춤 학습 연계</strong>까지 원스톱 구조를 구현해 <strong>매출 증대</strong> 달성.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">회고</div>
+      <div class="learn-list">
+        ${[
+          {type:'keep',label:'KEEP',text:'<strong>숨은 니즈 발굴 방법론</strong> — VOC와 경쟁사 분석을 통해 "전국 백분위"라는 당연히 있어야 할 기능이 빠져있다는 걸 발견한 과정이 핵심 기획 역량으로 남음.'},
+          {type:'learn',label:'LEARN',text:'<strong>IRT 알고리즘과 서비스 설계 정렬</strong> — 통계 모델의 특성을 UX로 어떻게 표현하는지 데이터팀과 충분한 사전 정렬이 필요했음.'},
+          {type:'next',label:'NEXT',text:'<strong>실시간 전국 비교</strong> — 응시 즉시 실시간으로 전국 대비 순위를 확인할 수 있는 기능으로 발전 가능.'},
+        ].map(l=>`
+          <div class="learn-item">
+            <span class="lb lb-${l.type}">${l.label}</span>
+            <p class="learn-text">${l.text}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ── 메가스터디 학원 메인 리뉴얼 섹션 ── */
+function buildMegaRenewalSections(){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">Painpoint — 제각각 운영되는 학원 메인 페이지</div>
+      <blockquote class="pain-quote">"학원마다 다른 디자인, 다른 운영 방식 — 브랜드가 보이지 않았다."</blockquote>
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🎨',title:'일관성 없는 디자인',sub:'학원별 제각각 배너·레이아웃',detail:['학원마다 다른 배너 형식으로 통일성 없음','브랜드 아이덴티티가 화면에 드러나지 않음','학년별 컬러 구분 없어 정보 탐색 어려움']},
+              {icon:'⚙️',title:'운영 비효율',sub:'수작업 개별 업데이트',detail:['배너·아이콘 수정 시 각 학원 담당자가 개별 요청','운영 리소스가 과도하게 소요','실시간 업데이트 대응 어려움']},
+              {icon:'🏷️',title:'학원 브랜드 미약',sub:'슬로건·특성 미반영',detail:['각 학원의 강점·슬로건이 메인에 표현 안 됨','경쟁 학원과 차별화 포인트 없는 획일적 페이지','학원별 특성을 드러낼 구조 부재']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'📐',title:'배너 가이드 체계화',sub:'통일성 + 유연성 동시 확보',detail:['배너 가이드 수립으로 디자인 일관성 확보','학년별 아이덴티 컬러로 정보 구분 명확화','학원별 슬로건으로 브랜드 차별화']},
+              {icon:'🖥️',title:'관리자 기반 운영',sub:'담당자 직접 운영 가능',detail:['배너·아이콘 관리자 시스템으로 직접 수정 가능','실시간 업데이트로 운영 리소스 대폭 절감','Campus Admin을 통한 일괄 관리 구조']},
+              {icon:'🏆',title:'학원 브랜드 강화',sub:'각 학원의 정체성을 메인에',detail:['학원별 슬로건·특성을 메인에 명확히 표현','학년별 아이덴티 컬러로 시각적 구분','배너 광고 효과 극대화 레이아웃 설계']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">화면 · 산출물</div>
+      <div class="img-stack">
+        <div class="img-frame">
+          <div class="img-bar">
+            <div class="img-dot" style="background:#FF5F57"></div>
+            <div class="img-dot" style="background:#FFBD2E"></div>
+            <div class="img-dot" style="background:#28CA41"></div>
+          </div>
+          <img src="images/mega-renewal-screen.jpg" alt="메가스터디 학원 메인 리뉴얼 — 화면설계안 · 프론트 · 어드민" loading="lazy"
+            style="filter:saturate(0.75) brightness(0.9);transition:filter .3s"
+            onmouseover="this.style.filter='saturate(1) brightness(1)'"
+            onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+          <div class="img-cap">화면설계안 · 프론트 화면 · Campus Admin 관리자 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec result-section" style="background:var(--bg)">
+    <div class="sec-inner">
+      <div class="sec-label">성과</div>
+      <div class="result-grid">
+        ${[
+          {eyebrow:'운영 효율',num:1,unit:'개',label:'관리자 기반 통합 운영 시스템 구축',pct:100},
+          {eyebrow:'브랜딩',num:3,unit:'요소',label:'배너가이드·컬러·슬로건 체계화',pct:75},
+          {eyebrow:'기간',num:6,unit:'개월',label:'2017.06 – 2017.11',pct:50},
+        ].map(r=>`
+          <div class="result-cell">
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
+            <div class="result-label">${r.label}</div>
+            <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
+          </div>`).join('')}
+      </div>
+      <div class="result-desc-wrap">
+        <p class="result-desc">분산·수작업 운영에서 <strong>관리자 기반 통합 운영 체계</strong>로 전환. 배너 가이드 체계화로 디자인 일관성 확보, 학년별 아이덴티 컬러·학원별 슬로건으로 <strong>학원 브랜드 아이덴티티를 메인 페이지에 명확히 구현</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">회고</div>
+      <div class="learn-list">
+        ${[
+          {type:'keep',label:'KEEP',text:'<strong>운영자 관점 우선</strong> — 보이는 화면(Front)보다 운영하는 사람(Admin)의 효율을 먼저 설계한 것이 지속 가능한 운영 구조를 만드는 핵심이었음.'},
+          {type:'learn',label:'LEARN',text:'<strong>가이드 문서의 중요성</strong> — 배너 가이드만 있으면 각 학원 담당자가 독립적으로 운영할 수 있었는데, 초기에 더 정교한 가이드 체계를 만들었으면 온보딩이 더 빨랐을 것.'},
+          {type:'next',label:'NEXT',text:'<strong>데이터 기반 배너 최적화</strong> — 클릭률·전환율 데이터를 관리자에서 바로 확인하고 A/B 테스트할 수 있는 기능으로 발전 가능.'},
+        ].map(l=>`
+          <div class="learn-item">
+            <span class="lb lb-${l.type}">${l.label}</span>
+            <p class="learn-text">${l.text}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
 /* ── AI드림쌤 플러스 섹션 ── */
 function buildAiDreamsamSections(){
   return `
@@ -1606,15 +1989,15 @@ function buildMathCellsSections(){
   <section class="sec">
     <div class="sec-inner">
       <div class="sec-label">Painpoint — 외부 의존에서 자체 AI 모델로</div>
-      <blockquote class="pain-quote">"외부 솔루션에 의존하면 기술 경쟁력을 가질 수 없다."</blockquote>
+      <blockquote class="pain-quote">"매일 10문제씩 풀어도, 어디가 부족한지 아무도 알려주지 않았다."</blockquote>
       <div class="pvs-wrap">
         <div class="pvs-col pvs-pain">
           <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
           <div class="pvs-cards">
             ${[
-              {icon:'🔗',title:'외부 솔루션 의존',sub:'자체 AI 기술 경쟁력 없음',detail:['외부 AI 추천 솔루션에 의존하는 구조','비용·품질·방향성 모두 외부에 종속','차별화된 서비스 개발 한계']},
-              {icon:'📐',title:'획일적 문항 추천',sub:'개인 맞춤 추천 불가',detail:['학생 개인의 이해도·취약점 미반영','모든 학생에게 동일한 문항 제공','학습 효율 저하와 이탈률 증가']},
-              {icon:'🏝️',title:'학습 고립',sub:'혼자 하는 학습의 한계',detail:['함께 풀고 경쟁하는 사회적 학습 요소 없음','동기부여와 지속성 부족','협업 학습 지원 구조 미비']},
+              {icon:'🔗',title:'외부 AI 솔루션 의존',sub:'자체 기술 경쟁력 없음',detail:['외부 AI 추천 솔루션에 의존하는 구조','비용·품질·방향성 모두 외부에 종속','DKT 기반 자체 모델로 차별화 필요']},
+              {icon:'📐',title:'개념별 이해도 미파악',sub:'어디가 부족한지 모름',detail:['학생 개인의 개념별 이해도 측정 불가','단순 정답률만으로는 취약 개념 파악 어려움','부족한 부분만 집중 학습하는 구조 없음']},
+              {icon:'🏝️',title:'학습 동기 저하',sub:'혼자 하는 반복 학습의 한계',detail:['혼자 풀면 지루해지는 반복 문제','친구들과 함께하는 사회적 학습 요소 없음','성취감과 지속성을 높이는 장치 부재']},
             ].map(c=>`
               <div class="pvs-card pain-card" onclick="toggleCard(this)">
                 <div class="pvs-card-head">
@@ -1633,9 +2016,9 @@ function buildMathCellsSections(){
           <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
           <div class="pvs-cards">
             ${[
-              {icon:'🧬',title:'자체 DKT 모델 개발',sub:'업스테이지 협업, 자체 기술 확보',detail:['AI 추천 모델(DKT) 자체 설계 및 개발','협력사 업스테이지와 협업으로 모델 고도화','외부 솔루션 의존도 완전히 탈피']},
-              {icon:'🗺️',title:'지식맵 + 개념세포',sub:'학생 개인 학습 로드맵 시각화',detail:['개념 간 연결 구조를 지식맵으로 시각화','학생 이해도에 따른 개인 맞춤 추천','부족한 세포 키우기 → 모의고사 예측점수']},
-              {icon:'🏆',title:'협업 학습 + 수익화',sub:'함께 하는 챌린지 + 외부 판매',detail:['팀 챌린지로 사회적 학습 동기부여','AI 튜터링으로 협업 학습 지원','외부 솔루션 판매 수익화 + 특허 출원']},
+              {icon:'🧬',title:'자체 DKT 모델 개발',sub:'개념별 이해도 정밀 측정',detail:['DKT 기반 역량측정 모델로 개념별 이해도 측정','최근 학습 결과 분석 → 필요한 부분만 공부','협력사 업스테이지와 협업, 자체 기술 경쟁력 확보']},
+              {icon:'🗺️',title:'개념세포 지식맵',sub:'부족한 개념 시각적으로 확인',detail:['개념 간 연결 구조를 세포 형태로 시각화','집중 공부 영역을 키워드로 명확히 제공','부족한 세포 → 맞춤 문항 → 모의고사 예측점수']},
+              {icon:'🏆',title:'혼자 + 함께 챌린지',sub:'사회적 학습으로 동기부여',detail:['혼자 챌린지: 자유롭게 목표 달성, 성취감 강화','함께 챌린지: 친구들과 목표 달성, 실력 성장','매일 맞춤 10문제 + AI 피드백으로 습관 형성']},
             ].map(c=>`
               <div class="pvs-card sol-card" onclick="toggleCard(this)">
                 <div class="pvs-card-head">
@@ -1824,6 +2207,9 @@ if(p.wip){
   else if(p.type==='ai-textbook') sections += buildAiTextbookSections();
   else if(p.type==='ai-dreamsam') sections += buildAiDreamsamSections();
   else if(p.type==='math-cells') sections += buildMathCellsSections();
+  else if(p.type==='tutor-admin') sections += buildTutorAdminSections();
+  else if(p.type==='mock-exam') sections += buildMockExamSections();
+  else if(p.type==='mega-renewal') sections += buildMegaRenewalSections();
   document.getElementById('content').innerHTML = sections;
 
   // 인사이트 화면 바 초기 애니메이션
