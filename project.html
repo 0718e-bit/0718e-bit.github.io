@@ -142,16 +142,64 @@ nav{
 .agent-detail p{font-size:13px;color:var(--ink2);line-height:1.65}
 
 /* ── 성과 카운트업 ── */
-.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px}
-.result-cell{background:var(--bg);padding:24px 20px;transition:background .2s;cursor:default}
-.result-cell:hover{background:var(--surface)}
-.result-num{font-family:var(--mono);font-size:36px;font-weight:700;color:var(--ink);letter-spacing:-2px;line-height:1}
-.result-unit{font-size:18px;color:var(--accent2)}
-.result-label{font-size:11px;color:var(--ink3);margin-top:5px;line-height:1.4}
-.result-bar{height:2px;background:var(--border);border-radius:1px;margin-top:10px;overflow:hidden}
-.result-bar-fill{height:100%;background:var(--accent2);width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-.result-desc{font-size:14px;color:var(--ink2);line-height:1.8;max-width:680px}
-.result-desc strong{color:var(--ink)}
+.result-section{position:relative;overflow:hidden}
+.result-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 20% 50%, rgba(75,123,224,.12) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 50%, rgba(62,207,106,.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+  margin-bottom:40px;
+  position:relative;z-index:1;
+}
+.result-cell{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:28px 24px;
+  transition:transform .2s, border-color .2s, box-shadow .2s;
+  cursor:default;
+  position:relative;overflow:hidden;
+}
+.result-cell::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:2px;background:var(--accent2);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.result-cell:hover{
+  transform:translateY(-4px);
+  border-color:rgba(123,163,236,.3);
+  box-shadow:0 12px 32px rgba(0,0,0,.2);
+}
+.result-cell:hover::after{transform:scaleX(1)}
+.result-eyebrow{
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:12px;
+}
+.result-num{
+  font-family:var(--mono);font-size:48px;font-weight:700;
+  color:var(--ink);letter-spacing:-3px;line-height:1;
+  display:flex;align-items:baseline;gap:4px;
+}
+.result-unit{font-size:22px;color:var(--accent2);font-weight:600;letter-spacing:0}
+.result-label{font-size:13px;color:var(--ink2);margin-top:10px;line-height:1.45;font-weight:500}
+.result-bar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:14px;overflow:hidden}
+.result-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent2),rgba(62,207,106,.8));width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+
+.result-desc-wrap{
+  position:relative;z-index:1;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:24px 28px;
+  border-left:3px solid var(--accent2);
+}
+.result-desc{font-size:15px;color:var(--ink2);line-height:1.85}
+.result-desc strong{color:var(--ink);font-weight:600}
 
 /* ── 이미지 ── */
 .img-stack{display:flex;flex-direction:column;gap:14px}
@@ -802,24 +850,26 @@ function buildAgentSections(){
   </section>
 
   <!-- 성과 -->
-  <section class="sec" style="background:var(--bg2)">
+  <section class="sec result-section" style="background:var(--bg)">
     <div class="sec-inner">
       <div class="sec-label">성과</div>
       <div class="result-grid">
         ${[
-          {num:40,unit:'%',label:'업무 생산성 향상',pct:40},
-          {num:24,unit:'%',label:'비용 절감',pct:24},
-          {num:3,unit:'×',label:'의사결정 속도 향상',pct:75},
-          {num:2,unit:'개+',label:'실제 고객사 도입',pct:50},
+          {eyebrow:'업무 효율',num:40,unit:'%',label:'업무 생산성 향상',pct:40},
+          {eyebrow:'비용 절감',num:24,unit:'%',label:'운영 비용 절감',pct:24},
+          {eyebrow:'의사결정',num:3,unit:'×',label:'의사결정 속도 향상',pct:75},
+          {eyebrow:'고객사 도입',num:2,unit:'개+',label:'실제 납품 고객사',pct:50},
         ].map(r=>`
           <div class="result-cell">
-            <div class="result-num" data-target="${r.num}">0</div>
-            <div style="font-family:var(--mono);font-size:14px;color:var(--accent2)">${r.unit}</div>
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
             <div class="result-label">${r.label}</div>
             <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
           </div>`).join('')}
       </div>
-      <p class="result-desc"><strong>우편사업진흥원(우체국 행복이)</strong> 등 실제 고객사 도입으로 연결. 기술 데모에서 고객이 쓸 수 있는 제품으로 전환하는 <strong>0→1 제품화</strong>를 주도.</p>
+      <div class="result-desc-wrap">
+        <p class="result-desc"><strong>우편사업진흥원(우체국 행복이)</strong> 등 실제 고객사 납품으로 연결. 기술 데모에서 고객이 실제로 쓸 수 있는 제품으로 전환하는 <strong>0→1 제품화</strong>를 주도했으며, 업무 생산성 40% 향상·비용 24% 절감·의사결정 속도 2~3배 향상을 달성.</p>
+      </div>
     </div>
   </section>
 
@@ -987,23 +1037,25 @@ function buildQaSections(){
     </div>
   </section>
 
-  <section class="sec">
+  <section class="sec result-section" style="background:var(--bg)">
     <div class="sec-inner">
       <div class="sec-label">성과</div>
       <div class="result-grid">
         ${[
-          {num:100,unit:'%',label:'전수 분석 커버리지',pct:100},
-          {num:0,unit:'일',label:'피드백 지연 (실시간)',pct:5},
-          {num:3,unit:'개+',label:'PoC→계약 전환',pct:60},
+          {eyebrow:'커버리지',num:100,unit:'%',label:'전수 분석 달성 (샘플링→전수)',pct:100},
+          {eyebrow:'피드백',num:0,unit:'일',label:'피드백 지연 (즉시 제공)',pct:5},
+          {eyebrow:'계약 전환',num:3,unit:'개+',label:'PoC 후 정식 계약 체결',pct:60},
         ].map(r=>`
           <div class="result-cell">
-            <div class="result-num" data-target="${r.num}">0</div>
-            <div style="font-family:var(--mono);font-size:14px;color:var(--accent2)">${r.unit}</div>
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
             <div class="result-label">${r.label}</div>
             <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
           </div>`).join('')}
       </div>
-      <p class="result-desc">샘플링에서 <strong>전수 분석으로 전환</strong>해 QA 커버리지 100% 달성. 실시간 스코어카드로 즉각적 코칭이 가능해지고, 다수 고객사가 PoC 후 <strong>정식 계약으로 전환</strong>.</p>
+      <div class="result-desc-wrap">
+        <p class="result-desc">샘플링 5~10%에서 <strong>AI 전수 분석 100%</strong>로 전환해 사각지대를 완전히 제거. 상담 직후 즉시 스코어카드가 생성되어 당일 코칭이 가능해졌으며, 다수 고객사가 PoC 이후 <strong>정식 계약으로 전환</strong>.</p>
+      </div>
     </div>
   </section>
 
@@ -1113,23 +1165,25 @@ function buildInsightSections(){
     </div>
   </section>
 
-  <section class="sec">
+  <section class="sec result-section" style="background:var(--bg)">
     <div class="sec-inner">
       <div class="sec-label">성과</div>
       <div class="result-grid">
         ${[
-          {num:3,unit:'개+',label:'PoC→계약 전환',pct:60},
-          {num:3,unit:'개 산업',label:'가온전선·금융CS·대출',pct:75},
-          {num:100,unit:'%',label:'실행형 인사이트 연결',pct:100},
+          {eyebrow:'계약 전환',num:3,unit:'개+',label:'PoC 후 정식 계약 체결',pct:60},
+          {eyebrow:'산업 확장',num:3,unit:'개',label:'제조·금융CS·대출 산업군',pct:75},
+          {eyebrow:'인사이트',num:100,unit:'%',label:'실행 연결 가능한 분석 구조',pct:100},
         ].map(r=>`
           <div class="result-cell">
-            <div class="result-num" data-target="${r.num}">0</div>
-            <div style="font-family:var(--mono);font-size:14px;color:var(--accent2)">${r.unit}</div>
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
             <div class="result-label">${r.label}</div>
             <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
           </div>`).join('')}
       </div>
-      <p class="result-desc"><strong>가온전선(제조), 금융CS 상담, 대출상담</strong> 등 다양한 산업군에서 PoC→정식 계약으로 전환. 단편적 모니터링에서 <strong>의미/원인/영향이 연결되는 실행형 인사이트</strong> 제품화 달성.</p>
+      <div class="result-desc-wrap">
+        <p class="result-desc"><strong>가온전선(제조 데이터 혁신), 금융CS 상담(고객 경험 개선), 대출상담(프로세스 효율화)</strong> PoC를 통해 모두 정식 계약으로 전환. 단편적 현상 모니터링에서 <strong>의미·원인·영향이 연결되는 실행형 인사이트</strong> 제품화를 달성.</p>
+      </div>
     </div>
   </section>
 
@@ -1220,11 +1274,11 @@ function showAgentDetail(name, icon, desc){
 
 /* 카운트업 + 바 애니메이션 */
 function animateResults(){
-  document.querySelectorAll('.result-num[data-target]').forEach(el=>{
+  document.querySelectorAll('[data-target]').forEach(el=>{
     const target = +el.dataset.target;
     if(target===0){el.textContent='0';return;}
     const start=performance.now();
-    const dur=1000;
+    const dur=1200;
     (function step(now){
       const p=Math.min((now-start)/dur,1);
       const ease=1-Math.pow(1-p,3);
@@ -1233,8 +1287,8 @@ function animateResults(){
       else el.textContent=target;
     })(start);
   });
-  document.querySelectorAll('.result-bar-fill[data-pct]').forEach(el=>{
-    setTimeout(()=>{el.style.width=el.dataset.pct+'%'},100);
+  document.querySelectorAll('.result-bar-fill[data-pct]').forEach((el,i)=>{
+    setTimeout(()=>{el.style.width=el.dataset.pct+'%'}, i*120);
   });
 }
 
