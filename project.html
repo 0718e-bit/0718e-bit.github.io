@@ -1656,6 +1656,29 @@ function buildMathCellsSections(){
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
       <div class="sec-label">화면 · 산출물</div>
+
+      <!-- 실제 서비스 링크 -->
+      <div class="browser-frame" style="margin-bottom:16px">
+        <div class="browser-bar">
+          <div class="b-dot" style="background:#FF5F57"></div>
+          <div class="b-dot" style="background:#FFBD2E"></div>
+          <div class="b-dot" style="background:#28CA41"></div>
+          <div class="b-url">home-learn.co.kr/homelearn/system/MathCells.html</div>
+          <div class="b-badge">🌐 실제 서비스 운영 중</div>
+        </div>
+        <div style="background:#0F1420;padding:28px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+          <div style="font-size:28px">🧬</div>
+          <div style="font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink)">수학의 세포들</div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:380px">홈런 초등에서 실제로 운영 중인 서비스입니다.<br>아래 버튼을 클릭해 실제 서비스를 확인하세요.</div>
+          <a href="https://www.home-learn.co.kr/homelearn/system/MathCells.html" target="_blank"
+            style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;text-decoration:none;transition:opacity .2s"
+            onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            실제 서비스 보기 →
+          </a>
+        </div>
+      </div>
+
+      <!-- 화면설계안 + 실제 구현 화면 -->
       <div class="img-stack">
         ${[
           ['images/math-cells-screen.jpg','수학의 세포들 — 화면설계안 · 실제 구현 화면 (지식맵 · 협업 챌린지 · 학습하기)'],
