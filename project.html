@@ -479,8 +479,30 @@ const DATA = {
     type: "insight",
     next:"ai-textbook"
   },
-  "ai-textbook":{title:"AI 디지털교과서 수학",wip:true,next:"math-cells"},
-  "math-cells":{title:"수학의 세포들",wip:true,next:"tutor-admin"},
+  "ai-textbook":{
+    co:"㈜아이스크림에듀",period:"2023.10 – 2024.11",role:"PM · 기획 총괄",active:false,
+    title:"AI 디지털교과서 수학",
+    tags:["AI 교육","LLM","Caliper","B2B"],
+    summary:[
+      {label:"배경", text:"아이스크림미디어 사업 수주 <strong>약 30억 원 규모</strong> — 학생 개인 학습 특성에 최적화된 맞춤형 교육 플랫폼 기획·구축"},
+      {label:"내가 한 일", text:"서비스 기획·사업 모델 설계·프로젝트 총괄. <strong>Caliper 기반 학습 데이터 수집</strong>, LLM 기반 AI 튜터·AI 어시스턴트, 학습 분석 대시보드 개발 리드"},
+      {label:"성격", text:"<strong>B2B 수익화</strong> — 학습 데이터 기반 맞춤형 서비스의 수익화 전략 수립 및 서비스 확장 가능성 확보"},
+    ],
+    type:"ai-textbook",
+    next:"math-cells"
+  },
+  "math-cells":{
+    co:"㈜아이스크림에듀",period:"2022.04 – 2022.11",role:"PM · 기획 총괄",active:false,
+    title:"수학의 세포들",
+    tags:["AI 교육","DKT","협업학습","특허"],
+    summary:[
+      {label:"배경", text:"AI연구소 핵심 비전에 따라 <strong>자체 AI 추천 모델(DKT) 개발</strong> — 외부 솔루션 의존도를 낮추고 독자적 AI 기술 경쟁력 확보"},
+      {label:"내가 한 일", text:"AI 모델 기반 맞춤형 학습 추천 시스템 기획·구축 총괄 PM. <strong>협력사 업스테이지와 협업</strong>, 문항 추천·지식맵 설계, 특허 기획·출원 주도"},
+      {label:"성격", text:"<strong>0→1 AI 서비스</strong> — 자체 모델 개발부터 Agile 런칭, 외부 솔루션 판매까지"},
+    ],
+    type:"math-cells",
+    next:"tutor-admin"
+  },
   "tutor-admin":{title:"Tutor Edition 관리자",wip:true,next:"mock-exam"},
   "mock-exam":{title:"모의고사 서비스",wip:true,next:"mega-renewal"},
   "mega-renewal":{title:"메가스터디 학원 메인 리뉴얼",wip:true,next:"noa-agent"},
@@ -1333,6 +1355,237 @@ function animateSentimentBars(){
 }
 
 
+/* ── AI 디지털교과서 섹션 ── */
+function buildAiTextbookSections(){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">Painpoint — 획일적 교육에서 맞춤형으로</div>
+      <blockquote class="pain-quote">"학생마다 수준이 다른데, 교과서는 하나다."</blockquote>
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'📚',title:'획일적 교육 경험',sub:'모든 학생에게 같은 내용',detail:['학생 개인의 학습 수준·속도 무시','이해도 낮은 학생은 따라가지 못함','앞서 나가는 학생은 지루함을 느낌']},
+              {icon:'📊',title:'학습 데이터 미활용',sub:'쌓이는 데이터, 활용 없음',detail:['학생의 학습 이력이 분산·미수집','데이터 기반 개입·코칭 불가','교사가 개별 학생 상태 파악 어려움']},
+              {icon:'🤖',title:'AI 튜터 부재',sub:'질문해도 즉각 피드백 없음',detail:['교사 1명이 다수 학생 동시 지원 불가','즉각적 피드백 없어 오개념 굳어짐','LLM 기반 맞춤 대화형 지원 필요']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🎯',title:'Caliper 기반 학습 데이터',sub:'표준화된 학습 데이터 수집',detail:['Caliper 표준으로 학습 이력 체계적 수집','학생별 학습 패턴·이해도 분석','데이터 플랫폼 + 학습 분석 대시보드 구축']},
+              {icon:'🧠',title:'LLM 기반 AI 튜터',sub:'1:1 맞춤 대화형 지원',detail:['LLM 기반 AI 튜터로 즉각적 질문 응답','AI 어시스턴트로 학습 흐름 안내','학생 수준에 맞는 맞춤 설명 제공']},
+              {icon:'📈',title:'코스웨어 + 수익화',sub:'사용자 중심 설계 + B2B 확장',detail:['학생 중심 코스웨어 설계로 UX 최적화','학습 데이터 기반 수익화 전략 수립','아이스크림미디어 30억 수주로 연결']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">화면 · 산출물</div>
+      <div class="img-stack">
+        <div class="img-frame">
+          <div class="img-bar">
+            <div class="img-dot" style="background:#FF5F57"></div>
+            <div class="img-dot" style="background:#FFBD2E"></div>
+            <div class="img-dot" style="background:#28CA41"></div>
+          </div>
+          <img src="images/ai-textbook-overview.jpg" alt="AI 디지털교과서 수학 — 주요 역할 및 화면" loading="lazy"
+            style="filter:saturate(0.8) brightness(0.92);transition:filter .3s"
+            onmouseover="this.style.filter='saturate(1) brightness(1)'"
+            onmouseout="this.style.filter='saturate(0.8) brightness(0.92)'">
+          <div class="img-cap">AI 디지털교과서 수학 — 학습 현황 대시보드 · 개념세포 지식맵 · 학습 분석</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec result-section" style="background:var(--bg)">
+    <div class="sec-inner">
+      <div class="sec-label">성과</div>
+      <div class="result-grid">
+        ${[
+          {eyebrow:'수주 규모',num:30,unit:'억',label:'아이스크림미디어 사업 수주',pct:100},
+          {eyebrow:'프로젝트 기간',num:13,unit:'개월',label:'2023.10 – 2024.11',pct:65},
+          {eyebrow:'AI 기술',num:3,unit:'종',label:'Caliper · AI튜터 · LLM 어시스턴트',pct:75},
+        ].map(r=>`
+          <div class="result-cell">
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
+            <div class="result-label">${r.label}</div>
+            <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
+          </div>`).join('')}
+      </div>
+      <div class="result-desc-wrap">
+        <p class="result-desc"><strong>아이스크림미디어 약 30억 규모 사업 수주</strong>로 진행. Caliper 기반 학습 데이터 플랫폼, LLM 기반 AI 튜터·AI 어시스턴트, 학습 분석 대시보드를 구축해 <strong>학생 개인에 최적화된 맞춤형 교육 경험</strong>을 실현.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">회고</div>
+      <div class="learn-list">
+        ${[
+          {type:'keep',label:'KEEP',text:'<strong>Caliper 표준 데이터 설계를 초기에 잡은 것</strong> — 학습 이력 수집 구조를 표준화한 덕분에 AI 모델 연동과 대시보드 구축이 체계적으로 이어졌음.'},
+          {type:'learn',label:'LEARN',text:'<strong>LLM 튜터의 할루시네이션 관리</strong> — 수학 교과 특성상 오답을 자신 있게 말하는 케이스가 있어, 검증 로직과 프롬프트 설계에 더 많은 시간이 필요했음.'},
+          {type:'next',label:'NEXT',text:'<strong>교사용 대시보드 고도화</strong> — 학생 개별 데이터를 교사가 직접 활용할 수 있는 코칭 인터페이스로 발전시키는 기획 예정.'},
+        ].map(l=>`
+          <div class="learn-item">
+            <span class="lb lb-${l.type}">${l.label}</span>
+            <p class="learn-text">${l.text}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ── 수학의 세포들 섹션 ── */
+function buildMathCellsSections(){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">Painpoint — 외부 의존에서 자체 AI 모델로</div>
+      <blockquote class="pain-quote">"외부 솔루션에 의존하면 기술 경쟁력을 가질 수 없다."</blockquote>
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🔗',title:'외부 솔루션 의존',sub:'자체 AI 기술 경쟁력 없음',detail:['외부 AI 추천 솔루션에 의존하는 구조','비용·품질·방향성 모두 외부에 종속','차별화된 서비스 개발 한계']},
+              {icon:'📐',title:'획일적 문항 추천',sub:'개인 맞춤 추천 불가',detail:['학생 개인의 이해도·취약점 미반영','모든 학생에게 동일한 문항 제공','학습 효율 저하와 이탈률 증가']},
+              {icon:'🏝️',title:'학습 고립',sub:'혼자 하는 학습의 한계',detail:['함께 풀고 경쟁하는 사회적 학습 요소 없음','동기부여와 지속성 부족','협업 학습 지원 구조 미비']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🧬',title:'자체 DKT 모델 개발',sub:'업스테이지 협업, 자체 기술 확보',detail:['AI 추천 모델(DKT) 자체 설계 및 개발','협력사 업스테이지와 협업으로 모델 고도화','외부 솔루션 의존도 완전히 탈피']},
+              {icon:'🗺️',title:'지식맵 + 개념세포',sub:'학생 개인 학습 로드맵 시각화',detail:['개념 간 연결 구조를 지식맵으로 시각화','학생 이해도에 따른 개인 맞춤 추천','부족한 세포 키우기 → 모의고사 예측점수']},
+              {icon:'🏆',title:'협업 학습 + 수익화',sub:'함께 하는 챌린지 + 외부 판매',detail:['팀 챌린지로 사회적 학습 동기부여','AI 튜터링으로 협업 학습 지원','외부 솔루션 판매 수익화 + 특허 출원']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">화면 · 산출물</div>
+      <div class="img-stack">
+        ${[
+          ['images/math-cells-screen.jpg','수학의 세포들 — 화면설계안 · 실제 구현 화면 (지식맵 · 협업 챌린지 · 학습하기)'],
+          ['images/math-cells-design1.jpg','화면설계안 1 — 신정하기 메인 · 개념세포 지식맵 상세 흐름'],
+          ['images/math-cells-design2.jpg','화면설계안 2 — 학습하기 평가 플로우 · 정답 처리 로직'],
+        ].map(([src,cap])=>`
+          <div class="img-frame">
+            <div class="img-bar">
+              <div class="img-dot" style="background:#FF5F57"></div>
+              <div class="img-dot" style="background:#FFBD2E"></div>
+              <div class="img-dot" style="background:#28CA41"></div>
+            </div>
+            <img src="${src}" alt="${cap}" loading="lazy"
+              style="filter:saturate(0.75) brightness(0.9);transition:filter .3s"
+              onmouseover="this.style.filter='saturate(1) brightness(1)'"
+              onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+            <div class="img-cap">${cap}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec result-section" style="background:var(--bg)">
+    <div class="sec-inner">
+      <div class="sec-label">성과</div>
+      <div class="result-grid">
+        ${[
+          {eyebrow:'자체 기술',num:1,unit:'건',label:'AI 튜터링 시스템 특허 출원 (출원번호 1020220135533)',pct:100},
+          {eyebrow:'모델 성능',num:97,unit:'%',label:'AI 추천 모델 F1-Score',pct:97},
+          {eyebrow:'수익화',num:3,unit:'채널',label:'서비스·솔루션 판매·사업 다각화',pct:75},
+        ].map(r=>`
+          <div class="result-cell">
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
+            <div class="result-label">${r.label}</div>
+            <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
+          </div>`).join('')}
+      </div>
+      <div class="result-desc-wrap">
+        <p class="result-desc">자체 DKT 모델로 <strong>AI 추천 F1-Score 97%</strong> 달성. <strong>AI 튜터링 시스템 특허 출원</strong>(출원번호 1020220135533)으로 기술 경쟁력 확보. 외부 솔루션 판매를 통한 수익화 전략 수립 및 AI 기반 학습 시장 사업 모델 다각화 추진.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">회고</div>
+      <div class="learn-list">
+        ${[
+          {type:'keep',label:'KEEP',text:'<strong>모델 개발 초창기부터 기획자가 참여한 것</strong> — 데이터 설계 단계부터 서비스 관점을 반영해 모델 학습 방향과 UX가 자연스럽게 연결됐음.'},
+          {type:'learn',label:'LEARN',text:'<strong>Agile 환경에서 스펙 변경 관리</strong> — AI 모델 성능에 따라 UI 스펙이 빈번히 바뀌었고, 변경 이력을 명확히 추적하는 문서화 체계가 더 필요했음.'},
+          {type:'next',label:'NEXT',text:'<strong>외부 판매 확장</strong> — 자체 서비스에서 검증된 DKT 모델을 B2B 솔루션으로 패키징해 다른 교육 플랫폼에 판매하는 전략 수립 예정.'},
+        ].map(l=>`
+          <div class="learn-item">
+            <span class="lb lb-${l.type}">${l.label}</span>
+            <p class="learn-text">${l.text}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
 function switchInsightScreen(idx, btn){
   document.querySelectorAll('#insight-screen-tabs .stab').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
@@ -1413,6 +1666,8 @@ if(p.wip){
   if(p.type==='agent') sections += buildAgentSections();
   else if(p.type==='qa') sections += buildQaSections();
   else if(p.type==='insight') sections += buildInsightSections();
+  else if(p.type==='ai-textbook') sections += buildAiTextbookSections();
+  else if(p.type==='math-cells') sections += buildMathCellsSections();
   document.getElementById('content').innerHTML = sections;
 
   // 인사이트 화면 바 초기 애니메이션
