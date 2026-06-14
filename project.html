@@ -328,6 +328,54 @@ nav{
 .qa-summary{color:var(--ink2);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .qa-score{font-family:var(--mono);font-weight:700}
 .qa-screen-caption{margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--ink3)}
+
+/* ── Pain vs Solution 레이아웃 ── */
+.pvs-wrap{
+  display:grid;
+  grid-template-columns:1fr 48px 1fr;
+  gap:0;align-items:start;
+}
+.pvs-col{}
+.pvs-col-head{margin-bottom:14px}
+.pvs-badge{
+  font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:5px 14px;border-radius:100px;
+}
+.pain-badge{background:rgba(255,107,107,.12);color:#FF6B6B;border:1px solid rgba(255,107,107,.2)}
+.sol-badge{background:rgba(62,207,106,.1);color:#3ECF6A;border:1px solid rgba(62,207,106,.2)}
+
+.pvs-cards{display:flex;flex-direction:column;gap:10px}
+.pvs-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;
+}
+.pain-card:hover{border-color:rgba(255,107,107,.3);background:var(--surface2)}
+.pain-card.expanded{border-color:rgba(255,107,107,.35)}
+.sol-card:hover{border-color:rgba(62,207,106,.3);background:var(--surface2)}
+.sol-card.expanded{border-color:rgba(62,207,106,.35)}
+
+.pvs-card-head{display:flex;align-items:flex-start;gap:10px}
+.pvs-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.pvs-title{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3}
+.pvs-sub{font-size:11px;color:var(--ink3);margin-top:2px}
+.pvs-arrow{margin-left:auto;font-size:14px;color:var(--ink3);flex-shrink:0;transition:transform .2s}
+.pvs-card.expanded .pvs-arrow{transform:rotate(90deg)}
+
+.pvs-divider{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding-top:44px;
+}
+.pvs-arrow-wrap{
+  font-size:20px;color:var(--accent2);
+  animation:arrowPulse 1.8s ease-in-out infinite;
+}
+
+@media(max-width:768px){
+  .pvs-wrap{grid-template-columns:1fr;gap:16px}
+  .pvs-divider{flex-direction:row;padding-top:0;justify-content:center}
+  .pvs-arrow-wrap{transform:rotate(90deg)}
+}
 </style>
 </head>
 <body>
@@ -423,50 +471,65 @@ function buildAgentSections(){
       <div class="sec-label">Painpoint — 기술은 있었지만 제품이 없었다</div>
       <blockquote class="pain-quote">"기능은 있는데, 고객이 쓸 수 있는 제품이 없었다."</blockquote>
 
-      <div class="flow-tabs" id="flow-tabs-agent">
-        <button class="flow-tab active" onclick="switchTab('agent','asis',this)">AS-IS 문제</button>
-        <button class="flow-tab" onclick="switchTab('agent','tobe',this)">TO-BE 해결</button>
-      </div>
+      <!-- Pain vs Solution 한눈에 보기 -->
+      <div class="pvs-wrap">
 
-      <div id="agent-asis" class="flow-panel active">
-        <div class="flow-grid">
-          ${[
-            {icon:'🔧',title:'기술 데모 상태',sub:'화면·정책·예외 미정의',detail:['RAG 응답은 되지만 사용자가 어떻게 써야 하는지 정의 없음','데모에서 예외 케이스 발생 시 대응 불가','고객 도입 시 신뢰도와 사용성 불안정']},
-            {icon:'🗺️',title:'UX 플로우 부재',sub:'에이전트 생성·연결 흐름 없음',detail:['사용자가 에이전트를 만들고 연결하는 핵심 플로우 미설계','정보구조(IA)가 없어 개발팀이 임의 구현']},
-            {icon:'📋',title:'운영 정책 미정의',sub:'권한·예외·가이드 없음',detail:['권한 구조가 없어 누가 무엇을 할 수 있는지 불명확','예외 케이스 처리 기준 없음으로 개발 번복 반복']},
-          ].map(c=>`
-            <div class="flow-card" onclick="toggleCard(this)">
-              <div class="flow-icon">${c.icon}</div>
-              <h4>${c.title}</h4>
-              <div class="fc-sub">${c.sub}</div>
-              <div class="flow-detail">
-                <div class="flow-detail-inner">
-                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head">
+            <span class="pvs-badge pain-badge">Pain Point</span>
+          </div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🔧',title:'기술 데모 상태',sub:'화면·정책·예외 미정의',detail:['RAG 응답은 되지만 사용자가 어떻게 써야 하는지 정의 없음','데모에서 예외 케이스 발생 시 대응 불가','고객 도입 시 신뢰도와 사용성 불안정']},
+              {icon:'🗺️',title:'UX 플로우 부재',sub:'에이전트 생성·연결 흐름 없음',detail:['사용자가 에이전트를 만들고 연결하는 핵심 플로우 미설계','정보구조(IA)가 없어 개발팀이 임의 구현']},
+              {icon:'📋',title:'운영 정책 미정의',sub:'권한·예외·가이드 없음',detail:['권한 구조가 없어 누가 무엇을 할 수 있는지 불명확','예외 케이스 처리 기준 없음으로 개발 번복 반복']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div>
+                    <div class="pvs-title">${c.title}</div>
+                    <div class="pvs-sub">${c.sub}</div>
+                  </div>
+                  <span class="pvs-arrow">›</span>
                 </div>
-              </div>
-            </div>`).join('')}
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
         </div>
-      </div>
 
-      <div id="agent-tobe" class="flow-panel">
-        <div class="flow-grid">
-          ${[
-            {icon:'🤖',title:'에이전트 관리',sub:'역할별 AI 동료 생성·연결',detail:['업무/역할별 에이전트를 생성하고 유연하게 관리','에이전트 간 지식그룹·도구 연결 구조 설계','활성/비활성 상태 관리 및 권한 정책 정의']},
-            {icon:'🧠',title:'지식 관리',sub:'파일·URL·FAQ 데이터 등록',detail:['다양한 유형의 데이터를 지식으로 등록·관리','지식그룹 구조로 에이전트별 지식 분리 운영','검색·조회·초기화 기능 포함 IA 설계']},
-            {icon:'🔌',title:'도구 관리',sub:'기업 내외부 API 연결',detail:['기업 내외부 API·도구 연결 지원','사용자 정의 함수·내정 함수·전체 함수 분류','도구 추가·테스트·권한 정책 일괄 정의']},
-            {icon:'📄',title:'PRD·정책 문서화',sub:'개발 기준과 운영 기준 정립',detail:['화면 설계(Figma)와 PRD를 연계해 개발 기준 명확화','예외 케이스·엣지 케이스 정책 문서화','초기 릴리즈까지 이어지는 0→1 제품화 주도']},
-          ].map(c=>`
-            <div class="flow-card" onclick="toggleCard(this)">
-              <div class="flow-icon">${c.icon}</div>
-              <h4>${c.title}</h4>
-              <div class="fc-sub">${c.sub}</div>
-              <div class="flow-detail">
-                <div class="flow-detail-inner">
-                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
-                </div>
-              </div>
-            </div>`).join('')}
+        <div class="pvs-divider">
+          <div class="pvs-arrow-wrap">→</div>
         </div>
+
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head">
+            <span class="pvs-badge sol-badge">Solution</span>
+          </div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🤖',title:'에이전트 관리',sub:'역할별 AI 동료 생성·연결',detail:['업무/역할별 에이전트를 생성하고 유연하게 관리','에이전트 간 지식그룹·도구 연결 구조 설계','활성/비활성 상태 관리 및 권한 정책 정의']},
+              {icon:'🧠',title:'지식 관리',sub:'파일·URL·FAQ 데이터 등록',detail:['다양한 유형의 데이터를 지식으로 등록·관리','지식그룹 구조로 에이전트별 지식 분리 운영','검색·조회·초기화 기능 포함 IA 설계']},
+              {icon:'🔌',title:'도구 관리 + PRD',sub:'API 연결 및 정책 문서화',detail:['기업 내외부 API·도구 연결 지원','화면 설계(Figma)와 PRD를 연계해 개발 기준 명확화','예외 케이스·엣지 케이스 정책 문서화']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div>
+                    <div class="pvs-title">${c.title}</div>
+                    <div class="pvs-sub">${c.sub}</div>
+                  </div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
