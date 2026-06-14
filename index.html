@@ -66,11 +66,25 @@ nav{
   position:absolute;bottom:0;
   height:115%;
   object-fit:contain;object-position:bottom center;
-  pointer-events:none;
-  user-select:none;
+  pointer-events:none;user-select:none;
   animation:photoFadeIn .9s .4s both;
-  filter:drop-shadow(0 0 48px rgba(75,123,224,.25));
+  mix-blend-mode:luminosity;
+  filter:brightness(0.92);
 }
+/* 상단 흰 배경을 다크로 녹이는 오버레이 */
+.hero-right::before{
+  content:'';
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(
+    to bottom,
+    var(--bg) 0%,
+    transparent 28%,
+    transparent 70%,
+    var(--bg) 100%
+  );
+  pointer-events:none;
+}
+.hero-photo-glow{z-index:0}
 .hero-photo-glow{
   position:absolute;bottom:0;left:50%;
   transform:translateX(-50%);
