@@ -1196,7 +1196,7 @@ function buildQaSections(){
         ${[
           {eyebrow:'커버리지',num:100,unit:'%',label:'전수 분석 달성 (샘플링→전수)',pct:100},
           {eyebrow:'피드백',num:0,unit:'일',label:'피드백 지연 (즉시 제공)',pct:5},
-          {eyebrow:'계약 전환',num:3,unit:'개+',label:'PoC 후 정식 계약 체결',pct:60},
+          {eyebrow:'계약 전환',num:1,unit:'건',label:'PoC 후 정식 계약 체결',pct:33},
         ].map(r=>`
           <div class="result-cell">
             <div class="result-eyebrow">${r.eyebrow}</div>
@@ -1206,7 +1206,7 @@ function buildQaSections(){
           </div>`).join('')}
       </div>
       <div class="result-desc-wrap">
-        <p class="result-desc">샘플링 5~10%에서 <strong>AI 전수 분석 100%</strong>로 전환해 사각지대를 완전히 제거. 상담 직후 즉시 스코어카드가 생성되어 당일 코칭이 가능해졌으며, 다수 고객사가 PoC 이후 <strong>정식 계약으로 전환</strong>.</p>
+        <p class="result-desc">샘플링 5~10%에서 <strong>AI 전수 분석 100%</strong>로 전환해 사각지대를 완전히 제거. 상담 직후 즉시 스코어카드가 생성되어 당일 코칭이 가능해졌으며, PoC 이후 <strong>1건 정식 계약 전환</strong>.</p>
       </div>
     </div>
   </section>
@@ -1399,7 +1399,7 @@ function buildInsightSections(){
       <div class="sec-label">성과</div>
       <div class="result-grid">
         ${[
-          {eyebrow:'계약 전환',num:3,unit:'개+',label:'PoC 후 정식 계약 체결',pct:60},
+          {eyebrow:'계약 전환',num:1,unit:'건',label:'PoC 후 정식 계약 체결',pct:33},
           {eyebrow:'산업 다양성',num:3,unit:'개',label:'제조·금융CS·대출 산업군',pct:75},
           {eyebrow:'인사이트 연결',num:100,unit:'%',label:'의미·원인·영향 실행 연결',pct:100},
         ].map(r=>`
@@ -1413,7 +1413,7 @@ function buildInsightSections(){
       <div class="result-desc-wrap">
         <p class="result-desc">
           <strong>가온전선(제조 데이터 혁신)</strong>, <strong>금융CS 상담(고객 경험 개선)</strong>, <strong>대출상담(프로세스 효율화)</strong> —
-          3개 산업군 PoC가 모두 정식 계약으로 전환. 단편적 현상 모니터링에서 <strong>의미·원인·영향이 연결되는 실행형 인사이트</strong> 제품화를 달성.
+          3개 산업군 PoC 진행, <strong>1건 정식 계약 전환</strong>. 단편적 현상 모니터링에서 <strong>의미·원인·영향이 연결되는 실행형 인사이트</strong> 제품화를 달성.
         </p>
       </div>
     </div>
@@ -2096,6 +2096,142 @@ function buildMathCellsSections(){
           {type:'keep',label:'KEEP',text:'<strong>모델 개발 초창기부터 기획자가 참여한 것</strong> — 데이터 설계 단계부터 서비스 관점을 반영해 모델 학습 방향과 UX가 자연스럽게 연결됐음.'},
           {type:'learn',label:'LEARN',text:'<strong>Agile 환경에서 스펙 변경 관리</strong> — AI 모델 성능에 따라 UI 스펙이 빈번히 바뀌었고, 변경 이력을 명확히 추적하는 문서화 체계가 더 필요했음.'},
           {type:'next',label:'NEXT',text:'<strong>외부 판매 확장</strong> — 자체 서비스에서 검증된 DKT 모델을 B2B 솔루션으로 패키징해 다른 교육 플랫폼에 판매하는 전략 수립 예정.'},
+        ].map(l=>`
+          <div class="learn-item">
+            <span class="lb lb-${l.type}">${l.label}</span>
+            <p class="learn-text">${l.text}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ── AI드림쌤 플러스 섹션 ── */
+function buildAiDreamsamSections(){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">Painpoint — 학습 데이터는 쌓이는데 AI 활용이 없었다</div>
+      <blockquote class="pain-quote">"130만 명의 학습 데이터가 있었지만, 아무도 그걸 학생 개인에게 돌려주지 않았다."</blockquote>
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'📊',title:'학습 데이터 미활용',sub:'쌓이는 데이터, 개인화 없음',detail:['130만 명 이상의 학습 이력이 있지만 개인에게 환원 없음','맞춤형 학습 경로 제안 기능 없음','데이터 기반 동기부여 장치 부재']},
+              {icon:'👨‍🏫',title:'드림 선생님 역할 공백',sub:'학생마다 다른 조언이 필요하다',detail:['학생 개인에 맞는 1:1 AI 학습 관리 서비스 없음','학습 목표·습관 형성 지원 체계 미비','부족한 부분을 콕 집어주는 AI 없음']},
+              {icon:'🔁',title:'반복 학습 동기 저하',sub:'지속성 없는 학습 루틴',detail:['매일 반복하는 학습 구조에 리워드·성취 피드백 없음','학부모·교사 모두 학생 현황 파악 어려움','학습 지속률 저하로 구독 이탈 위험']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🤖',title:'AI 드림 선생님',sub:'학습 데이터 기반 1:1 맞춤 AI',detail:['개인 학습 이력 분석 → 맞춤 학습 목표·경로 제안','AI가 학생 수준에 맞는 드림 선생님 역할 수행','취약 영역 집중 학습 → 성취감 피드백 루프']},
+              {icon:'📋',title:'학습 관리 대시보드',sub:'학생·학부모·교사 모두 한눈에',detail:['학습 현황·진도·성취도 시각화','학부모가 자녀 학습 상태를 실시간으로 확인','교사가 반 전체·개인 현황 파악 및 개입 가능']},
+              {icon:'🏆',title:'동기부여 시스템',sub:'리워드·목표·챌린지로 지속 학습',detail:['학습 목표 달성 시 리워드 지급','일별·주별 학습 챌린지로 습관 형성','AI 피드백 메시지로 학습 지속 동기 강화']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI드림쌤 플로우 -->
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">서비스 흐름 — AI 드림 선생님의 학습 사이클</div>
+      <div class="dreamsam-flow">
+        ${[
+          {step:'STEP 1',label:'진단',desc:'AI가 학습 이력·\n수준 분석',color:'rgba(75,123,224,.12)',border:'rgba(75,123,224,.25)'},
+          {step:'STEP 2',label:'목표 설정',desc:'맞춤 학습 목표·\n경로 제안',color:'rgba(245,200,66,.08)',border:'rgba(245,200,66,.25)'},
+          {step:'STEP 3',label:'학습',desc:'AI 추천 문항·\n콘텐츠 제공',color:'rgba(168,85,247,.08)',border:'rgba(168,85,247,.25)'},
+          {step:'STEP 4',label:'피드백',desc:'AI 드림쌤\n성취 피드백',color:'rgba(62,207,106,.08)',border:'rgba(62,207,106,.25)'},
+          {step:'STEP 5',label:'보고',desc:'학부모·교사\n현황 리포트',color:'rgba(75,123,224,.1)',border:'rgba(75,123,224,.3)'},
+        ].map((s,i)=>`
+          <div class="dsf-item" style="background:${s.color};border:1px solid ${s.border}">
+            <div class="dsf-step">${s.step}</div>
+            <div class="dsf-label">${s.label}</div>
+            <div class="dsf-desc">${s.desc.replace(/\n/g,'<br>')}</div>
+          </div>
+          ${i<4?'<div class="dsf-arrow">→</div>':''}`).join('')}
+      </div>
+
+      <!-- 기술 레이어 -->
+      <div class="sec-label" style="margin-top:36px">기술 레이어</div>
+      <div class="tech-layers">
+        ${[
+          {layer:'AI',icon:'🧠',title:'추천 엔진',items:['학습 이력 기반 맞춤 문항 추천','취약 개념 우선 노출 알고리즘','학습 패턴 분석 및 경로 최적화']},
+          {layer:'DATA',icon:'📊',title:'학습 데이터 수집',items:['학습 이력·정답률·소요시간 수집','학생별 개념 이해도 측정','학습 지속률·이탈 패턴 분석']},
+          {layer:'UX',icon:'📱',title:'학생 화면',items:['AI 드림쌤 캐릭터 UI','일별 학습 목표·챌린지','성취 리워드·피드백 메시지']},
+          {layer:'ADMIN',icon:'👨‍👩‍👧',title:'학부모·교사',items:['자녀 학습 현황 실시간 조회','반 전체·개인 대시보드','학습 리포트 자동 발송']},
+        ].map(l=>`
+          <div class="tech-layer-card">
+            <div class="tlc-header">
+              <span class="tlc-layer">${l.layer}</span>
+              <span class="tlc-icon">${l.icon}</span>
+              <span class="tlc-title">${l.title}</span>
+            </div>
+            <ul class="tlc-items">
+              ${l.items.map(i=>`<li>${i}</li>`).join('')}
+            </ul>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec result-section" style="background:var(--bg)">
+    <div class="sec-inner">
+      <div class="sec-label">성과</div>
+      <div class="result-grid">
+        ${[
+          {eyebrow:'서비스 규모',num:130,unit:'만+',label:'홈런 중등 플랫폼 탑재 사용자',pct:100},
+          {eyebrow:'AI 기능',num:3,unit:'종',label:'추천·진단·동기부여 AI 탑재',pct:75},
+          {eyebrow:'운영 기간',num:2,unit:'년',label:'2021 – 2023 운영',pct:66},
+        ].map(r=>`
+          <div class="result-cell">
+            <div class="result-eyebrow">${r.eyebrow}</div>
+            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
+            <div class="result-label">${r.label}</div>
+            <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
+          </div>`).join('')}
+      </div>
+      <div class="result-desc-wrap">
+        <p class="result-desc"><strong>130만 명 이상</strong>이 사용하는 홈런 중등 플랫폼에 AI 학습 관리 기능 탑재. 학습 이력 기반 맞춤 추천·진단·동기부여 AI를 설계해 <strong>학생 개인에 최적화된 드림 선생님 경험</strong>을 구현.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">회고</div>
+      <div class="learn-list">
+        ${[
+          {type:'keep',label:'KEEP',text:'<strong>학생·학부모·교사 3자 관점을 동시에 설계</strong> — 각자 다른 니즈를 가진 3개 사용자 그룹을 하나의 서비스에 담아낸 것이 핵심 설계 역량으로 남음.'},
+          {type:'learn',label:'LEARN',text:'<strong>AI 추천의 신뢰성과 설명가능성</strong> — 학생이 \"왜 이 문제를 풀어야 해?\"를 납득해야 학습 동기가 생긴다는 것을 현장 반응에서 배웠음.'},
+          {type:'next',label:'NEXT',text:'<strong>고등 확장</strong> — 중등에서 검증된 AI 드림쌤 모델을 고등 입시 맞춤형으로 확장하는 기획 필요.'},
         ].map(l=>`
           <div class="learn-item">
             <span class="lb lb-${l.type}">${l.label}</span>
