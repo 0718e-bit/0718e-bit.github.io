@@ -72,6 +72,7 @@ nav{
   object-fit:contain;object-position:bottom center;
   pointer-events:none;user-select:none;
   animation:photoFadeIn .9s .4s both;
+  mix-blend-mode:screen;
 }
 .hero-right::before{display:none}
 .hero-photo-glow{z-index:0}
@@ -260,12 +261,15 @@ nav{
 }
 .career-cell.active-company .career-filter-hint{opacity:1;transform:translateX(0);color:var(--green)}
 .proj-item.filtered-out{
-  opacity:.2;
+  opacity:.15;
   pointer-events:none;
   transform:scale(0.98);
+  transition:opacity .3s,transform .3s;
 }
 .proj-item.filtered-in{
   border-color:rgba(123,163,236,.3);
+  opacity:1 !important;
+  transform:translateY(0) !important;
 }
 .filter-bar{
   display:flex;align-items:center;gap:10px;
@@ -414,12 +418,12 @@ nav{
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <div class="stat-num"><span data-target="8">0</span></div>
-        <div class="stat-label">제품 출시</div>
+        <div class="stat-num"><span data-target="40">0</span></div>
+        <div class="stat-label">프로젝트·서비스</div>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <div class="stat-num"><span data-target="30">0</span><span class="stat-unit">억</span></div>
+        <div class="stat-num"><span data-target="200">0</span><span class="stat-unit">억</span></div>
         <div class="stat-label">수주 규모</div>
       </div>
       <div class="stat-divider"></div>
@@ -483,7 +487,14 @@ nav{
 
 <!-- PROJECTS -->
 <div class="section-eyebrow" id="projects">Projects</div>
-<section class="projects" id="proj-list"></section>
+<section class="projects">
+  <div id="filter-bar" class="filter-bar hidden">
+    <span class="filter-bar-label" id="filter-label"></span>
+    <span id="filter-count"></span>
+    <button class="filter-clear" onclick="clearFilter()">필터 해제 ✕</button>
+  </div>
+  <div id="proj-list"></div>
+</section>
 
 <!-- CAREER -->
 <div class="section-eyebrow" id="career">Career</div>
@@ -538,15 +549,15 @@ const projects=[
    tags:["AI Agent","LLM","RAG","B2B"],arts:["doc","figma"],
    active:false,date:"2025.05 – 2026.02",
    colors:["#1A2035","#1E2D50"],nodes:[[30,40],[70,25],[50,70],[85,55],[20,75],[60,45]]},
-  {id:"noa-qa",n:"02",co:"㈜스펙트라 · NOA",company:"spectra",title:"NOA AI QA 출시",
+  {id:"noa-qa",n:"02",co:"㈜스펙트라 · NOA",company:"spectra",title:"NOA AI QA",
    pain:"수기·샘플링 QA의 한계 — 전수 자동 분석으로 일관된 품질 지표 확보",
    tags:["AI Agent","어드민","B2B"],arts:["proto","doc"],
-   active:true,date:"2025.08 – 출시",
+   active:true,date:"2025.11 – 2026.06",
    colors:["#0F2A22","#163D30"],nodes:[[25,35],[60,20],[45,65],[80,50],[15,70],[55,45],[70,75]]},
-  {id:"noa-insight",n:"03",co:"㈜스펙트라 · NOA",company:"spectra",title:"NOA AI Insight 출시",
+  {id:"noa-insight",n:"03",co:"㈜스펙트라 · NOA",company:"spectra",title:"NOA AI Insight",
    pain:"이슈는 보여도 원인·영향·액션까지 연결 안 됨 — 실행형 인사이트로",
    tags:["AI Agent","NLP","B2B"],arts:["doc","figma"],
-   active:true,date:"2025.10 – 출시",
+   active:true,date:"2025.11 – 2026.06",
    colors:["#201530","#2E1D45"],nodes:[[35,30],[65,22],[50,60],[82,48],[18,68],[58,42],[72,72]]},
   {id:"ai-dreamsam",n:"04",co:"㈜아이스크림에듀 · 홈런 중등",company:"icream",title:"AI드림쌤 플러스",
    pain:"학습 데이터가 쌓이는데 AI 활용이 없다 — 개인 맞춤 학습 관리 AI 서비스로",
