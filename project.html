@@ -1719,16 +1719,16 @@ function buildMegaRenewalSections(){
   return `
   <section class="sec">
     <div class="sec-inner">
-      <div class="sec-label">Painpoint — 제각각 운영되는 학원 메인 페이지</div>
-      <blockquote class="pain-quote">"학원마다 다른 디자인, 다른 운영 방식 — 브랜드가 보이지 않았다."</blockquote>
+      <div class="sec-label">Painpoint — 13개 학원, 하루 10번 바뀌는 수능 정보, 각기 다른 브랜드</div>
+      <blockquote class="pain-quote">"수능 등급컷은 하루에도 10번씩 바뀌는데, 전국 13개 학원을 각각 수작업으로 업데이트하고 있었다."</blockquote>
       <div class="pvs-wrap">
         <div class="pvs-col pvs-pain">
           <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
           <div class="pvs-cards">
             ${[
-              {icon:'🎨',title:'일관성 없는 디자인',sub:'학원별 제각각 배너·레이아웃',detail:['학원마다 다른 배너 형식으로 통일성 없음','브랜드 아이덴티티가 화면에 드러나지 않음','학년별 컬러 구분 없어 정보 탐색 어려움']},
-              {icon:'⚙️',title:'운영 비효율',sub:'수작업 개별 업데이트',detail:['배너·아이콘 수정 시 각 학원 담당자가 개별 요청','운영 리소스가 과도하게 소요','실시간 업데이트 대응 어려움']},
-              {icon:'🏷️',title:'학원 브랜드 미약',sub:'슬로건·특성 미반영',detail:['각 학원의 강점·슬로건이 메인에 표현 안 됨','경쟁 학원과 차별화 포인트 없는 획일적 페이지','학원별 특성을 드러낼 구조 부재']},
+              {icon:'⚡',title:'실시간 업데이트 불가',sub:'수능 정보가 하루 10번씩 변경',detail:['수능 등급컷·합격자·모집인원 정보가 수시로 변경','13개 학원 개별 수작업 업데이트 → 시간 지연·오류','정보 지연으로 학원 신뢰도 하락 위험']},
+              {icon:'🏫',title:'13개 학원 개별 관리',sub:'학원마다 별도 요청·처리',detail:['전국 13개 학원이 각자 다른 방식으로 운영 중','배너·이미지 수정 시 본사에 개별 요청','본사·학원 양쪽 모두 운영 리소스 과다 소요']},
+              {icon:'🎨',title:'전체 브랜드 vs 학원 개성 충돌',sub:'메가 파란색 vs 학원별 슬로건',detail:['메가스터디 공통 브랜드(파란색) 유지 필요','13개 학원 각각의 슬로건·강점을 동시에 살려야 함','획일적 적용 시 학원 개성 없어짐 — 원장들 반발']},
             ].map(c=>`
               <div class="pvs-card pain-card" onclick="toggleCard(this)">
                 <div class="pvs-card-head">
@@ -1747,9 +1747,9 @@ function buildMegaRenewalSections(){
           <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
           <div class="pvs-cards">
             ${[
-              {icon:'📐',title:'배너 가이드 체계화',sub:'통일성 + 유연성 동시 확보',detail:['배너 가이드 수립으로 디자인 일관성 확보','학년별 아이덴티 컬러로 정보 구분 명확화','학원별 슬로건으로 브랜드 차별화']},
-              {icon:'🖥️',title:'관리자 기반 운영',sub:'담당자 직접 운영 가능',detail:['배너·아이콘 관리자 시스템으로 직접 수정 가능','실시간 업데이트로 운영 리소스 대폭 절감','Campus Admin을 통한 일괄 관리 구조']},
-              {icon:'🏆',title:'학원 브랜드 강화',sub:'각 학원의 정체성을 메인에',detail:['학원별 슬로건·특성을 메인에 명확히 표현','학년별 아이덴티 컬러로 시각적 구분','배너 광고 효과 극대화 레이아웃 설계']},
+              {icon:'🖥️',title:'Campus Admin 실시간 운영',sub:'각 학원 담당자가 직접·즉시 업데이트',detail:['수능 등급컷·합격자 정보 즉시 반영 가능 구조','각 학원 담당자가 관리자에서 직접 수정·배포','13개 학원 개별 권한 체계 및 운영 정책 설계']},
+              {icon:'🎨',title:'공통 브랜드 + 학원별 개성 양립',sub:'메가 파란색 안에서 슬로건 살리기',detail:['메가스터디 파란색 공통 배경 위에 학원별 슬로건 적용','배너 가이드 수립 — 커스텀 허용 범위 기준 명확화','학년별 아이덴티 컬러로 정보 구분 체계화']},
+              {icon:'👥',title:'13개 원장 취합 → 실무자 교육',sub:'현장 의견 반영 + 온보딩 완결',detail:['전국 13개 학원 원장 의견 직접 취합 및 반영','리뉴얼 방향 합의 후 화면 설계 진행','배포 후 각 학원 실무 담당자 Campus Admin 교육']},
             ].map(c=>`
               <div class="pvs-card sol-card" onclick="toggleCard(this)">
                 <div class="pvs-card-head">
@@ -1767,7 +1767,29 @@ function buildMegaRenewalSections(){
     </div>
   </section>
 
+  <!-- 프로젝트 프로세스 -->
   <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">프로젝트 프로세스</div>
+      <div class="dreamsam-flow">
+        ${[
+          {step:'STEP 1',label:'현장 조사',desc:'전국 13개 학원\n원장 의견 취합',color:'rgba(75,123,224,.12)',border:'rgba(75,123,224,.25)'},
+          {step:'STEP 2',label:'방향 합의',desc:'공통 브랜드+\n학원별 슬로건 기준',color:'rgba(245,200,66,.08)',border:'rgba(245,200,66,.25)'},
+          {step:'STEP 3',label:'화면 설계',desc:'배너가이드+\nAdmin 기획',color:'rgba(168,85,247,.08)',border:'rgba(168,85,247,.25)'},
+          {step:'STEP 4',label:'개발·배포',desc:'프론트+Admin\n시스템 구축',color:'rgba(62,207,106,.08)',border:'rgba(62,207,106,.25)'},
+          {step:'STEP 5',label:'실무자 교육',desc:'13개 학원\n담당자 Admin 교육',color:'rgba(75,123,224,.1)',border:'rgba(75,123,224,.3)'},
+        ].map((s,i)=>`
+          <div class="dsf-item" style="background:${s.color};border:1px solid ${s.border}">
+            <div class="dsf-step">${s.step}</div>
+            <div class="dsf-label">${s.label}</div>
+            <div class="dsf-desc">${s.desc.replace(/\n/g,'<br>')}</div>
+          </div>
+          ${i<4?'<div class="dsf-arrow">→</div>':''}`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
     <div class="sec-inner">
       <div class="sec-label">화면 · 산출물</div>
       <div class="img-stack">
@@ -1777,7 +1799,7 @@ function buildMegaRenewalSections(){
             <div class="img-dot" style="background:#FFBD2E"></div>
             <div class="img-dot" style="background:#28CA41"></div>
           </div>
-          <img src="images/mega-renewal-screen.jpg" alt="메가스터디 학원 메인 리뉴얼 — 화면설계안 · 프론트 · 어드민" loading="lazy"
+          <img src="images/mega-renewal-screen.jpg" alt="메가스터디 학원 메인 리뉴얼" loading="lazy"
             style="filter:saturate(0.75) brightness(0.9);transition:filter .3s"
             onmouseover="this.style.filter='saturate(1) brightness(1)'"
             onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
@@ -1792,250 +1814,9 @@ function buildMegaRenewalSections(){
       <div class="sec-label">성과</div>
       <div class="result-grid">
         ${[
-          {eyebrow:'운영 효율',num:1,unit:'개',label:'관리자 기반 통합 운영 시스템 구축',pct:100},
-          {eyebrow:'브랜딩',num:3,unit:'요소',label:'배너가이드·컬러·슬로건 체계화',pct:75},
-          {eyebrow:'기간',num:6,unit:'개월',label:'2017.06 – 2017.11',pct:50},
-        ].map(r=>`
-          <div class="result-cell">
-            <div class="result-eyebrow">${r.eyebrow}</div>
-            <div class="result-num"><span data-target="${r.num}">0</span><span class="result-unit">${r.unit}</span></div>
-            <div class="result-label">${r.label}</div>
-            <div class="result-bar"><div class="result-bar-fill" data-pct="${r.pct}"></div></div>
-          </div>`).join('')}
-      </div>
-      <div class="result-desc-wrap">
-        <p class="result-desc">분산·수작업 운영에서 <strong>관리자 기반 통합 운영 체계</strong>로 전환. 배너 가이드 체계화로 디자인 일관성 확보, 학년별 아이덴티 컬러·학원별 슬로건으로 <strong>학원 브랜드 아이덴티티를 메인 페이지에 명확히 구현</strong>.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" style="background:var(--bg2)">
-    <div class="sec-inner">
-      <div class="sec-label">회고</div>
-      <div class="learn-list">
-        ${[
-          {type:'keep',label:'KEEP',text:'<strong>운영자 관점 우선</strong> — 보이는 화면(Front)보다 운영하는 사람(Admin)의 효율을 먼저 설계한 것이 지속 가능한 운영 구조를 만드는 핵심이었음.'},
-          {type:'learn',label:'LEARN',text:'<strong>가이드 문서의 중요성</strong> — 배너 가이드만 있으면 각 학원 담당자가 독립적으로 운영할 수 있었는데, 초기에 더 정교한 가이드 체계를 만들었으면 온보딩이 더 빨랐을 것.'},
-          {type:'next',label:'NEXT',text:'<strong>데이터 기반 배너 최적화</strong> — 클릭률·전환율 데이터를 관리자에서 바로 확인하고 A/B 테스트할 수 있는 기능으로 발전 가능.'},
-        ].map(l=>`
-          <div class="learn-item">
-            <span class="lb lb-${l.type}">${l.label}</span>
-            <p class="learn-text">${l.text}</p>
-          </div>`).join('')}
-      </div>
-    </div>
-  </section>`;
-}
-
-/* ── AI드림쌤 플러스 섹션 ── */
-function buildAiDreamsamSections(){
-  return `
-  <!-- Pain vs Solution -->
-  <section class="sec">
-    <div class="sec-inner">
-      <div class="sec-label">Painpoint — AI 선생님이 아이와 실제로 '대화'할 수 없었다</div>
-      <blockquote class="pain-quote">"버추얼 휴먼을 만들었지만, 아이들이 쓸 수 있는 AI 선생님은 아직 없었다."</blockquote>
-      <div class="pvs-wrap">
-        <div class="pvs-col pvs-pain">
-          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
-          <div class="pvs-cards">
-            ${[
-              {icon:'🗣️',title:'부정확한 발음 인식 불가',sub:'아이들 발음을 AI가 못 알아들음',detail:['중학생의 불완전한 영어 발음·한국어 혼용 인식 실패','특수문자·숫자·화폐단위($,£,%) STT 처리 불가','음성 입력 실패 → 학습 흥미 저하']},
-              {icon:'🚧',title:'학습 외 대화 통제 불가',sub:'아이들이 엉뚱한 대화 유도',detail:['학습과 무관한 주제 유도 시 통제 방법 없음','욕설·부적절 표현 필터링 체계 미비','학습 이탈 후 대화 흐름 복구 어려움']},
-              {icon:'🎭',title:'단일 AI 페르소나',sub:'모든 학생에게 같은 AI 선생님',detail:['성격·톤·음성이 고정된 단일 캐릭터','학생 성향에 맞는 교사 선택 불가','장기 사용 시 흥미 저하']},
-              {icon:'📅',title:'상담 예약 체계 부재',sub:'상담 시간 관리가 안 됨',detail:['학생이 직접 상담 일정을 잡을 수 있는 구조 없음','상담 이력과 다음 일정이 분리되어 관리 어려움','예약 시스템 없어 상담 지속성 저하']},
-            ].map(c=>`
-              <div class="pvs-card pain-card" onclick="toggleCard(this)">
-                <div class="pvs-card-head">
-                  <span class="pvs-icon">${c.icon}</span>
-                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
-                  <span class="pvs-arrow">›</span>
-                </div>
-                <div class="flow-detail"><div class="flow-detail-inner">
-                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
-                </div></div>
-              </div>`).join('')}
-          </div>
-        </div>
-        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
-        <div class="pvs-col pvs-sol">
-          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
-          <div class="pvs-cards">
-            ${[
-              {icon:'🎙️',title:'아동 특화 STT 모델',sub:'부정확한 발음·혼용 언어 인식',detail:['중학생 발음 패턴에 최적화된 음성인식 모델 학습','특수문자·숫자·화폐단위($,£,%) 인식 모델 학습','한국어 혼용·단어 수준 영어 입력도 정상 처리','일 1,600만건 학습 빅데이터 기반 분석 노하우']},
-              {icon:'🛡️',title:'학습 가드레일 2중 레이어',sub:'학습 범위 이탈 방지 시스템',detail:['학습 주제별 대화 범위 정의 + LLM 프롬프트 제어','이탈 시 자연스럽게 학습 주제로 복귀하는 로직','욕설·부적절 표현 필터링 + 연령 적합 가이드라인']},
-              {icon:'🎭',title:'멀티 페르소나 버추얼 휴먼',sub:'성격·음성·입모양이 다른 AI 선생님',detail:['페르소나별 다른 성격·톤·음성으로 캐릭터 차별화','버추얼 휴먼 립싱크 — 발화에 맞춘 입모양 동기화','홈런 타임즈 기반 레벨별 맞춤 영어 대화 제공']},
-              {icon:'📅',title:'상담 예약 프로그램 도입',sub:'학생이 직접 스케줄링',detail:['학생이 직접 상담 일정을 예약하는 시스템 기획·도입','최대 4개까지 다음 상담 일정 사전 예약 가능','한국어/영어, 요일·시간까지 세분화된 예약 정책 설계']},
-            ].map(c=>`
-              <div class="pvs-card sol-card" onclick="toggleCard(this)">
-                <div class="pvs-card-head">
-                  <span class="pvs-icon">${c.icon}</span>
-                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
-                  <span class="pvs-arrow">›</span>
-                </div>
-                <div class="flow-detail"><div class="flow-detail-inner">
-                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
-                </div></div>
-              </div>`).join('')}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 서비스 핵심 가치 -->
-  <section class="sec" style="background:var(--bg2)">
-    <div class="sec-inner">
-      <div class="sec-label">서비스 핵심 가치</div>
-      <div class="ds-value-grid">
-        ${[
-          {icon:'📰',title:'홈런 타임즈 기반 영어 대화',desc:'최신 뉴스 기사를 소재로 AI와 실전 영어 대화. 레벨별 맞춤 대화로 영어 상호작용 능력과 자신감을 동시에 향상.'},
-          {icon:'📊',title:'생활기록부 연계 AI 학습 분석',desc:'매 상담 실시간 요약·피드백 제공. 학습 태도·패턴을 AI가 자동 분석해 상담이 쌓일수록 더 정확한 맞춤 피드백.'},
-          {icon:'💬',title:'학습마음 대화로 자기주도 습관',desc:'시험 스트레스, 친구 관계, 진로 고민까지. AI가 경청하고 감정·학습 습관을 돌보며 성장 기록을 함께 만들어감.'},
-          {icon:'🧠',title:'교육 특화 생성형 언어 모델',desc:'아이스크림 홈런만의 교육 특화 LLM. 일 1,600만건 학습 데이터·11만명 상담 데이터 기반의 학습 빅데이터 분석.'},
-        ].map(v=>`
-          <div class="ds-value-card">
-            <div class="dsv-icon">${v.icon}</div>
-            <h4 class="dsv-title">${v.title}</h4>
-            <p class="dsv-desc">${v.desc}</p>
-          </div>`).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 기술 구조 -->
-  <section class="sec">
-    <div class="sec-inner">
-      <div class="sec-label">기술 구조 — 5분 상담 워크플로우</div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-bottom:14px">상담 플로우</div>
-      <div class="dreamsam-flow" style="margin-bottom:28px">
-        ${[
-          {step:'Pre-Check',label:'사전 확인',desc:'홈런타임즈 기사\nPre-Check 제공',color:'rgba(75,123,224,.12)',border:'rgba(75,123,224,.25)'},
-          {step:'STEP 1',label:'Warm-up',desc:'일상 대화 +\n지난 주 학습 피드백',color:'rgba(62,207,106,.08)',border:'rgba(62,207,106,.25)'},
-          {step:'STEP 2',label:'중심 대화',desc:'영어주제 대화\nor 학습마음 대화',color:'rgba(245,200,66,.08)',border:'rgba(245,200,66,.25)'},
-          {step:'STEP 3',label:'감정 선택',desc:'현재 나의\n기분은?',color:'rgba(168,85,247,.08)',border:'rgba(168,85,247,.25)'},
-          {step:'STEP 4',label:'AI 요약',desc:'대화+감정\n자동 요약',color:'rgba(62,207,106,.1)',border:'rgba(62,207,106,.3)'},
-        ].map((s,i)=>`
-          <div class="dsf-item" style="background:${s.color};border:1px solid ${s.border}">
-            <div class="dsf-step">${s.step}</div>
-            <div class="dsf-label">${s.label}</div>
-            <div class="dsf-desc">${s.desc.replace(/\n/g,'<br>')}</div>
-          </div>
-          ${i<4?'<div class="dsf-arrow">→</div>':''}`).join('')}
-      </div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-bottom:14px">기술 레이어</div>
-      <div class="tech-layers">
-        ${[
-          {layer:'입력',icon:'🎙️',title:'음성 입력 (STT)',items:['아동 발음 특화 STT 모델 학습','특수문자·숫자·화폐단위 처리','마이크/키보드 전환 모드','STT 텍스트 타이핑 애니메이션']},
-          {layer:'처리',icon:'🧠',title:'LLM + 가드레일',items:['교육 특화 생성형 언어 모델','학습 주제별 대화 범위 프롬프트','학습 이탈 시 자연스러운 복귀','연령 적합 2중 필터링']},
-          {layer:'출력',icon:'🎭',title:'버추얼 휴먼 (TTS)',items:['페르소나별 음성·성격·톤','립싱크 — 입모양 동기화','한국어 번역 ON/OFF','레벨별 맞춤 영어 응답']},
-          {layer:'분석',icon:'📊',title:'AI 요약 & 생활기록부',items:['대화 후 AI 자동 요약','감정 추이 + 키워드 분석','학습 패턴 누적 분석','교사·부모 요약본 제공']},
-        ].map(t=>`
-          <div class="tech-layer-card">
-            <div class="tlc-header">
-              <span class="tlc-layer">${t.layer}</span>
-              <span class="tlc-icon">${t.icon}</span>
-              <span class="tlc-title">${t.title}</span>
-            </div>
-            <ul class="tlc-items">
-              ${t.items.map(i=>`<li>${i}</li>`).join('')}
-            </ul>
-          </div>`).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 산출물 — 스토리보드 → 실제 화면 -->
-  <section class="sec" style="background:var(--bg2)">
-    <div class="sec-inner">
-      <div class="sec-label">화면 · 산출물 — 기획서가 실제 서비스로</div>
-
-      <!-- 스토리보드 -->
-      <div style="margin-bottom:28px">
-        <div style="font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:8px">
-          <span style="background:var(--surface);border:1px solid var(--border);color:var(--ink3);padding:2px 8px;border-radius:4px;font-size:10px">기획서</span>
-          스토리보드 v1.1 — 전체 화면 설계
-        </div>
-        <div class="img-frame">
-          <div class="img-bar">
-            <div class="img-dot" style="background:#FF5F57"></div>
-            <div class="img-dot" style="background:#FFBD2E"></div>
-            <div class="img-dot" style="background:#28CA41"></div>
-          </div>
-          <img src="images/dreamsam-storyboard.png" alt="AI드림쌤 스토리보드 v1.1" loading="lazy"
-            style="filter:saturate(0.8) brightness(0.92);transition:filter .3s"
-            onmouseover="this.style.filter='saturate(1) brightness(1)'"
-            onmouseout="this.style.filter='saturate(0.8) brightness(0.92)'">
-          <div class="img-cap">AI드림쌤 메인 화면 스토리보드 — Pre-Check·예약시스템·지난이야기 UX 설계</div>
-        </div>
-      </div>
-
-      <!-- 실제 구현 화면 -->
-      <div style="font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:8px">
-        <span style="background:rgba(62,207,106,.12);border:1px solid rgba(62,207,106,.3);color:#3ECF6A;padding:2px 8px;border-radius:4px;font-size:10px">실제 구현</span>
-        기획서 → 실제 서비스 화면
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-        ${[
-          {src:'images/dreamsam-screen1.png',cap:'영어 대화 — Korea\'s Badminton Hero 기사 기반 실전 영어 상담 (버추얼 휴먼 Chloe)'},
-          {src:'images/dreamsam-screen2.png',cap:'AI드림쌤 메인 — Pre-Check 제공 + 상담 예약 일정 + 지난 이야기 목록'},
-          {src:'images/dreamsam-screen3.png',cap:'우리의 이야기 노트 — AI 요약·감정 분석·학습 습관 개선 키워드 (한국어 대화)'},
-          {src:'images/dreamsam-screen4.png',cap:'영어 대화 — APEC 기사 기반 상담 + 번역 ON 모드 + 버추얼 휴먼 립싱크'},
-        ].map(({src,cap})=>`
-          <div class="img-frame">
-            <div class="img-bar">
-              <div class="img-dot" style="background:#FF5F57"></div>
-              <div class="img-dot" style="background:#FFBD2E"></div>
-              <div class="img-dot" style="background:#28CA41"></div>
-            </div>
-            <img src="${src}" alt="${cap}" loading="lazy"
-              style="filter:saturate(0.85) brightness(0.93);transition:filter .3s"
-              onmouseover="this.style.filter='saturate(1) brightness(1)'"
-              onmouseout="this.style.filter='saturate(0.85) brightness(0.93)'">
-            <div class="img-cap">${cap}</div>
-          </div>`).join('')}
-      </div>
-
-      <!-- 실제 서비스 링크 -->
-      <div class="browser-frame" style="margin-top:20px">
-        <div class="browser-bar">
-          <div class="b-dot" style="background:#FF5F57"></div>
-          <div class="b-dot" style="background:#FFBD2E"></div>
-          <div class="b-dot" style="background:#28CA41"></div>
-          <div class="b-url">mid.home-learn.co.kr/homelearn/aiDreamssam</div>
-          <div class="b-badge">🌐 실제 서비스 운영 중</div>
-        </div>
-        <div style="background:#0F1420;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
-          <div>
-            <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px">AI드림쌤 플러스 — 홈런 중등</div>
-            <div style="font-size:12px;color:var(--ink2)">버추얼 휴먼 AI 선생님과 영어·학습마음 상담 · 130만+ 회원 운영 중</div>
-          </div>
-          <a href="https://mid.home-learn.co.kr/homelearn/aiDreamssam" target="_blank"
-            style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:13px;font-weight:600;padding:9px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:opacity .2s;flex-shrink:0"
-            onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
-            실제 서비스 보기 →
-          </a>
-        </div>
-      </div>
-
-      <!-- 산출물 목록 -->
-      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-        ${['스토리보드 v1.1 (전체 화면 설계)','LLM 프롬프트 설계서','데이터 정책서','상담 예약 시스템 정책','마이크 입력 프로세스 정의','가드레일 정책 문서'].map(d=>`
-          <span style="font-size:12px;font-family:var(--mono);border:1px solid var(--border);color:var(--ink2);padding:4px 10px;border-radius:4px">${d}</span>`).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 성과 -->
-  <section class="sec result-section" style="background:var(--bg)">
-    <div class="sec-inner">
-      <div class="sec-label">성과</div>
-      <div class="result-grid">
-        ${[
-          {eyebrow:'서비스 규모',num:130,unit:'만+',label:'홈런 중등 누적 회원 수',pct:100},
-          {eyebrow:'학습 빅데이터',num:1600,unit:'만건/일',label:'학습 데이터 기반 분석',pct:100},
-          {eyebrow:'버추얼 휴먼',num:3,unit:'종+',label:'페르소나별 AI 선생님 캐릭터',pct:75},
-          {eyebrow:'가드레일',num:2,unit:'레이어',label:'학습범위 제한 + 연령 필터링',pct:66},
+          {eyebrow:'적용 학원',num:13,unit:'개',label:'전국 메가스터디 학원 전체 적용',pct:100},
+          {eyebrow:'수능 업데이트',num:10,unit:'회/일',label:'등급컷·합격자 즉시 반영 가능',pct:100},
+          {eyebrow:'운영 자립화',num:1,unit:'개',label:'Campus Admin 통합 운영 시스템',pct:100},
         ].map(r=>`
           <div class="result-cell">
             <div class="result-eyebrow">${r.eyebrow}</div>
@@ -2046,21 +1827,22 @@ function buildAiDreamsamSections(){
       </div>
       <div class="result-desc-wrap">
         <p class="result-desc">
-          <strong>버추얼 휴먼</strong> AI 선생님과 음성 대화 — 페르소나별 성격·음성·립싱크 기획. 중학생 발음 특화 STT 모델로 <strong>부정확한 발음·특수문자·숫자·화폐단위</strong> 처리. 학습 이탈 방지 <strong>가드레일 2중 레이어</strong> + <strong>상담 예약 프로그램</strong> 직접 기획·도입. 일 <strong>1,600만건 학습 빅데이터</strong> 기반 AI 분석. <strong>130만+ 회원</strong> 홈런 중등에 실제 서비스 런칭.
+          전국 <strong>13개 학원 원장 의견 취합</strong> → 리뉴얼 방향 합의 → 화면 설계 → 실무자 교육까지 전 과정 주도.
+          수능 등급컷·합격자 정보가 <strong>하루 10번씩 변경</strong>되는 환경에서 각 학원 담당자가 Campus Admin으로 직접·즉시 업데이트 가능한 구조 구축.
+          <strong>메가스터디 파란색 공통 브랜드</strong>를 유지하면서 <strong>13개 학원 각각의 슬로건·개성</strong>을 살리는 배너 가이드 체계 수립.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- 회고 -->
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
       <div class="sec-label">회고</div>
       <div class="learn-list">
         ${[
-          {type:'keep',label:'KEEP',text:'<strong>가드레일을 프롬프트 + UX 두 레이어에 동시 설계한 것</strong> — LLM만 믿으면 뚫리기 때문에 UX 흐름 자체가 학습 범위를 벗어나지 않도록 이중으로 막는 구조가 핵심이었음.'},
-          {type:'learn',label:'LEARN',text:'<strong>아동 STT는 일반 모델로는 안 된다</strong> — 중학생의 부정확한 발음, 한국어 혼용, 특수문자·화폐단위가 일반 STT에서 모두 실패. 타깃 연령대 데이터로 별도 모델 학습이 필수였음.'},
-          {type:'next',label:'NEXT',text:'<strong>영어 문법 솔루션 고도화</strong> — 학생 발화의 문법 오류를 실시간으로 부드럽게 교정하는 피드백 루프 기획 예정. 거부감 없는 교정 UX 설계가 핵심.'},
+          {type:'keep',label:'KEEP',text:'<strong>원장 인터뷰를 먼저 한 것</strong> — 전국 13개 원장님을 직접 만나 의견을 취합한 덕분에 "공통 브랜드 vs 학원 개성" 갈등을 기획 단계에서 해소할 수 있었음. 현장 없는 기획은 배포 후 반발로 돌아온다.'},
+          {type:'learn',label:'LEARN',text:'<strong>실무자 교육까지가 기획의 완성</strong> — Admin 시스템을 아무리 잘 만들어도 실무자가 못 쓰면 결국 수작업으로 돌아감. 온보딩 교육을 프로젝트 범위에 포함시킨 것이 실제 운영 자립화로 이어졌음.'},
+          {type:'next',label:'NEXT',text:'<strong>수능 정보 자동 연동</strong> — 하루 10번 변경되는 정보를 담당자가 직접 입력하는 구조보다 교육부·입시 기관 데이터와 자동 연동하는 구조로 발전시키면 운영 리소스를 더 줄일 수 있음.'},
         ].map(l=>`
           <div class="learn-item">
             <span class="lb lb-${l.type}">${l.label}</span>
