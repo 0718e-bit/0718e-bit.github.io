@@ -68,7 +68,8 @@ nav{
   object-fit:contain;object-position:bottom center;
   pointer-events:none;user-select:none;
   animation:photoFadeIn .9s .4s both;
-  filter:drop-shadow(0 0 40px rgba(75,123,224,.15));
+  mix-blend-mode:luminosity;
+  filter:brightness(0.95) contrast(1.02);
 }
 /* 상단·하단 그라데이션 오버레이 */
 .hero-right::before{
@@ -77,8 +78,9 @@ nav{
   background:linear-gradient(
     to bottom,
     var(--bg) 0%,
-    transparent 22%,
-    transparent 72%,
+    rgba(17,17,16,.6) 15%,
+    transparent 30%,
+    transparent 68%,
     var(--bg) 100%
   );
   pointer-events:none;
