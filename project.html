@@ -2391,6 +2391,16 @@ function buildCoworkDeputySections(){
     </div>
   </section>
 
+  <!-- 서비스 플로우 이미지 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">서비스 플로우 — 전체 흐름 한눈에</div>
+      <img src="images/cowork-deputy-flow.png" alt="대직자 관리 서비스 플로우" loading="lazy"
+        style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;background:var(--surface)">
+      <p style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:10px;letter-spacing:.5px">↳ 부재 설정 → 권한 이관 → 대화방 노출 제어 (2가지 옵션) → 대직자 업무 수행 → 자동 복귀</p>
+    </div>
+  </section>
+
   <!-- 권한 설계 포인트 -->
   <section class="sec">
     <div class="sec-inner">
@@ -2459,16 +2469,30 @@ function buildCoworkDeputySections(){
     <div class="sec-inner">
       <div class="sec-label">산출물</div>
       <div class="flow-grid" style="grid-template-columns:repeat(3,1fr)">
-        ${[
-          {icon:'📐',title:'서비스 플로우',desc:'부재 설정 → 권한 이관 → 대화방 제어 → 자동 복귀 전 단계 플로우 설계'},
-          {icon:'📋',title:'권한 정책 문서',desc:'대직자 권한 범위·제한 기준·예외 케이스 처리 기준 정의'},
-          {icon:'🖥️',title:'화면 설계',desc:'설정 화면·대직자 뷰·알림 흐름 포함한 스토리보드 작성'},
-        ].map(c=>`
-          <div class="flow-card">
-            <div class="flow-icon">${c.icon}</div>
-            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${c.title}</div>
-            <div style="font-size:13px;color:var(--ink3);line-height:1.65">${c.desc}</div>
-          </div>`).join('')}
+        <a href="images/cowork-deputy-flow.png" target="_blank" style="text-decoration:none">
+          <div class="flow-card" style="cursor:pointer;transition:border-color .2s"
+            onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'">
+            <div class="flow-icon">📐</div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">서비스 플로우</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.65">부재 설정 → 권한 이관 → 대화방 제어 → 자동 복귀 전 단계 플로우</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-top:12px">이미지 열기 →</div>
+          </div>
+        </a>
+        <a href="docs/cowork-deputy-prd.pdf" target="_blank" style="text-decoration:none">
+          <div class="flow-card" style="cursor:pointer;transition:border-color .2s"
+            onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'">
+            <div class="flow-icon">📋</div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">PRD</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.65">대직자 권한 범위·제한 기준·예외 케이스·기능 요구사항 정의 문서</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-top:12px">PDF 열기 →</div>
+          </div>
+        </a>
+        <div class="flow-card">
+          <div class="flow-icon">🖥️</div>
+          <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">화면 설계</div>
+          <div style="font-size:13px;color:var(--ink3);line-height:1.65">설정 화면·대직자 뷰·알림 흐름 포함한 스토리보드 작성</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:12px">위 섹션 참조 ↑</div>
+        </div>
       </div>
     </div>
   </section>`;
