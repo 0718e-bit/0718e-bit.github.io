@@ -2298,7 +2298,7 @@ function togglePain(el){
   overlay.innerHTML = `
     <img id="lb-img" style="max-width:90vw;max-height:82vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.6);object-fit:contain">
     <p id="lb-cap" style="margin-top:14px;font-family:monospace;font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.5px;text-align:center"></p>
-    <button onclick="closeLightbox(event)" style="position:absolute;top:20px;right:28px;background:none;border:none;color:rgba(255,255,255,.6);font-size:28px;cursor:pointer;line-height:1">✕</button>
+    <button onclick="closeLightbox(event)" style="position:absolute;top:20px;right:28px;background:none;border:none;color:rgba(255,255,255,.6);font-size:28px;cursor:pointer;line-height:1">&#x2715;</button>
   `;
   overlay.addEventListener('click', e => { if(e.target===overlay) closeLightbox(e); });
   document.body.appendChild(overlay);
@@ -2539,4 +2539,34 @@ if(p.wip){
     <div class="wip-page">
       <p style="font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">Coming Soon</p>
       <h1 style="font-family:var(--serif);font-size:42px;font-weight:900;color:var(--ink);margin-bottom:14px">${p.title}</h1>
-      <p style="font-size:15px;color:var(--
+      <p style="font-size:15px;color:var(--ink2)">상세 페이지 작성 중입니다.</p>
+    </div>`;
+} else {
+  let sections = buildHero(p);
+  if(p.type==='agent') sections += buildAgentSections();
+  else if(p.type==='qa') sections += buildQaSections();
+  else if(p.type==='insight') sections += buildInsightSections();
+  else if(p.type==='ai-textbook') sections += buildAiTextbookSections();
+  else if(p.type==='ai-dreamsam') sections += buildAiDreamsamSections();
+  else if(p.type==='math-cells') sections += buildMathCellsSections();
+  else if(p.type==='tutor-admin') sections += buildTutorAdminSections();
+  else if(p.type==='mock-exam') sections += buildMockExamSections();
+  else if(p.type==='mega-renewal') sections += buildMegaRenewalSections();
+  else if(p.type==='cowork-deputy') sections += buildCoworkDeputySections();
+  document.getElementById('content').innerHTML = sections;
+
+  // 인사이트 화면 바 초기 애니메이션
+  setTimeout(animateSentimentBars, 600);
+
+  // 성과 섹션 진입 시 애니메이션
+  const resultObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ animateResults(); resultObs.disconnect(); }
+    });
+  },{threshold:.2});
+  const resultEl = document.querySelector('.result-grid');
+  if(resultEl) resultObs.observe(resultEl);
+}
+</script>
+</body>
+</html>
