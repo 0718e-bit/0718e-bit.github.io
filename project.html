@@ -627,6 +627,18 @@ const DATA = {
     type:"mega-renewal",
     next:"noa-agent"
   },
+  "cowork-deputy":{
+    co:"㈜스펙트라 · Cowork+",period:"2026.05 – 2026.07",role:"제품기획 100%",active:false,
+    title:"Cowork+ 대직자 관리",
+    tags:["B2B SaaS","금융","보험설계","권한설계"],
+    summary:[
+      {label:"배경", text:"설계사 부재 시 고객·할 일이 <strong>관리 공백 상태</strong>로 방치돼 고객 이탈 및 민원 발생 위험 — 부재 중에도 업무 연속성을 보장하는 구조 필요"},
+      {label:"내가 한 일", text:"<strong>부재 설정 → 대직자 지정 → 권한 이관 → 대화방 노출 제어</strong>의 전 플로우를 설계하고, 금융 업무 특수성을 반영한 정책 문서화 주도"},
+      {label:"성격", text:"<strong>B2B SaaS 권한 설계</strong> — 복잡한 금융 위임 구조를 서비스 플로우로 구현한 운영 연속성 기획"},
+    ],
+    type:"cowork-deputy",
+    next:"noa-agent"
+  },
 };
 
 /* ===================== 섹션 빌더 ===================== */
@@ -2304,6 +2316,121 @@ function animateResults(){
   });
 }
 
+/* ── Cowork+ 대직자 관리 섹션 ── */
+function buildCoworkDeputySections(){
+  return `
+  <!-- PAINPOINT -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">Painpoint — 설계사가 없으면 고객도 멈춘다</div>
+      <blockquote class="pain-quote">"설계사가 자리를 비우는 순간, 고객과의 연결도 끊겼다."</blockquote>
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'🔕',title:'고객 연락 단절',sub:'부재 중 고객 메시지 방치',detail:['설계사 부재 시 고객 대화방이 그대로 방치','급한 문의도 응답 없이 묻혀 민원·이탈 위험','보험 상품 특성상 타이밍이 중요한 응대 누락']},
+              {icon:'📋',title:'할 일 관리 공백',sub:'인수인계 없이 업무 중단',detail:['설계사의 할 일 목록을 대직자가 파악할 방법 없음','구두 인수인계 의존 → 누락·오해 반복','복수 고객 동시 공백 시 대응 불가']},
+              {icon:'🔐',title:'권한 범위 불명확',sub:'무제한 공유 또는 완전 차단',detail:['대직자에게 줄 권한 범위 기준 없음','민감한 고객 정보를 어디까지 공유할지 정책 부재','금융 업무 특성상 과도한 권한은 컴플라이언스 리스크']},
+            ].map(c=>`
+              <div class="pvs-card pain-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="pvs-divider"><div class="pvs-arrow-big">→</div></div>
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">
+            ${[
+              {icon:'📅',title:'부재 설정 플로우',sub:'날짜 지정 + 대직자 선택',detail:['부재 시작일·종료일 설정','대직자를 팀 내에서 지정','설정 즉시 권한 이관 예약 처리']},
+              {icon:'🔄',title:'권한 이관 구조',sub:'고객·할 일 단위 선택적 위임',detail:['고객 목록 단위로 대직자에게 이관','할 일 열람·처리 권한 부여','이관 범위를 설계사가 직접 제어'],},
+              {icon:'💬',title:'대화방 노출 제어',sub:'선택적 공개로 컴플라이언스 준수',detail:['전체 공개 / 선택 공개 / 비공개 3단계','민감 대화방은 설계사가 직접 비공개 설정','부재 종료 시 자동으로 권한 원복']},
+            ].map(c=>`
+              <div class="pvs-card sol-card" onclick="toggleCard(this)">
+                <div class="pvs-card-head">
+                  <span class="pvs-icon">${c.icon}</span>
+                  <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+                  <span class="pvs-arrow">›</span>
+                </div>
+                <div class="flow-detail"><div class="flow-detail-inner">
+                  <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+                </div></div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 핵심 플로우 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">핵심 플로우 — 부재 설정부터 복귀까지 4단계</div>
+      <div class="flow-grid" style="grid-template-columns:repeat(4,1fr)">
+        ${[
+          {step:'STEP 01',icon:'🗓️',title:'부재 설정',desc:'설계사가 부재 기간과 대직자를 지정. 종료일 설정 시 자동 복귀 예약.'},
+          {step:'STEP 02',icon:'🔄',title:'권한 이관',desc:'고객 목록·할 일 열람 권한이 대직자에게 이관. 범위는 설계사가 선택적으로 제어.'},
+          {step:'STEP 03',icon:'💬',title:'대화방 노출 제어',desc:'대직자에게 보여줄 대화방을 설계사가 직접 선택. 민감 채널은 비공개 유지.'},
+          {step:'STEP 04',icon:'✅',title:'자동 복귀',desc:'부재 종료일 도래 시 모든 권한이 자동으로 원래 설계사에게 복구.'},
+        ].map(s=>`
+          <div class="flow-card">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--accent2);letter-spacing:1.5px;margin-bottom:12px">${s.step}</div>
+            <div class="flow-icon">${s.icon}</div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${s.title}</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.65">${s.desc}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- 권한 설계 포인트 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">기획 포인트 — 금융 업무 특수성을 반영한 권한 설계</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        ${[
+          {title:'최소 권한 원칙',icon:'🛡️',desc:'대직자는 업무 처리에 꼭 필요한 권한만 부여. 설계사의 전체 고객 데이터에 무제한 접근 불가. 컴플라이언스 리스크를 구조적으로 차단.'},
+          {title:'설계사 주도 제어',icon:'🎛️',desc:'어떤 고객·대화방을 공유할지는 설계사가 직접 결정. 강제 이관 없이 자율적 범위 설정으로 현장 수용성 확보.'},
+          {title:'이관 이력 추적',icon:'📊',desc:'권한 이관·복귀 이력을 기록해 감사 대응 가능. 누가 언제 어떤 권한을 가졌는지 명확히 추적.'},
+          {title:'자동 복귀 안전장치',icon:'⏰',desc:'부재 종료일 이후 권한이 자동 원복돼 수동 처리 누락 방지. 장기 부재 시에도 복귀 시점에 즉시 정상화.'},
+        ].map(c=>`
+          <div class="flow-card">
+            <div style="font-size:22px;margin-bottom:12px">${c.icon}</div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${c.title}</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.7">${c.desc}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- 산출물 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">산출물</div>
+      <div class="flow-grid" style="grid-template-columns:repeat(3,1fr)">
+        ${[
+          {icon:'📐',title:'서비스 플로우',desc:'부재 설정 → 권한 이관 → 대화방 제어 → 자동 복귀 전 단계 플로우 설계'},
+          {icon:'📋',title:'권한 정책 문서',desc:'대직자 권한 범위·제한 기준·예외 케이스 처리 기준 정의'},
+          {icon:'🖥️',title:'화면 설계',desc:'설정 화면·대직자 뷰·알림 흐름 포함한 스토리보드 작성'},
+        ].map(c=>`
+          <div class="flow-card">
+            <div class="flow-icon">${c.icon}</div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${c.title}</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.65">${c.desc}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
 /* ===================== 렌더 ===================== */
 const id = new URLSearchParams(location.search).get('id') || 'noa-agent';
 const p = DATA[id];
@@ -2328,6 +2455,7 @@ if(p.wip){
   else if(p.type==='tutor-admin') sections += buildTutorAdminSections();
   else if(p.type==='mock-exam') sections += buildMockExamSections();
   else if(p.type==='mega-renewal') sections += buildMegaRenewalSections();
+  else if(p.type==='cowork-deputy') sections += buildCoworkDeputySections();
   document.getElementById('content').innerHTML = sections;
 
   // 인사이트 화면 바 초기 애니메이션
