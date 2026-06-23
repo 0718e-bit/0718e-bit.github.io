@@ -2423,6 +2423,16 @@ function buildCoworkDeputySections(){
     </div>
   </section>
 
+  <!-- 서비스 플로우 이미지 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">서비스 플로우 — 전체 흐름 한눈에</div>
+      <img src="images/cowork-deputy-flow.png" alt="대직자 관리 서비스 플로우" loading="lazy"
+        style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;background:var(--surface)">
+      <p style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:10px;letter-spacing:.5px">↳ 부재 설정 → 권한 이관 → 대화방 노출 제어 (2가지 옵션) → 대직자 업무 수행 → 자동 복귀</p>
+    </div>
+  </section>
+
   <!-- 권한 설계 포인트 -->
   <section class="sec">
     <div class="sec-inner">
@@ -2472,16 +2482,12 @@ function buildCoworkDeputySections(){
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
         <div>
           <img src="images/cowork-deputy-absence.png" alt="부재 설정 모달 화면" loading="lazy"
-            onclick="openLightbox(this.src, '부재 설정 — 기간·대직자·대화방 노출 방식 설정')"
-            style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;cursor:zoom-in;transition:opacity .15s"
-            onmouseenter="this.style.opacity='.8'" onmouseleave="this.style.opacity='1'">
+            style="width:100%;border-radius:10px;border:1px solid var(--border);display:block">
           <p style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:10px;letter-spacing:.5px">↳ 부재 설정 — 기간·대직자·대화방 노출 방식 설정</p>
         </div>
         <div>
           <img src="images/cowork-deputy-chat.png" alt="대직자 대화 화면" loading="lazy"
-            onclick="openLightbox(this.src, '대직자 뷰 — 대화방 목록 및 대직자 지정 표시')"
-            style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;cursor:zoom-in;transition:opacity .15s"
-            onmouseenter="this.style.opacity='.8'" onmouseleave="this.style.opacity='1'">
+            style="width:100%;border-radius:10px;border:1px solid var(--border);display:block">
           <p style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:10px;letter-spacing:.5px">↳ 대직자 뷰 — 대화방 목록 및 대직자 지정 표시</p>
         </div>
       </div>
@@ -2493,15 +2499,14 @@ function buildCoworkDeputySections(){
     <div class="sec-inner">
       <div class="sec-label">산출물</div>
       <div class="flow-grid" style="grid-template-columns:repeat(3,1fr)">
-        <a href="images/cowork-deputy-flow.png" target="_blank" style="text-decoration:none">
-          <div class="flow-card" style="cursor:pointer;transition:border-color .2s"
-            onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'">
-            <div class="flow-icon">📐</div>
-            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">서비스 플로우</div>
-            <div style="font-size:13px;color:var(--ink3);line-height:1.65">부재 설정 → 권한 이관 → 대화방 제어 → 자동 복귀 전 단계 플로우</div>
-            <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-top:12px">이미지 열기 →</div>
-          </div>
-        </a>
+        <div class="flow-card" style="cursor:pointer;transition:border-color .2s"
+          onclick="openLightbox('images/cowork-deputy-flow.png','대직자 관리 서비스 플로우')"
+          onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'">
+          <div class="flow-icon">📐</div>
+          <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">서비스 플로우</div>
+          <div style="font-size:13px;color:var(--ink3);line-height:1.65">부재 설정 → 권한 이관 → 대화방 제어 → 자동 복귀 전 단계 플로우</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-top:12px">클릭해서 보기 →</div>
+        </div>
         <a href="docs/cowork-deputy-prd.pdf" target="_blank" style="text-decoration:none">
           <div class="flow-card" style="cursor:pointer;transition:border-color .2s"
             onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'">
@@ -2564,3 +2569,4 @@ if(p.wip){
 </script>
 </body>
 </html>
+             
