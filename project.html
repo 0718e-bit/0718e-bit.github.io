@@ -2557,4 +2557,20 @@ if(p.wip){
   else if(p.type==='mock-exam') sections += buildMockExamSections();
   else if(p.type==='mega-renewal') sections += buildMegaRenewalSections();
   else if(p.type==='cowork-deputy') sections += buildCoworkDeputySections();
-  document.getElementById('con
+  document.getElementById('content').innerHTML = sections;
+
+  // 인사이트 화면 바 초기 애니메이션
+  setTimeout(animateSentimentBars, 600);
+
+  // 성과 섹션 진입 시 애니메이션
+  const resultObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ animateResults(); resultObs.disconnect(); }
+    });
+  },{threshold:.2});
+  const resultEl = document.querySelector('.result-grid');
+  if(resultEl) resultObs.observe(resultEl);
+}
+</script>
+</body>
+</html>
