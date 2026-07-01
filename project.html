@@ -2565,4 +2565,36 @@ document.getElementById('next-link').href = `project.html?id=${p.next}`;
 if(p.wip){
   document.getElementById('content').innerHTML=`
     <div class="wip-page">
- 
+      <p style="font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">Coming Soon</p>
+      <h1 style="font-family:var(--serif);font-size:42px;font-weight:900;color:var(--ink);margin-bottom:14px">${p.title}</h1>
+      <p style="font-size:15px;color:var(--ink2)">상세 페이지 작성 중입니다.</p>
+    </div>`;
+} else {
+  let sections = buildHero(p);
+  if(p.type==='agent') sections += buildAgentSections();
+  else if(p.type==='qa') sections += buildQaSections();
+  else if(p.type==='insight') sections += buildInsightSections();
+  else if(p.type==='ai-textbook') sections += buildAiTextbookSections();
+  else if(p.type==='ai-dreamsam') sections += buildAiDreamsamSections();
+  else if(p.type==='math-cells') sections += buildMathCellsSections();
+  else if(p.type==='tutor-admin') sections += buildTutorAdminSections();
+  else if(p.type==='mock-exam') sections += buildMockExamSections();
+  else if(p.type==='mega-renewal') sections += buildMegaRenewalSections();
+  else if(p.type==='cowork-deputy') sections += buildCoworkDeputySections();
+  document.getElementById('content').innerHTML = sections;
+
+  // 인사이트 화면 바 초기 애니메이션
+  setTimeout(animateSentimentBars, 600);
+
+  // 성과 섹션 진입 시 애니메이션
+  const resultObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ animateResults(); resultObs.disconnect(); }
+    });
+  },{threshold:.2});
+  const resultEl = document.querySelector('.result-grid');
+  if(resultEl) resultObs.observe(resultEl);
+}
+</script>
+</body>
+</html>
