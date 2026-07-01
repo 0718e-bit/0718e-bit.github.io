@@ -1481,7 +1481,7 @@ function switchScreen(idx, btn){
 function animateSentimentBars(){
   setTimeout(()=>{
     document.querySelectorAll('.sent-fill').forEach(el=>{
-      el.style.width = el.style.getPropertyValue('--w') || el.getAttribute('style').match(/--w:([^%]+%)/)?.[1] || '0%';
+      var _m = el.getAttribute('style').match(/--w:([^%]+%)/); el.style.width = el.style.getPropertyValue('--w') || (_m && _m[1]) || '0%';
     });
     document.querySelectorAll('.risk-fill').forEach(el=>{ el.style.width = el.style.width; });
   }, 100);
@@ -2565,3 +2565,5 @@ if(p.wip){
   },{threshold:.2});
   const resultEl = document.querySelector('.result-grid');
   if(resultEl) resultObs.observe(resultEl);
+}
+</scrip
