@@ -2218,28 +2218,65 @@ function buildAiDreamsamSections(){
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
       <div class="sec-label">화면 · 산출물</div>
-      <div class="img-stack">
-        ${[
-          ['images/dreamsam-storyboard.png','Figma 화면설계안 — AI드림쌤 플러스 전체 UX 흐름 및 주요 화면 설계'],
-          ['images/dreamsam-screen1.png','AI드림쌤 플러스 — 학습 홈 · 드림쌤 캐릭터 · 학습 목표 설정 화면'],
-          ['images/dreamsam-screen2.png','AI 드림쌤 대화 · 맞춤 문제 추천 · 취약 영역 집중 화면'],
-          ['images/dreamsam-screen3.png','학습 리포트 · 성취 현황 · 학부모 알림 화면'],
-          ['images/dreamsam-screen4.png','동기부여 시스템 — 리워드 · 챌린지 · 목표 달성 화면'],
-        ].map(([src,cap])=>`
-          <div class="img-frame">
-            <div class="img-bar">
-              <div class="img-dot" style="background:#FF5F57"></div>
-              <div class="img-dot" style="background:#FFBD2E"></div>
-              <div class="img-dot" style="background:#28CA41"></div>
-            </div>
-            <img src="${src}" alt="${cap}" loading="lazy"
-              style="filter:saturate(0.75) brightness(0.9);transition:filter .3s;cursor:zoom-in"
-              onclick="openLightbox(this.src,'${cap}')"
-              onmouseover="this.style.filter='saturate(1) brightness(1)'"
-              onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
-            <div class="img-cap">${cap}</div>
-          </div>`).join('')}
+
+      <div class="screen-tabs" id="dreamsam-screen-tabs">
+        <button class="stab active" onclick="switchDreamsamScreen(0,this)">Figma 화면설계안</button>
+        <button class="stab real-tab" onclick="switchDreamsamScreen(1,this)">📸 실제 구현 화면</button>
       </div>
+
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="b-dot" style="background:#FF5F57"></div>
+          <div class="b-dot" style="background:#FFBD2E"></div>
+          <div class="b-dot" style="background:#28CA41"></div>
+          <div class="b-url">figma.com / ai-dreamsam-plus</div>
+          <div class="b-badge"><span class="sdot" style="margin-right:4px"></span>제품기획 100%</div>
+        </div>
+
+        <!-- Figma 화면설계안 -->
+        <div class="app-screen active" id="dreamsam-screen-0" style="background:#13131F;padding:20px 24px;min-height:420px">
+          <div class="screen-header">
+            <h2 class="screen-title">AI드림쌤 플러스 — 화면설계안</h2>
+            <div class="screen-meta">전체 UX 흐름 및 주요 화면 설계 (Figma)</div>
+          </div>
+          <div class="real-screens">
+            <div class="real-screen-item">
+              <div class="real-screen-label">Figma 화면설계안 — AI드림쌤 플러스 전체 UX 흐름 및 주요 화면 설계</div>
+              <img src="images/dreamsam-storyboard.png" alt="AI드림쌤 Figma 화면설계안" loading="lazy"
+                style="filter:saturate(0.75) brightness(0.9);transition:filter .3s;cursor:zoom-in"
+                onclick="openLightbox(this.src,'Figma 화면설계안 — AI드림쌤 플러스')"
+                onmouseover="this.style.filter='saturate(1) brightness(1)'"
+                onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+            </div>
+          </div>
+        </div>
+
+        <!-- 실제 구현 화면 -->
+        <div class="app-screen" id="dreamsam-screen-1" style="background:#13131F;padding:20px 24px;min-height:420px">
+          <div class="screen-header">
+            <h2 class="screen-title">실제 구현 화면</h2>
+            <div class="real-badge">📸 실제 납품·배포된 화면입니다</div>
+          </div>
+          <div class="real-screens">
+            ${[
+              ['images/dreamsam-screen1.png','AI드림쌤 플러스 — 학습 홈 · 드림쌤 캐릭터 · 학습 목표 설정 화면'],
+              ['images/dreamsam-screen2.png','AI 드림쌤 대화 · 맞춤 문제 추천 · 취약 영역 집중 화면'],
+              ['images/dreamsam-screen3.png','학습 리포트 · 성취 현황 · 학부모 알림 화면'],
+              ['images/dreamsam-screen4.png','동기부여 시스템 — 리워드 · 챌린지 · 목표 달성 화면'],
+            ].map(([src,cap])=>`
+              <div class="real-screen-item">
+                <div class="real-screen-label">${cap}</div>
+                <img src="${src}" alt="${cap}" loading="lazy"
+                  style="filter:saturate(0.75) brightness(0.9);transition:filter .3s;cursor:zoom-in"
+                  onclick="openLightbox(this.src,'${cap}')"
+                  onmouseover="this.style.filter='saturate(1) brightness(1)'"
+                  onmouseout="this.style.filter='saturate(0.75) brightness(0.9)'">
+              </div>`).join('')}
+          </div>
+        </div>
+
+      </div>
+      <div class="qa-screen-caption" id="dreamsam-caption">Figma 화면설계안 — AI드림쌤 플러스 전체 UX 흐름 및 주요 화면 설계</div>
     </div>
   </section>
 
@@ -2281,6 +2318,18 @@ function buildAiDreamsamSections(){
       </div>
     </div>
   </section>`;
+}
+
+function switchDreamsamScreen(idx, btn){
+  document.querySelectorAll('#dreamsam-screen-tabs .stab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  ['dreamsam-screen-0','dreamsam-screen-1'].forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('active', i===idx);
+  });
+  const caps=['Figma 화면설계안 — AI드림쌤 플러스 전체 UX 흐름 및 주요 화면 설계','실제 구현 화면 — AI드림쌤 플러스 학습 홈·대화·리포트·동기부여'];
+  const cap=document.getElementById('dreamsam-caption');
+  if(cap) cap.textContent=caps[idx]||'';
 }
 
 function switchInsightScreen(idx, btn){
