@@ -2390,9 +2390,10 @@ function buildCoworkDeputySections(){
           <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
           <div class="pvs-cards">
             ${[
-              {icon:'🔕',title:'고객 연락 단절',sub:'부재 중 고객 메시지 방치',detail:['설계사 부재 시 고객 대화방이 그대로 방치','급한 문의도 응답 없이 묻혀 민원·이탈 위험','보험 상품 특성상 타이밍이 중요한 응대 누락']},
-              {icon:'📋',title:'할 일 관리 공백',sub:'인수인계 없이 업무 중단',detail:['설계사의 할 일 목록을 대직자가 파악할 방법 없음','구두 인수인계 의존 → 누락·오해 반복','복수 고객 동시 공백 시 대응 불가']},
-              {icon:'🔐',title:'권한 범위 불명확',sub:'무제한 공유 또는 완전 차단',detail:['대직자에게 줄 권한 범위 기준 없음','민감한 고객 정보를 어디까지 공유할지 정책 부재','금융 업무 특성상 과도한 권한은 컴플라이언스 리스크']},
+              {icon:'🔕',title:'업무 연속성 공백',sub:'설계사 부재 → 고객·업무 단절',detail:['설계사 부재 시 고객 대화방 방치 → 민원·이탈','할 일 목록·인수인계 없이 업무 중단','대직자 지정·권한 이관 체계 없어 공백 장기화']},
+              {icon:'💬',title:'메시지 UX 미흡',sub:'수정·답장·리액션 모두 없음',detail:['보낸 메시지 수정·삭제 불가 — 오발송 대응 불가','맥락 없는 평문 나열 — 긴 대화에서 혼선','간단 피드백 수단 없어 실시간 소통 어려움']},
+              {icon:'👁️',title:'현장 가시성 부족',sub:'미입장·역할·화면 모두 파악 불가',detail:['설계사 미입장 여부 알 수 없어 재연락 타이밍 놓침','방장·대직자·파트너 역할 구분 없어 혼선','작은 노트북 화면에서 업무 포탈+채팅 동시 사용 불편']},
+              {icon:'📎',title:'카카오 채널 불편',sub:'파일·이미지·참여자 모두 불편',detail:['파일 전송 시 난수 파일명 저장 — 구분·관리 불가','이미지 5MB 초과 시 오류 없이 묵살 — 전달 실패를 모름','참여자 정보 조회 불가 — 상담 중 누구인지 확인 불가']},
             ].map(c=>`
               <div class="pvs-card pain-card" onclick="toggleCard(this)">
                 <div class="pvs-card-head">
@@ -2411,9 +2412,10 @@ function buildCoworkDeputySections(){
           <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
           <div class="pvs-cards">
             ${[
-              {icon:'📅',title:'부재 설정 플로우',sub:'날짜 지정 + 대직자 선택',detail:['부재 시작일·종료일 설정','대직자를 팀 내에서 지정','설정 즉시 권한 이관 예약 처리']},
-              {icon:'🔄',title:'권한 이관 구조',sub:'고객·할 일 단위 선택적 위임',detail:['고객 목록 단위로 대직자에게 이관','할 일 열람·처리 권한 부여','이관 범위를 설계사가 직접 제어'],},
-              {icon:'💬',title:'대화방 노출 제어',sub:'선택적 공개로 컴플라이언스 준수',detail:['전체 공개 / 선택 공개 / 비공개 3단계','민감 대화방은 설계사가 직접 비공개 설정','부재 종료 시 자동으로 권한 원복']},
+              {icon:'🔄',title:'업무 연속성 확보',sub:'대직자 관리 + 멤버 배지',detail:['부재 설정 → 대직자 지정 → 권한 이관 → 자동 복귀','멤버 배지로 방장·대직자·근무상태 한눈에 표시','이관 이력 추적 + 컴플라이언스 구조 설계']},
+              {icon:'✏️',title:'메시지 UX 고도화',sub:'수정·삭제·답장·이모지·공지',detail:['5분 이내 메시지 수정·삭제로 오발송 즉시 대응','답장 기능으로 원문 메시지와 맥락 연결','이모지 리액션 + 모바일 공지로 빠른 피드백']},
+              {icon:'📱',title:'현장 UX 개선',sub:'미입장 안내·PWA·참여자 선택',detail:['설계사 미입장 시 토스트 알림으로 즉시 인지','대화형 보기 PWA — 영업포탈과 나란히 사용 가능','조직도 기반 참여자 선택 UI — 초대 오류 감소']},
+              {icon:'🔗',title:'카카오 연동 개선',sub:'파일 메모·이미지 분기·참여자 조회',detail:['파일 메모(발신자·상담원 메모)로 파일 맥락 보존','5MB 초과 이미지 자동 파일형 전환 — 전달 실패 없음','/참여자 예약어로 대화방 참여자 즉시 조회']},
             ].map(c=>`
               <div class="pvs-card sol-card" onclick="toggleCard(this)">
                 <div class="pvs-card-head">
@@ -2431,6 +2433,28 @@ function buildCoworkDeputySections(){
     </div>
   </section>
 
+
+
+  <!-- 기능 전체 맵 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">기능 전체 맵 — 12개 기능 기획</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+        ${[
+          {cat:'업무 연속성',items:['대직자 관리 (부재 설정·권한 이관·자동 복귀)','멤버 배지 (역할·근무상태 시각화)']},
+          {cat:'메시지 UX 고도화',items:['메시지 수정·삭제','답장 기능','이모지 리액션','공지 기능 (모바일)']},
+          {cat:'현장 접근성',items:['설계사 미입장 안내','대화형 보기 (PWA)','참여자 선택 UI 개편']},
+          {cat:'카카오 채널 연동',items:['파일 메모 (발신자·상담원)','이미지 5MB 자동 분기','/참여자 정보 예약어']},
+        ].map(g=>`
+          <div class="flow-card">
+            <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">${g.cat}</div>
+            <ul style="list-style:none;padding:0;margin:0">
+              ${g.items.map(it=>`<li style="font-size:13px;color:var(--ink3);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px"><span style="color:var(--accent2);font-weight:700">✓</span>${it}</li>`).join('')}
+            </ul>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
 
   <!-- 플랫폼 현황 -->
   <section class="sec" style="background:var(--bg2)">
@@ -2455,7 +2479,7 @@ function buildCoworkDeputySections(){
   <!-- 핵심 플로우 -->
   <section class="sec">
     <div class="sec-inner">
-      <div class="sec-label">핵심 플로우 — 부재 설정부터 복귀까지 4단계</div>
+      <div class="sec-label">대직자 관리 — 부재 설정부터 복귀까지 4단계</div>
       <div class="flow-grid" style="grid-template-columns:repeat(4,1fr)">
         ${[
           {step:'STEP 01',icon:'🗓️',title:'부재 설정',desc:'설계사가 부재 기간과 대직자를 지정. 종료일 설정 시 자동 복귀 예약.'},
@@ -2486,7 +2510,7 @@ function buildCoworkDeputySections(){
   <!-- 권한 설계 포인트 -->
   <section class="sec">
     <div class="sec-inner">
-      <div class="sec-label">기획 포인트 — 금융 업무 특수성을 반영한 권한 설계</div>
+      <div class="sec-label">기획 포인트 — 대직자 관리의 권한 설계 원칙</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
         ${[
           {title:'최소 권한 원칙',icon:'🛡️',desc:'대직자는 업무 처리에 꼭 필요한 권한만 부여. 설계사의 전체 고객 데이터에 무제한 접근 불가. 컴플라이언스 리스크를 구조적으로 차단.'},
