@@ -2490,16 +2490,19 @@ function buildCoworkDeputySections(){
   <!-- 기능 전체 맵 -->
   <section class="sec">
     <div class="sec-inner">
-      <div class="sec-label">기능 전체 맵 — 12개 기능 기획</div>
+      <div class="sec-label">기능 전체 맵 — 15개 기능 기획</div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
         ${[
-          {cat:'업무 연속성',items:['대직자 관리 (부재 설정·권한 이관·자동 복귀)','멤버 배지 (역할·근무상태 시각화)']},
-          {cat:'메시지 UX 고도화',items:['메시지 수정·삭제','답장 기능','이모지 리액션','공지 기능 (모바일)']},
-          {cat:'현장 접근성',items:['설계사 미입장 안내','대화형 보기 (PWA)','참여자 선택 UI 개편']},
-          {cat:'카카오 채널 연동',items:['파일 메모 (발신자·상담원)','이미지 5MB 자동 분기','/참여자 정보 예약어']},
+          {cat:'대직자 관리',badge:'STORY 1–10',items:['3단계 설정 플로우 (이관범위 → 대직자 → 기간/권한)','대직자 지정·해제 (대화방·할일 단위)','대직 중 UI 표시 + 검색 필터','업무 회수 (기간 중/종료 후 대화방 단위)']},
+          {cat:'퇴사자·권한 관리',badge:'STORY 11–13',items:['퇴사 처리 강제 이관 프로세스','역할 기반 권한 설계 (즉시 반영)','대화·할일 일괄 변경 (관리자 전용)']},
+          {cat:'메시지 UX 고도화',badge:'',items:['메시지 수정·삭제','답장 기능','이모지 리액션','공지 기능 (모바일)']},
+          {cat:'현장·채널 기능',badge:'',items:['설계사 미입장 안내','대화형 보기 (PWA)','멤버 배지 (역할·근무상태)','카카오 채널 연동 (파일·이미지·예약어)']},
         ].map(g=>`
           <div class="flow-card fmap-card">
-            <div class="fmap-cat" style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;transition:color .2s">${g.cat}</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+              <div class="fmap-cat" style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;transition:color .2s">${g.cat}</div>
+              ${g.badge?`<span style="font-size:10px;font-family:var(--mono);color:var(--ink3);background:var(--bg2);border:1px solid var(--border);padding:2px 7px;border-radius:4px">${g.badge}</span>`:''}
+            </div>
             <ul style="list-style:none;padding:0;margin:0">
               ${g.items.map(it=>`<li class="fmap-li" style="font-size:13px;color:var(--ink3);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;transition:color .2s"><span style="color:var(--accent2);font-weight:700">✓</span>${it}</li>`).join('')}
             </ul>
@@ -2677,7 +2680,7 @@ function buildCoworkDeputySections(){
             onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'">
             <div class="flow-icon">📋</div>
             <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">PRD</div>
-            <div style="font-size:13px;color:var(--ink3);line-height:1.65">대직자 권한 범위·제한 기준·예외 케이스·기능 요구사항 정의 문서</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.65">대직/퇴사자 관리 PRD v1.2 — 13개 Story, 핵심 정책·상세 기능 스펙·엣지 케이스 정의</div>
             <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-top:12px">PDF 열기 →</div>
           </div>
         </a>
