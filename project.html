@@ -1301,6 +1301,112 @@ function buildInsightSections(){
     </div>
   </section>
 
+
+  <!-- B2B 설계 포인트 -->
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">B2B 설계 포인트 — 경영진이 쓰는 보고서로</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+        <div class="flow-card">
+          <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">처음 설계 의도</div>
+          <p style="font-size:14px;color:var(--ink2);line-height:1.7;margin:0">항목과 항목을 겹쳐 분석하면, 1차원적이지 않은 — <strong style="color:var(--ink)">우리도 몰랐던 인사이트</strong>를 뽑아낼 수 있을 것으로 기대. B2B 제조 시장은 경영진 보고가 많아서, 인사이트를 처음부터 <strong style="color:var(--ink)">보고용으로 구성해 활용</strong>할 수 있다는 것이 중요했습니다.</p>
+        </div>
+        <div class="flow-card">
+          <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">실제 고객이 원했던 것</div>
+          <p style="font-size:14px;color:var(--ink2);line-height:1.7;margin:0">복잡하지 않고, 데이터를 찾으러 가지 않아도, <strong style="color:var(--ink)">우리 문제를 한눈에 보고 싶어하는 대시보드</strong>. 복잡한 분석보다 단순함이 이겼습니다. 단, <strong style="color:var(--ink)">"1개월만 사용하더라도 제대로 된 것을 쓰고 싶다"</strong> — 이 지점이 핵심이었습니다.</p>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px;display:flex;gap:12px;flex-wrap:wrap">
+        <div style="font-size:11px;font-family:var(--mono);color:var(--ink3);margin-right:4px">고객에게 준 가치 →</div>
+        ${['프로세스 가시화','단순한 보고 형태','낮아진 운영 비용'].map(v=>`
+          <span style="font-size:13px;font-weight:600;color:var(--accent2);background:rgba(123,163,236,.1);border:1px solid rgba(123,163,236,.2);padding:4px 12px;border-radius:4px">${v}</span>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- 가온전선 업무 프로세스 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">가온전선 업무 프로세스 — 설계 목표 vs 실제 구성</div>
+      <p style="font-size:14px;color:var(--ink3);line-height:1.7;margin:0 0 20px">별도 시스템 데이터 없이 대화만으로 분석하다 보니 확인이 불가능한 부분들이 있었고, 그 결과 실제 구성된 프로세스는 목표와 일부 달라졌습니다.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+        ${[
+          {panel:'견적·발주',target:['수주 전환 분석','전환율·발주수','미수주 원인'],actual:['견적·발주 추이 비교','견적·발주 유형 구분'],drop:['원클릭 접수 미확인','전환율 정확도 낮음']},
+          {panel:'생산·납기',target:['품목별 납기 준수율','납기 독촉 TOP3'],actual:['재고문의 다빈도 키워드','납기 지연 원인'],drop:['준수율·독촉TOP3 확인 불가']},
+          {panel:'출하·배차',target:['일자별 출하요청','출하요청자 비중','성적서 업무현황'],actual:['일자별 출하요청 (할일 연동)','출하요청자 비중현황'],drop:['성적서 확인 불가','출하요청 AI분석 정확도 낮음']},
+          {panel:'클레임',target:['클레임 사후대응'],actual:['앞으로의 방향'],drop:['사후대응 확인 불가 (전화 응대)']},
+        ].map(p=>`
+          <div class="flow-card" style="padding:14px 16px">
+            <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase">${p.panel}</div>
+            <div style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:4px">✓ 구현</div>
+            ${p.actual.map(a=>`<div style="font-size:12px;color:var(--ink2);padding:2px 0">${a}</div>`).join('')}
+            <div style="margin-top:8px;font-size:11px;font-weight:600;color:#FF6B6B;margin-bottom:4px">✕ 미구현</div>
+            ${p.drop.map(d=>`<div style="font-size:12px;color:var(--ink3);padding:2px 0">${d}</div>`).join('')}
+          </div>`).join('')}
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 20px;display:flex;align-items:center;gap:20px">
+        <div style="font-size:11px;font-family:var(--mono);color:var(--ink3)">로드맵 →</div>
+        ${['🔍 진단 (현재)','💊 처방','🔮 예측'].map((s,i)=>`
+          <span style="font-size:13px;color:${i===0?'var(--accent2)':'var(--ink3)'};font-weight:${i===0?700:400}">${s}</span>${i<2?'<span style="color:var(--ink3);font-size:12px">→</span>':''}`).join('')}
+        <div style="margin-left:auto;font-size:12px;color:var(--ink3)">ERP·원클릭 연동 시 처방·예측 단계로 확장 예정</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 요구사항 & 숨은 니즈 -->
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">요구사항 & 숨은 니즈 — 수면 아래의 이유</div>
+      <div style="background:var(--surface);border-left:3px solid var(--accent2);padding:14px 20px;border-radius:0 8px 8px 0;margin-bottom:20px;font-size:14px;color:var(--ink2);line-height:1.7">
+        겉으로 드러난 요청 — <strong style="color:var(--ink)">"업무 프로세스가 실제로 그렇게 흘러가고 있는지 확인하고 싶다"</strong>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+        ${[
+          {n:'01',title:'프로세스 대화로 정립',desc:'문서화되지 않았던 업무 흐름을 대화 데이터로 직접 추적. 4개 패널(견적·발주 / 생산·납기 / 출하·배차 / 클레임)으로 구성.'},
+          {n:'02',title:'흐름·증감으로 이상 징후 감지',desc:'일자별 출하요청 흐름 추적과 전주 대비 동기간 비교 분석 — 문제가 반복되기 전에 미리 볼 수 있도록 구성.'},
+          {n:'03',title:'임원 보고용 형식 구체화',desc:'정돈된 UI · 최소한의 텍스트 · 구조화된 그래프 · A4 한 장 4원칙. 종합평가 → 프로세스별 요약 → 세부 설명 3단 구조.'},
+          {n:'04',title:'비용 낮추면서 동일한 가치',desc:'AI 실시간 요약 대신 데이터 기획 기반 자동 생성. 분류기준·건수·증감치 규칙을 정의해 데이터만 바뀌면 문장이 조립됩니다.'},
+        ].map(i=>`
+          <div class="flow-card">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--accent2);letter-spacing:1.5px;margin-bottom:8px">${i.n}</div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${i.title}</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.65">${i.desc}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- 기술 설계 포인트 -->
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">기술 설계 포인트 — 정확도와 토큰 효율을 함께</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+        <div class="flow-card" style="border-color:rgba(255,107,107,.2)">
+          <div style="font-size:11px;font-family:var(--mono);color:#FF6B6B;letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">✕ 사용 안 함 — AI 실시간 요약</div>
+          <p style="font-size:13px;color:var(--ink3);line-height:1.7;margin:0">매 발행마다 대화 내용을 AI에 넣어 문장을 새로 생성 — 발행할수록 토큰 비용이 누적됩니다.</p>
+        </div>
+        <div class="flow-card" style="border-color:rgba(62,207,106,.2)">
+          <div style="font-size:11px;font-family:var(--mono);color:var(--green);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">✓ 채택 — 데이터 기획 기반 자동 생성</div>
+          <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin:0">산출 기준·동점 처리·케이스 분기를 문서로 정의해두고, 데이터만 바뀌면 규칙대로 문장이 조립됩니다. 공용 선별 레이어 재사용으로 같은 대화를 두 번 AI에 태우지 않아 토큰 비용도 낮췄습니다.</p>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">다시 확인한 것 — AI가 모든 지표를 커버할 수는 없다</div>
+        <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin:0 0 12px">대화 안에서 AI 추출 정확도가 떨어지는 항목은 과감히 AI 판단을 배제하고 별도 데이터로 저장하는 쪽을 택했습니다.</p>
+        <div style="display:flex;align-items:center;gap:10px;font-size:12px;flex-wrap:wrap">
+          <span style="color:#FF6B6B;background:rgba(255,107,107,.1);padding:4px 10px;border-radius:4px">대화 내용 AI 추출 ✕</span>
+          <span style="color:var(--ink3)">→</span>
+          <span style="color:var(--accent2);background:rgba(123,163,236,.1);padding:4px 10px;border-radius:4px">할 일 등록</span>
+          <span style="color:var(--ink3)">→</span>
+          <span style="color:var(--green);background:rgba(62,207,106,.1);padding:4px 10px;border-radius:4px">구조화된 데이터</span>
+          <span style="color:var(--ink3)">→</span>
+          <span style="color:var(--ink2);background:var(--surface2);padding:4px 10px;border-radius:4px">대시보드가 데이터 호출</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink3);margin:10px 0 0;font-family:var(--mono)">↳ '일자별 출하 현황' 지표 — 대화로는 AI가 안정적으로 추출 못해 이 방식으로 전환</p>
+      </div>
+    </div>
+  </section>
+
   <!-- 화면 산출물 — 실제 화면만 -->
   <section class="sec" style="background:var(--bg2)">
     <div class="sec-inner">
