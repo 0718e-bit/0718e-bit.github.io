@@ -77,6 +77,9 @@ nav{
 }
 .flow-card:hover{border-color:rgba(123,163,236,.3);background:var(--surface2)}
 .flow-card.expanded{border-color:var(--accent2)}
+.fmap-card:hover{background:rgba(255,251,240,.10);border-color:rgba(255,255,255,.22);box-shadow:0 4px 20px rgba(0,0,0,.25)}
+.fmap-card:hover .fmap-li{color:var(--ink2)!important}
+.fmap-card:hover .fmap-cat{color:#EFD090!important}
 .flow-icon{font-size:22px;margin-bottom:10px}
 .flow-card h4{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
 .flow-card .fc-sub{font-size:12px;color:var(--ink3)}
@@ -2495,10 +2498,10 @@ function buildCoworkDeputySections(){
           {cat:'현장 접근성',items:['설계사 미입장 안내','대화형 보기 (PWA)','참여자 선택 UI 개편']},
           {cat:'카카오 채널 연동',items:['파일 메모 (발신자·상담원)','이미지 5MB 자동 분기','/참여자 정보 예약어']},
         ].map(g=>`
-          <div class="flow-card">
-            <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">${g.cat}</div>
+          <div class="flow-card fmap-card">
+            <div class="fmap-cat" style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase;transition:color .2s">${g.cat}</div>
             <ul style="list-style:none;padding:0;margin:0">
-              ${g.items.map(it=>`<li style="font-size:13px;color:var(--ink3);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px"><span style="color:var(--accent2);font-weight:700">✓</span>${it}</li>`).join('')}
+              ${g.items.map(it=>`<li class="fmap-li" style="font-size:13px;color:var(--ink3);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;transition:color .2s"><span style="color:var(--accent2);font-weight:700">✓</span>${it}</li>`).join('')}
             </ul>
           </div>`).join('')}
       </div>
