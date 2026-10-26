@@ -640,8 +640,32 @@ const DATA = {
       {label:"성격", text:"<strong>FinTech × B2B SaaS</strong> — 보험 업무 현장의 실제 Pain을 플랫폼 기능으로 구체화한 프로덕트 기획.<br>활동 설계사 +231% 성장 기여"},
     ],
     type:"cowork-deputy",
-    next:"noa-agent"
+    next:"corp-phone"
   },
+  "corp-phone":{
+    co:"㈜스펙트라 · Cowork+", period:"2026.08 – 현재", role:"제품기획 100%", active:true,
+    title:"법인폰 채널 연동",
+    tags:["B2B SaaS","옴니채널","통화·문자","요구사항 정의"],
+    summary:[
+      {label:"배경", text:"영업·상담 담당자의 고객 통화·문자가 <strong>개인 단말에만 남아</strong> 조직의 이력 관리와 AI 분석에 쓰이지 못함 — 렌터카 법인영업(1인 1기기)과 보험사 TM센터(대량 통화) 두 현장 사례를 분석"},
+      {label:"내가 한 일", text:"<strong>요구사항정의서(기능 요구사항 47개) → 화면 프로토타입 → Jira 스토리 4건</strong> 작성 — 앱 최초 실행·미등록 안내, 인박스 법인폰 탭, 상대 이름 표기 규칙, 외부사용자 동기화"},
+      {label:"성격", text:"<strong>신규 채널 MVP 기획</strong> — 법인폰의 통화·문자·녹음을 Cowork+ 이력으로 수집하는 옴니채널 확장 (팩스·ERMS와 함께 독립 채널 구조)"},
+    ],
+    type:"corp-phone",
+    next:"erms"
+  },
+  "erms":{
+    co:"㈜스펙트라 · Cowork+", period:"2026.08", role:"제품기획 100%", active:false,
+    title:"ERMS 메일 채널 기획",
+    tags:["B2B SaaS","메일","권한 설계","정보구조"],
+    summary:[
+      {label:"배경", text:"Cowork+의 메일 응대(ERMS) 기능을 B2B 현장에서 쓰기에 <strong>메뉴 위치·권한·작성 경험이 메일 업무에 맞지 않는 부분</strong>이 있었음 — 대표메일 설정이 센터운영 하위에 있고, 답변 템플릿은 HTML 직접 편집, 새 메일 작성은 단순 텍스트"},
+      {label:"내가 한 일", text:"<strong>B2B ERMS 1차 개선사항</strong> 정의 — 메일 채널 메뉴 분리, 토픽 구조 개편, 타임라인 조회 권한, 새 메일 보내기 개선, 답변 메일 템플릿 WYSIWYG 전환을 이슈 단위로 기획"},
+      {label:"성격", text:"<strong>메일 응대 UX·권한·정보구조 개선</strong> — 일반 메일 클라이언트 수준의 작성 편의성과 고객 언어에 맞는 구조로"},
+    ],
+    type:"erms",
+    next:"noa-agent"
+  }
 };
 
 /* ===================== 섹션 빌더 ===================== */
@@ -1297,112 +1321,6 @@ function buildInsightSections(){
               </div>`).join('')}
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- B2B 설계 포인트 -->
-  <section class="sec" style="background:var(--bg2)">
-    <div class="sec-inner">
-      <div class="sec-label">B2B 설계 포인트 — 경영진이 쓰는 보고서로</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
-        <div class="flow-card">
-          <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">처음 설계 의도</div>
-          <p style="font-size:14px;color:var(--ink2);line-height:1.7;margin:0">항목과 항목을 겹쳐 분석하면, 1차원적이지 않은 — <strong style="color:var(--ink)">우리도 몰랐던 인사이트</strong>를 뽑아낼 수 있을 것으로 기대. B2B 제조 시장은 경영진 보고가 많아서, 인사이트를 처음부터 <strong style="color:var(--ink)">보고용으로 구성해 활용</strong>할 수 있다는 것이 중요했습니다.</p>
-        </div>
-        <div class="flow-card">
-          <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">실제 고객이 원했던 것</div>
-          <p style="font-size:14px;color:var(--ink2);line-height:1.7;margin:0">복잡하지 않고, 데이터를 찾으러 가지 않아도, <strong style="color:var(--ink)">우리 문제를 한눈에 보고 싶어하는 대시보드</strong>. 복잡한 분석보다 단순함이 이겼습니다. 단, <strong style="color:var(--ink)">"1개월만 사용하더라도 제대로 된 것을 쓰고 싶다"</strong> — 이 지점이 핵심이었습니다.</p>
-        </div>
-      </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px;display:flex;gap:12px;flex-wrap:wrap">
-        <div style="font-size:11px;font-family:var(--mono);color:var(--ink3);margin-right:4px">고객에게 준 가치 →</div>
-        ${['프로세스 가시화','단순한 보고 형태','낮아진 운영 비용'].map(v=>`
-          <span style="font-size:13px;font-weight:600;color:var(--accent2);background:rgba(123,163,236,.1);border:1px solid rgba(123,163,236,.2);padding:4px 12px;border-radius:4px">${v}</span>`).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 가온전선 업무 프로세스 -->
-  <section class="sec">
-    <div class="sec-inner">
-      <div class="sec-label">가온전선 업무 프로세스 — 설계 목표 vs 실제 구성</div>
-      <p style="font-size:14px;color:var(--ink3);line-height:1.7;margin:0 0 20px">별도 시스템 데이터 없이 대화만으로 분석하다 보니 확인이 불가능한 부분들이 있었고, 그 결과 실제 구성된 프로세스는 목표와 일부 달라졌습니다.</p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
-        ${[
-          {panel:'견적·발주',target:['수주 전환 분석','전환율·발주수','미수주 원인'],actual:['견적·발주 추이 비교','견적·발주 유형 구분'],drop:['원클릭 접수 미확인','전환율 정확도 낮음']},
-          {panel:'생산·납기',target:['품목별 납기 준수율','납기 독촉 TOP3'],actual:['재고문의 다빈도 키워드','납기 지연 원인'],drop:['준수율·독촉TOP3 확인 불가']},
-          {panel:'출하·배차',target:['일자별 출하요청','출하요청자 비중','성적서 업무현황'],actual:['일자별 출하요청 (할일 연동)','출하요청자 비중현황'],drop:['성적서 확인 불가','출하요청 AI분석 정확도 낮음']},
-          {panel:'클레임',target:['클레임 사후대응'],actual:['앞으로의 방향'],drop:['사후대응 확인 불가 (전화 응대)']},
-        ].map(p=>`
-          <div class="flow-card" style="padding:14px 16px">
-            <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase">${p.panel}</div>
-            <div style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:4px">✓ 구현</div>
-            ${p.actual.map(a=>`<div style="font-size:12px;color:var(--ink2);padding:2px 0">${a}</div>`).join('')}
-            <div style="margin-top:8px;font-size:11px;font-weight:600;color:#FF6B6B;margin-bottom:4px">✕ 미구현</div>
-            ${p.drop.map(d=>`<div style="font-size:12px;color:var(--ink3);padding:2px 0">${d}</div>`).join('')}
-          </div>`).join('')}
-      </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 20px;display:flex;align-items:center;gap:20px">
-        <div style="font-size:11px;font-family:var(--mono);color:var(--ink3)">로드맵 →</div>
-        ${['🔍 진단 (현재)','💊 처방','🔮 예측'].map((s,i)=>`
-          <span style="font-size:13px;color:${i===0?'var(--accent2)':'var(--ink3)'};font-weight:${i===0?700:400}">${s}</span>${i<2?'<span style="color:var(--ink3);font-size:12px">→</span>':''}`).join('')}
-        <div style="margin-left:auto;font-size:12px;color:var(--ink3)">ERP·원클릭 연동 시 처방·예측 단계로 확장 예정</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 요구사항 & 숨은 니즈 -->
-  <section class="sec" style="background:var(--bg2)">
-    <div class="sec-inner">
-      <div class="sec-label">요구사항 & 숨은 니즈 — 수면 아래의 이유</div>
-      <div style="background:var(--surface);border-left:3px solid var(--accent2);padding:14px 20px;border-radius:0 8px 8px 0;margin-bottom:20px;font-size:14px;color:var(--ink2);line-height:1.7">
-        겉으로 드러난 요청 — <strong style="color:var(--ink)">"업무 프로세스가 실제로 그렇게 흘러가고 있는지 확인하고 싶다"</strong>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
-        ${[
-          {n:'01',title:'프로세스 대화로 정립',desc:'문서화되지 않았던 업무 흐름을 대화 데이터로 직접 추적. 4개 패널(견적·발주 / 생산·납기 / 출하·배차 / 클레임)으로 구성.'},
-          {n:'02',title:'흐름·증감으로 이상 징후 감지',desc:'일자별 출하요청 흐름 추적과 전주 대비 동기간 비교 분석 — 문제가 반복되기 전에 미리 볼 수 있도록 구성.'},
-          {n:'03',title:'임원 보고용 형식 구체화',desc:'정돈된 UI · 최소한의 텍스트 · 구조화된 그래프 · A4 한 장 4원칙. 종합평가 → 프로세스별 요약 → 세부 설명 3단 구조.'},
-          {n:'04',title:'비용 낮추면서 동일한 가치',desc:'AI 실시간 요약 대신 데이터 기획 기반 자동 생성. 분류기준·건수·증감치 규칙을 정의해 데이터만 바뀌면 문장이 조립됩니다.'},
-        ].map(i=>`
-          <div class="flow-card">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--accent2);letter-spacing:1.5px;margin-bottom:8px">${i.n}</div>
-            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${i.title}</div>
-            <div style="font-size:13px;color:var(--ink3);line-height:1.65">${i.desc}</div>
-          </div>`).join('')}
-      </div>
-    </div>
-  </section>
-
-  <!-- 기술 설계 포인트 -->
-  <section class="sec">
-    <div class="sec-inner">
-      <div class="sec-label">기술 설계 포인트 — 정확도와 토큰 효율을 함께</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
-        <div class="flow-card" style="border-color:rgba(255,107,107,.2)">
-          <div style="font-size:11px;font-family:var(--mono);color:#FF6B6B;letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">✕ 사용 안 함 — AI 실시간 요약</div>
-          <p style="font-size:13px;color:var(--ink3);line-height:1.7;margin:0">매 발행마다 대화 내용을 AI에 넣어 문장을 새로 생성 — 발행할수록 토큰 비용이 누적됩니다.</p>
-        </div>
-        <div class="flow-card" style="border-color:rgba(62,207,106,.2)">
-          <div style="font-size:11px;font-family:var(--mono);color:var(--green);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">✓ 채택 — 데이터 기획 기반 자동 생성</div>
-          <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin:0">산출 기준·동점 처리·케이스 분기를 문서로 정의해두고, 데이터만 바뀌면 규칙대로 문장이 조립됩니다. 공용 선별 레이어 재사용으로 같은 대화를 두 번 AI에 태우지 않아 토큰 비용도 낮췄습니다.</p>
-        </div>
-      </div>
-      <div class="flow-card">
-        <div style="font-size:11px;font-family:var(--mono);color:var(--accent2);letter-spacing:1.5px;margin-bottom:10px;text-transform:uppercase">다시 확인한 것 — AI가 모든 지표를 커버할 수는 없다</div>
-        <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin:0 0 12px">대화 안에서 AI 추출 정확도가 떨어지는 항목은 과감히 AI 판단을 배제하고 별도 데이터로 저장하는 쪽을 택했습니다.</p>
-        <div style="display:flex;align-items:center;gap:10px;font-size:12px;flex-wrap:wrap">
-          <span style="color:#FF6B6B;background:rgba(255,107,107,.1);padding:4px 10px;border-radius:4px">대화 내용 AI 추출 ✕</span>
-          <span style="color:var(--ink3)">→</span>
-          <span style="color:var(--accent2);background:rgba(123,163,236,.1);padding:4px 10px;border-radius:4px">할 일 등록</span>
-          <span style="color:var(--ink3)">→</span>
-          <span style="color:var(--green);background:rgba(62,207,106,.1);padding:4px 10px;border-radius:4px">구조화된 데이터</span>
-          <span style="color:var(--ink3)">→</span>
-          <span style="color:var(--ink2);background:var(--surface2);padding:4px 10px;border-radius:4px">대시보드가 데이터 호출</span>
-        </div>
-        <p style="font-size:12px;color:var(--ink3);margin:10px 0 0;font-family:var(--mono)">↳ '일자별 출하 현황' 지표 — 대화로는 AI가 안정적으로 추출 못해 이 방식으로 전환</p>
       </div>
     </div>
   </section>
@@ -2801,6 +2719,217 @@ function buildCoworkDeputySections(){
   </section>`;
 }
 
+/* ===== 공용: Pain/Solution + 프로세스 + 핵심 수치 빌더 ===== */
+function buildPvs(label, quote, pains, sols){
+  const card = (c,cls)=>`
+    <div class="pvs-card ${cls}" onclick="toggleCard(this)">
+      <div class="pvs-card-head">
+        <span class="pvs-icon">${c.icon}</span>
+        <div><div class="pvs-title">${c.title}</div><div class="pvs-sub">${c.sub}</div></div>
+        <span class="pvs-arrow">›</span>
+      </div>
+      <div class="flow-detail"><div class="flow-detail-inner">
+        <ul>${c.detail.map(d=>`<li>${d}</li>`).join('')}</ul>
+      </div></div>
+    </div>`;
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">${label}</div>
+      <blockquote class="pain-quote">${quote}</blockquote>
+      <div class="pvs-wrap">
+        <div class="pvs-col pvs-pain">
+          <div class="pvs-col-head"><span class="pvs-badge pain-badge">Pain Point</span></div>
+          <div class="pvs-cards">${pains.map(c=>card(c,'pain-card')).join('')}</div>
+        </div>
+        <div class="pvs-divider"><div class="pvs-arrow-wrap">→</div></div>
+        <div class="pvs-col pvs-sol">
+          <div class="pvs-col-head"><span class="pvs-badge sol-badge">Solution</span></div>
+          <div class="pvs-cards">${sols.map(c=>card(c,'sol-card')).join('')}</div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+function buildFlow(label, steps){
+  const colors=[
+    ['rgba(75,123,224,.12)','rgba(75,123,224,.25)'],
+    ['rgba(245,200,66,.08)','rgba(245,200,66,.25)'],
+    ['rgba(168,85,247,.08)','rgba(168,85,247,.25)'],
+    ['rgba(62,207,106,.08)','rgba(62,207,106,.25)'],
+    ['rgba(75,123,224,.1)','rgba(75,123,224,.3)'],
+  ];
+  return `
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">${label}</div>
+      <div class="dreamsam-flow">
+        ${steps.map((s,i)=>{const c=colors[i%colors.length];return `
+          <div class="dsf-item" style="background:${c[0]};border:1px solid ${c[1]}">
+            <div class="dsf-step">${s.step}</div>
+            <div class="dsf-label">${s.label}</div>
+            <div class="dsf-desc">${s.desc.replace(/\n/g,'<br>')}</div>
+          </div>
+          ${i<steps.length-1?'<div class="dsf-arrow">→</div>':''}`;}).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+function buildFacts(label, facts){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">${label}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+        ${facts.map(f=>`
+        <div style="border:1px solid var(--line,rgba(255,255,255,.08));border-radius:12px;padding:22px 22px 20px;background:var(--bg2)">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">${f.eyebrow}</div>
+          <div style="font-family:var(--serif);font-size:38px;font-weight:900;color:var(--ink);line-height:1">${f.num}<span style="font-size:16px;color:var(--accent2,#E8B84B);margin-left:4px">${f.unit}</span></div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.6;margin-top:10px">${f.label}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
+
+/* ===== 공용: 기획 포인트 / 스토리 정의 / 산출물 (cowork-deputy 형식) ===== */
+function buildPoints(label, items){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">${label}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        ${items.map(c=>`
+          <div class="flow-card">
+            <div style="font-size:22px;margin-bottom:12px">${c.icon}</div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${c.title}</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.7">${c.desc}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+function buildStoryCards(label, items){
+  return `
+  <section class="sec" style="background:var(--bg2)">
+    <div class="sec-inner">
+      <div class="sec-label">${label}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        ${items.map(c=>`
+          <div class="flow-card">
+            <div style="font-size:26px;margin-bottom:12px">${c.icon}</div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:10px">${c.title}</div>
+            <div style="background:rgba(255,90,0,.07);border-radius:6px;padding:10px 12px;margin-bottom:10px">
+              <div style="font-size:10px;font-family:var(--mono);color:var(--accent);letter-spacing:1px;margin-bottom:4px">핵심 규칙</div>
+              <div style="font-size:12px;color:var(--ink3);line-height:1.65">${c.rule}</div>
+            </div>
+            <div style="background:rgba(212,150,42,.08);border-radius:6px;padding:10px 12px">
+              <div style="font-size:10px;font-family:var(--mono);color:var(--accent2);letter-spacing:1px;margin-bottom:4px">CONFIRMATION</div>
+              <div style="font-size:12px;color:var(--ink2);line-height:1.65">${c.confirm}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+function buildDeliverables(items){
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">산출물</div>
+      <div class="flow-grid" style="grid-template-columns:repeat(${items.length},1fr)">
+        ${items.map(c=>`
+        <div class="flow-card">
+          <div class="flow-icon">${c.icon}</div>
+          <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${c.title}</div>
+          <div style="font-size:13px;color:var(--ink3);line-height:1.65">${c.desc}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ===== 법인폰 채널 연동 ===== */
+function buildCorpPhoneSections(){
+  return buildPvs(
+    'Painpoint — 고객 접점은 늘 휴대폰 안에 있었다',
+    '"고객과 가장 많이 통화하는 곳은 개인 휴대폰인데, 조직은 그 이력을 볼 수 없었다."',
+    [
+      {icon:'📱',title:'개인 단말에 남는 고객 접점',sub:'통화·문자 이력이 조직에 쌓이지 않음',detail:['영업·상담 담당자의 통화·문자가 단말에만 남아 조직 단위 조회 불가','통화 내용을 AI로 분석·활용할 데이터 경로 부재']},
+      {icon:'🏢',title:'서로 다른 두 현장',sub:'1인 1기기 영업형 vs 대량 발신 TM센터형',detail:['렌터카 법인영업 — 담당자 1인이 1대 기기로 기업 고객과 통화','보험사 TM센터 — 대량 통화가 발생하는 상담 현장','두 사례의 요구를 분리해 MVP 범위를 정해야 했음']},
+      {icon:'🪪',title:'기기와 담당자를 잇는 방법',sub:'앱에 로그인 없이 누구의 통화인지 식별',detail:['등록 전 기기가 앱을 열었을 때의 상태를 정의해야 함','번호가 외부사용자와 일치하지 않는 상대도 고객 목록에 나타남','화면에서 번호만 보이면 고객을 알아보기 어려움']},
+      {icon:'📇',title:'연락처 정보의 한계',sub:'폰에는 이름과 번호뿐',detail:['사업자 구분·사업자등록증 등은 CRM에 있음','폰 연락처가 기존 외부사용자 정보를 덮어쓰면 보완한 정보가 사라짐']},
+    ],
+    [
+      {icon:'➡️',title:'단방향 수집 + 전송 정책',sub:'휴대폰 → Cowork+, 앱은 생성된 이력만 전달',detail:['클릭투콜·딥링크 발신·서버 → 앱 제어는 <strong>범위에서 제외</strong> (고객 인터뷰로 단방향이 맞다는 것을 확인)','생성 이벤트만 전송, 단말에서 삭제해도 Cowork+ 기록은 유지','문자·메타데이터는 즉시, 녹음은 Wi-Fi에서 전송 · 무기한 재시도 · 최신 건 우선']},
+      {icon:'🔑',title:'번호 매핑 + 미등록 안내',sub:'로그인 없이 사전 매핑한 번호로 식별',detail:['앱에는 로그인 화면이 없고, 내부사용자는 <strong>관리자가 매핑한 휴대폰번호</strong>로 식별','미등록 기기는 앱에 기기 ID와 등록 안내를 보여주고, 설정 화면에 \'미등록\' 행이 생김','매핑이 끝나면 재설치·재로그인 없이 수집 상태로 전환']},
+      {icon:'🗂️',title:'인박스 \'법인폰\' 탭 · 고객별 1행',sub:'같은 고객이 여러 줄로 나뉘지 않도록',detail:['인박스 탭: 전체 · 메시지 · 메일 · 팩스 · 법인폰 (라이선스가 있을 때만 노출)','고객 1명당 1행, 미리보기는 가장 최근 건','번호가 일치하면 \'외부사용자 이름(폰 저장 이름)\', 아니면 번호와 \'미등록\' 표기 — 판단 기준은 번호 일치 하나','통화 상세: 녹취 재생·다운로드, AI 통화 요약, STT 스크립트']},
+      {icon:'🔗',title:'외부사용자 동기화 · CRM 보완 경로',sub:'기존 정보를 덮어쓰지 않는 수동 동기화',detail:['연락처의 이름·번호만 전송, 같은 번호가 있으면 <strong>기존 정보를 그대로 유지</strong>','없으면 신규 외부사용자를 만들고, 변경분만 전송해 중복 생성 방지','폰에서 연락처를 지워도 외부사용자는 유지','사업자 정보는 CRM → Cowork+ 직접 연동 경로로 보강']},
+    ]
+  )
+  + buildFlow('기획 프로세스', [
+      {step:'STEP 1',label:'고객 사례 분석',desc:'렌터카 법인영업\n보험사 TM센터'},
+      {step:'STEP 2',label:'요구사항 정의',desc:'요구사항정의서\n기능 요구사항 47개'},
+      {step:'STEP 3',label:'화면 프로토타입',desc:'목록·상세·\n이력·설정 화면'},
+      {step:'STEP 4',label:'Jira 스토리',desc:'User Story·핵심 규칙\nConfirmation'},
+      {step:'STEP 5',label:'검토·공유',desc:'사업전략본부\n검토 요청'},
+    ])
+  + buildPoints('기획 포인트 — 법인폰 수집의 설계 원칙', [
+      {icon:'🧭',title:'단방향 원칙',desc:'데이터는 휴대폰 → Cowork+ 한 방향으로만 흐른다. 클릭투콜·딥링크 발신·서버 → 앱 제어는 범위에서 제외했고, CRM 데이터도 폰을 거치지 않고 CRM → Cowork+로 직접 연동해 원칙을 지켰다.'},
+      {icon:'🛡️',title:'덮어쓰지 않는 동기화',desc:'폰 연락처에서 올라온 정보가 기존 외부사용자 정보를 바꾸지 않는다. CRM에서 보완한 사업자 정보를 보호하고, 폰에서 연락처를 지워도 외부사용자는 유지한다.'},
+      {icon:'🔢',title:'번호 하나로 판단',desc:'이름이 달라도 번호가 같으면 같은 사람으로 본다. 이름은 조회 시점의 최신 값을 조합해 보여주므로 이름이 바뀌어도 별도 동기화 절차가 필요 없다.'},
+      {icon:'📶',title:'누락 없이 쌓기',desc:'단말에서 생성된 이벤트만 전송하고, 문자·메타데이터는 즉시, 용량이 큰 녹음은 Wi-Fi에서 전송한다. 실패해도 시한 없이 재시도하며 쌓인 파일은 최신 건부터 올린다.'},
+    ])
+  + buildStoryCards('스토리 정의 — Jira 스토리 4건 (User Story · 핵심 규칙 · Confirmation)', [
+      {icon:'🔑',title:'앱 최초 실행 · 미등록 안내',rule:'앱에는 로그인 화면이 없고, 관리자가 사전 매핑한 휴대폰번호로 내부사용자를 식별한다. 매핑이 없으면 기기 ID와 등록 안내를 보여주고, 설정 화면에 \'미등록\' 행이 생긴다.',confirm:'관리자가 등록하면 재설치·재로그인 없이 수집 상태로 바뀐다.'},
+      {icon:'🗂️',title:'인박스 \'법인폰\' 탭 · 고객별 1행 목록',rule:'법인폰 라이선스가 있을 때만 탭이 보인다. 고객(외부사용자) 1명당 1행이고 미리보기는 가장 최근 건이며, 외부사용자와 일치하지 않는 번호도 번호로 한 행을 만든다.',confirm:'같은 외부사용자와 통화 2건·문자 1건이어도 목록에는 1행으로 보인다.'},
+      {icon:'🏷️',title:'상대 이름 표기 규칙',rule:'번호가 외부사용자와 일치하면 \'외부사용자 이름(법인폰 저장 이름)\', 일치하지 않으면 번호와 \'미등록\'으로 표시한다. 판단 기준은 번호 일치 여부 하나다.',confirm:'외부사용자 이름을 바꾸면 목록·상세의 이름도 바뀐 값으로 보인다.'},
+      {icon:'🔄',title:'\'외부사용자 동기화\' 수동 버튼 · 결과 노티',rule:'연락처의 이름·번호만 보내고, 같은 번호가 있으면 기존 정보를 그대로 둔다. 없으면 신규 외부사용자를 만들고 변경분만 전송한다.',confirm:'같은 동기화를 두 번 해도 외부사용자가 중복 생성되지 않는다.'},
+    ])
+  + buildDeliverables([
+      {icon:'📋',title:'요구사항정의서',desc:'배경·전제·핵심 기능(기능 요구사항 47개)·화면 구성·정책 결정 사항·개발 체크리스트·비기능·과금·미결 사항'},
+      {icon:'🖥️',title:'화면 프로토타입',desc:'인박스 법인폰 탭·통화 상세(녹취 재생·AI 요약·STT)·이력·설정 화면을 실제 디자인에 맞춰 구성'},
+      {icon:'📝',title:'Jira 스토리 4건',desc:'앱 최초 실행·인박스 탭·이름 표기·외부사용자 동기화를 User Story·핵심 규칙·Confirmation 형식으로 작성'},
+    ]);
+}
+
+/* ===== ERMS 메일 채널 기획 ===== */
+function buildErmsSections(){
+  return buildPvs(
+    'Painpoint — 메일 업무에 맞지 않던 위치·권한·작성 경험',
+    '"메일 설정은 센터운영 안에 섞여 있고, 답변 템플릿은 코드를 알아야 고칠 수 있었다."',
+    [
+      {icon:'🗂️',title:'메일 설정이 센터운영 하위에 혼재',sub:'대표메일은 접속채널인데 협업센터 안에 위치',detail:['대표메일은 "접속채널"의 하나로 관리되어야 하는 개념','센터운영 접근 권한자와 메일 채널 관리 권한자가 다를 수 있음','대화조회에서 대표메일 계정별 조회가 어려움']},
+      {icon:'🏷️',title:'"토픽" 용어와 트리 구조',sub:'기능의 실체와 이름·구조가 어긋남',detail:['실제 기능은 발신 주소 기준으로 메일을 받을 담당자를 정하는 것','배분 로직(주 담당자 → 그룹 → 센터)에 상위·하위 개념이 개입하지 않음','실제 등록 사례도 모두 1단 구조 — 트리가 오해만 유발']},
+      {icon:'✍️',title:'일반 메일 수준에 못 미치는 작성 경험',sub:'단순 텍스트 작성창, HTML 직접 편집 템플릿',detail:['새 메일 보내기: 서식 없는 입력, 숨은참조·인쇄·새창보기·주소록 선택 없음','답변 메일 템플릿: <code>&lt;table&gt;</code> 등 HTML을 직접 작성해야 해 비개발자 관리자에게 진입장벽','미리보기에 <code>#{answerBody}</code> 같은 코드가 그대로 노출']},
+      {icon:'🔍',title:'메일 타임라인 조회 범위 설정 부재',sub:'기존 협업 권한과 달리 범위를 정하는 항목이 없음',detail:['협업대화·외부 사용자 대화·할 일 조회는 권한 항목이 있으나 메일 타임라인은 없었음','개인·팀·센터 단위 조회 범위를 역할별로 구분할 필요']},
+    ],
+    [
+      {icon:'🔌',title:'메일 채널 메뉴 분리',sub:'센터 > 접속채널관리 > 메일 채널(신규)',detail:['기존 "메일계정" 탭의 기능은 그대로, <strong>위치만 이동</strong>','메일 라이선스가 있을 때만 메뉴 노출','대화조회에서 대표메일 계정별 조회 조건 추가']},
+      {icon:'👥',title:'토픽 구조 개편',sub:'독립 탭 제거 → 메일 탭 하위 통합',detail:['"토픽"을 "메일 담당자 그룹"으로 재정의, 용어 매핑표 작성','상위·하위 계층을 없애고 <strong>플랫 리스트</strong>로 단순화','배분 규칙 화면과 같은 맥락(메일 탭 하위)에 배치']},
+      {icon:'🧩',title:'새 메일 작성 + 템플릿 WYSIWYG',sub:'일반 메일 클라이언트 수준의 작성 편의성',detail:['새 메일: 새창보기·인쇄하기·에디터·숨은참조 추가, 받는사람·참조·숨은참조에 내외부 조직도 연동','답변 템플릿: HTML 편집 → <strong>리치 텍스트 에디터</strong>, 키워드는 편집 불가 토큰 배지로 삽입','저장 포맷(<code>#{...}</code>)은 유지해 백엔드 변경 없이 화면 표현만 개선']},
+      {icon:'🔐',title:'타임라인 조회 권한 신설',sub:'사용자 역할 > 협업 권한 항목 추가',detail:['<strong>개인 / 팀 / 센터</strong> 3단계 (센터 ⊇ 팀 ⊇ 개인)','상대방(외부) 이메일 <strong>도메인이 같은 메일끼리</strong> 하나의 타임라인으로 묶음','범위별 조회 대상을 물음표 툴팁으로 안내']},
+    ]
+  )
+  + buildFlow('메일 배분 규칙 — 폴백 체인', [
+      {step:'1순위',label:'주 담당자',desc:'발신 주소에 지정된\n담당자'},
+      {step:'2순위',label:'토픽(담당자 그룹)',desc:'그룹 멤버에게\n배분'},
+      {step:'3순위',label:'센터',desc:'센터 단위로\n배분'},
+    ])
+  + buildPoints('기획 포인트 — 메일 채널 개선의 설계 원칙', [
+      {icon:'🏷️',title:'이름은 기능의 실체를 말해야 한다',desc:'발신 주소 기준으로 담당자를 정하는 기능을 \'토픽\'이라 부르면 주제 분류로 읽힌다. 고객이 이미 \'담당자들\'로 부르는 말에 맞춰 \'메일 담당자 그룹\'으로 재정의하고 용어 매핑표를 만들었다.'},
+      {icon:'🧱',title:'로직에 없는 구조는 화면에서도 없앤다',desc:'배분은 주 담당자 → 그룹 → 센터의 단일 폴백 체인이라 상위·하위 개념이 개입하지 않는다. 실제 등록도 모두 1단이어서 트리를 없애고 플랫 리스트로 단순화했다.'},
+      {icon:'🔭',title:'조회 범위는 포함 관계로',desc:'타임라인 조회는 개인·팀·센터 3단계이고 상위 범위가 하위를 포함한다(센터 ⊇ 팀 ⊇ 개인). 상대방 도메인이 같은 메일끼리만 묶는 조건은 모든 범위에 공통으로 적용했다.'},
+      {icon:'🧰',title:'코드를 몰라도 쓸 수 있게',desc:'답변 템플릿을 HTML 직접 편집에서 리치 텍스트 에디터로 바꾸고, 키워드는 편집 불가 토큰 배지로 삽입한다. 저장 포맷은 그대로 두어 백엔드 변경 없이 화면 표현만 개선했다.'},
+    ])
+  + buildDeliverables([
+      {icon:'📋',title:'1차 개선사항 이슈 5건',desc:'메일 채널 메뉴 분리·토픽 구조 개편·타임라인 조회 권한·새 메일 보내기·답변 템플릿 WYSIWYG를 배경·AS-IS·TO-BE·상세 요구사항으로 정리'},
+      {icon:'🗺️',title:'용어 매핑표 · 구조도',desc:'토픽 → 메일 담당자 그룹 용어 매핑표와 센터 운영 메뉴의 AS-IS → TO-BE 구조'},
+      {icon:'🖥️',title:'화면 프로토타입',desc:'메일 담당자 그룹 화면을 플랫 리스트·테이블·클릭 시 수정 레이어 형태로 3차례 개선'},
+    ]);
+}
+
 /* ===================== 렌더 ===================== */
 const id = new URLSearchParams(location.search).get('id') || 'noa-agent';
 const p = DATA[id];
@@ -2826,6 +2955,8 @@ if(p.wip){
   else if(p.type==='mock-exam') sections += buildMockExamSections();
   else if(p.type==='mega-renewal') sections += buildMegaRenewalSections();
   else if(p.type==='cowork-deputy') sections += buildCoworkDeputySections();
+  else if(p.type==='corp-phone') sections += buildCorpPhoneSections();
+  else if(p.type==='erms') sections += buildErmsSections();
   document.getElementById('content').innerHTML = sections;
 
   // 인사이트 화면 바 초기 애니메이션
