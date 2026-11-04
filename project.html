@@ -640,30 +640,18 @@ const DATA = {
       {label:"성격", text:"<strong>FinTech × B2B SaaS</strong> — 보험 업무 현장의 실제 Pain을 플랫폼 기능으로 구체화한 프로덕트 기획.<br>활동 설계사 +231% 성장 기여"},
     ],
     type:"cowork-deputy",
-    next:"corp-phone"
+    next:"omni-channel"
   },
-  "corp-phone":{
+  "omni-channel":{
     co:"㈜스펙트라 · Cowork+", period:"2026.08 – 현재", role:"제품기획 100%", active:true,
-    title:"법인폰 채널 연동",
-    tags:["B2B SaaS","옴니채널","통화·문자","요구사항 정의"],
+    title:"옴니채널 확장 — 법인폰 · ERMS 메일",
+    tags:["B2B SaaS","옴니채널","법인폰","메일"],
     summary:[
-      {label:"배경", text:"영업·상담 담당자의 고객 통화·문자가 <strong>개인 단말에만 남아</strong> 조직의 이력 관리와 AI 분석에 쓰이지 못함 — 렌터카 법인영업(1인 1기기)과 보험사 TM센터(대량 통화) 두 현장 사례를 분석"},
-      {label:"내가 한 일", text:"<strong>요구사항정의서(기능 요구사항 47개) → 화면 프로토타입 → Jira 스토리 4건</strong> 작성 — 앱 최초 실행·미등록 안내, 인박스 법인폰 탭, 상대 이름 표기 규칙, 외부사용자 동기화"},
-      {label:"성격", text:"<strong>신규 채널 MVP 기획</strong> — 법인폰의 통화·문자·녹음을 Cowork+ 이력으로 수집하는 옴니채널 확장 (팩스·ERMS와 함께 독립 채널 구조)"},
+      {label:"배경", text:"Cowork+가 대화 중심에서 <strong>메일·법인폰 등 여러 채널을 하나의 고객 이력으로 다루는 옴니채널</strong>로 확장되면서, 채널별 수집 구조와 설정·권한·작성 경험을 새로 정의해야 했음"},
+      {label:"내가 한 일", text:"<strong>법인폰</strong> 요구사항정의서(기능 요구사항 47개)·화면 프로토타입·Jira 스토리 4건과 1차 범위(스토리 11건) 인수테스트(시나리오 110건), <strong>ERMS 메일</strong> 1차 개선사항 5건(메뉴 분리·토픽 구조 개편·타임라인 조회 권한·새 메일 작성·답변 템플릿 WYSIWYG) 기획"},
+      {label:"성격", text:"<strong>채널 확장 기획</strong> — 단방향 수집(법인폰)부터 메일 응대 UX(ERMS)까지, 채널마다 다른 현장 요구를 고객 언어로 정리"},
     ],
-    type:"corp-phone",
-    next:"erms"
-  },
-  "erms":{
-    co:"㈜스펙트라 · Cowork+", period:"2026.08", role:"제품기획 100%", active:false,
-    title:"ERMS 메일 채널 기획",
-    tags:["B2B SaaS","메일","권한 설계","정보구조"],
-    summary:[
-      {label:"배경", text:"Cowork+의 메일 응대(ERMS) 기능을 B2B 현장에서 쓰기에 <strong>메뉴 위치·권한·작성 경험이 메일 업무에 맞지 않는 부분</strong>이 있었음 — 대표메일 설정이 센터운영 하위에 있고, 답변 템플릿은 HTML 직접 편집, 새 메일 작성은 단순 텍스트"},
-      {label:"내가 한 일", text:"<strong>B2B ERMS 1차 개선사항</strong> 정의 — 메일 채널 메뉴 분리, 토픽 구조 개편, 타임라인 조회 권한, 새 메일 보내기 개선, 답변 메일 템플릿 WYSIWYG 전환을 이슈 단위로 기획"},
-      {label:"성격", text:"<strong>메일 응대 UX·권한·정보구조 개선</strong> — 일반 메일 클라이언트 수준의 작성 편의성과 고객 언어에 맞는 구조로"},
-    ],
-    type:"erms",
+    type:"omni-channel",
     next:"noa-agent"
   }
 };
@@ -2810,9 +2798,9 @@ function buildPoints(label, items){
     </div>
   </section>`;
 }
-function buildStoryCards(label, items){
+function buildStoryCards(label, items, note){
   return `
-  <section class="sec" style="background:var(--bg2)">
+  <section class="sec" id="stories" style="background:var(--bg2)">
     <div class="sec-inner">
       <div class="sec-label">${label}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
@@ -2830,6 +2818,7 @@ function buildStoryCards(label, items){
             </div>
           </div>`).join('')}
       </div>
+      ${note?`<p style="font-size:12.5px;color:var(--ink3);line-height:1.7;margin-top:18px">${note}</p>`:''}
     </div>
   </section>`;
 }
@@ -2838,66 +2827,157 @@ function buildDeliverables(items){
   <section class="sec">
     <div class="sec-inner">
       <div class="sec-label">산출물</div>
-      <div class="flow-grid" style="grid-template-columns:repeat(${items.length},1fr)">
-        ${items.map(c=>`
-        <div class="flow-card">
+      <div class="flow-grid" style="grid-template-columns:repeat(${Math.min(items.length,3)},1fr)">
+        ${items.map(c=>{
+          const link = !!(c.href||c.img||c.anchor);
+          const cta = c.cta ? `<div style="font-family:var(--mono);font-size:11px;color:var(--accent2);margin-top:12px">${c.cta}</div>` : '';
+          const card = `
+        <div class="flow-card" style="${link?'cursor:pointer;transition:border-color .2s;height:100%':''}"
+          ${c.img?`onclick="openLightbox('${c.img}','${c.title}')"`:''}
+          ${link?`onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'"`:''}>
           <div class="flow-icon">${c.icon}</div>
           <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px">${c.title}</div>
           <div style="font-size:13px;color:var(--ink3);line-height:1.65">${c.desc}</div>
-        </div>`).join('')}
+          ${cta}
+        </div>`;
+          if(c.href) return `<a href="${c.href}" target="_blank" style="text-decoration:none">${card}</a>`;
+          if(c.anchor) return `<a href="${c.anchor}" style="text-decoration:none">${card}</a>`;
+          return card;
+        }).join('')}
       </div>
     </div>
   </section>`;
 }
 
+
+function buildDevScreens(label, groups, cta){
+  const cell = (it)=>`
+        <figure style="margin:0;cursor:pointer" onclick="openLightbox('images/corp-phone/${it.n}.jpg','${it.cap.replace(/'/g,"\\'")}')">
+          <img src="images/corp-phone/${it.n}.jpg" alt="${it.cap}" loading="lazy"
+            style="width:100%;height:170px;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--border);display:block;transition:border-color .2s"
+            onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'">
+          <figcaption style="font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.55;letter-spacing:.3px">↳ ${it.cap}</figcaption>
+        </figure>`;
+  return `
+  <section class="sec">
+    <div class="sec-inner">
+      <div class="sec-label">${label}</div>
+      ${groups.map(g=>`
+      <div style="font-size:13px;font-weight:700;color:var(--ink);margin:${g.first?'0':'30px'} 0 12px">${g.title}</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">${g.items.map(cell).join('')}</div>`).join('')}
+      <a href="${cta.href}" target="_blank" style="text-decoration:none;display:block;margin-top:30px">
+        <div class="flow-card" style="cursor:pointer;transition:border-color .2s;display:flex;align-items:center;gap:18px"
+          onmouseenter="this.style.borderColor='var(--accent2)'" onmouseleave="this.style.borderColor='var(--border)'">
+          <div class="flow-icon" style="margin:0">📖</div>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px">${cta.title}</div>
+            <div style="font-size:13px;color:var(--ink3);line-height:1.65">${cta.desc}</div>
+          </div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--accent2);white-space:nowrap">${cta.label}</div>
+        </div>
+      </a>
+      <p style="font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:12px">이미지를 클릭하면 확대해서 볼 수 있어요. 화면의 이름·번호·계정 등 개인정보는 가렸고, 데이터는 모두 테스트 값이에요.</p>
+    </div>
+  </section>`;
+}
+
 /* ===== 법인폰 채널 연동 ===== */
-function buildCorpPhoneSections(){
+function buildCorpPhonePart(){
   return buildPvs(
-    'Painpoint — 고객 접점은 늘 휴대폰 안에 있었다',
-    '"고객과 가장 많이 통화하는 곳은 개인 휴대폰인데, 조직은 그 이력을 볼 수 없었다."',
+    'PART 1 · 법인폰 — 고객 접점은 늘 휴대폰 안에 있었다',
+    '"메일·협업톡·고객톡은 Cowork+ 안에 쌓이는데, 전화만 빠져 있었다."',
     [
-      {icon:'📱',title:'개인 단말에 남는 고객 접점',sub:'통화·문자 이력이 조직에 쌓이지 않음',detail:['영업·상담 담당자의 통화·문자가 단말에만 남아 조직 단위 조회 불가','통화 내용을 AI로 분석·활용할 데이터 경로 부재']},
-      {icon:'🏢',title:'서로 다른 두 현장',sub:'1인 1기기 영업형 vs 대량 발신 TM센터형',detail:['렌터카 법인영업 — 담당자 1인이 1대 기기로 기업 고객과 통화','보험사 TM센터 — 대량 통화가 발생하는 상담 현장','두 사례의 요구를 분리해 MVP 범위를 정해야 했음']},
-      {icon:'🪪',title:'기기와 담당자를 잇는 방법',sub:'앱에 로그인 없이 누구의 통화인지 식별',detail:['등록 전 기기가 앱을 열었을 때의 상태를 정의해야 함','번호가 외부사용자와 일치하지 않는 상대도 고객 목록에 나타남','화면에서 번호만 보이면 고객을 알아보기 어려움']},
-      {icon:'📇',title:'연락처 정보의 한계',sub:'폰에는 이름과 번호뿐',detail:['사업자 구분·사업자등록증 등은 CRM에 있음','폰 연락처가 기존 외부사용자 정보를 덮어쓰면 보완한 정보가 사라짐']},
+      {icon:'🔗',title:'이력 단절',sub:'통화·문자가 개인 단말에만 남음',detail:['한 파트너와의 메일·톡·전화를 한곳에서 볼 수 없음','현장 영업 중심 고객사(1인 1기기)는 외부 응대 대부분이 법인폰 전화·문자']},
+      {icon:'🤝',title:'인수인계 불가',sub:'자리를 비우면 통화로 한 약속이 사라짐',detail:['담당자의 휴직·퇴사·기기 교체 시 이력이 단말과 함께 사라짐','파트너와 무엇을 약속했는지가 담당자의 기억에만 남음']},
+      {icon:'🎧',title:'내용 확인 비용',sub:'녹음을 처음부터 들어야 알 수 있음',detail:['녹음 파일이 각자의 단말에 흩어져 있음','통화 내용을 알려면 처음부터 끝까지 들어야 함']},
+      {icon:'🏷️',title:'파트너 식별 불일치',sub:'같은 파트너를 영업사원마다 다른 이름으로 저장',detail:['폰 연락처에는 이름과 번호뿐, 사업자 정보는 CRM에 있음','등록되지 않은 번호의 통화·문자도 놓치지 않아야 함']},
+      {icon:'🛡️',title:'도입 부담',sub:'직원은 감시를 우려하고, 설정이 빠지면 수집이 조용히 멈춤',detail:['무엇이 수집되는지 직원이 직접 확인할 수 있어야 함','권한·녹음 설정이 빠지면 수집이 멈추는데 조직이 알아채기 어려움']},
     ],
     [
-      {icon:'➡️',title:'단방향 수집 + 전송 정책',sub:'휴대폰 → Cowork+, 앱은 생성된 이력만 전달',detail:['클릭투콜·딥링크 발신·서버 → 앱 제어는 <strong>범위에서 제외</strong> (고객 인터뷰로 단방향이 맞다는 것을 확인)','생성 이벤트만 전송, 단말에서 삭제해도 Cowork+ 기록은 유지','문자·메타데이터는 즉시, 녹음은 Wi-Fi에서 전송 · 무기한 재시도 · 최신 건 우선']},
-      {icon:'🔑',title:'번호 매핑 + 미등록 안내',sub:'로그인 없이 사전 매핑한 번호로 식별',detail:['앱에는 로그인 화면이 없고, 내부사용자는 <strong>관리자가 매핑한 휴대폰번호</strong>로 식별','미등록 기기는 앱에 기기 ID와 등록 안내를 보여주고, 설정 화면에 \'미등록\' 행이 생김','매핑이 끝나면 재설치·재로그인 없이 수집 상태로 전환']},
-      {icon:'🗂️',title:'인박스 \'법인폰\' 탭 · 고객별 1행',sub:'같은 고객이 여러 줄로 나뉘지 않도록',detail:['인박스 탭: 전체 · 메시지 · 메일 · 팩스 · 법인폰 (라이선스가 있을 때만 노출)','고객 1명당 1행, 미리보기는 가장 최근 건','번호가 일치하면 \'외부사용자 이름(폰 저장 이름)\', 아니면 번호와 \'미등록\' 표기 — 판단 기준은 번호 일치 하나','통화 상세: 녹취 재생·다운로드, AI 통화 요약, STT 스크립트']},
-      {icon:'🔗',title:'외부사용자 동기화 · CRM 보완 경로',sub:'기존 정보를 덮어쓰지 않는 수동 동기화',detail:['연락처의 이름·번호만 전송, 같은 번호가 있으면 <strong>기존 정보를 그대로 유지</strong>','없으면 신규 외부사용자를 만들고, 변경분만 전송해 중복 생성 방지','폰에서 연락처를 지워도 외부사용자는 유지','사업자 정보는 CRM → Cowork+ 직접 연동 경로로 보강']},
+      {icon:'🗂️',title:'상대별 법인폰 대화방',sub:'통화·문자·녹음이 한 방에 시간순으로',detail:['기존 대화 목록에 법인폰 아이콘 행으로 합쳐 별도 메뉴 없이 확인','상대별로 한 대화방에 쌓고, 탭은 전체 · 통화 · 문자','입력창 없음 — 법인폰 대화는 휴대폰에서만 주고받음(단방향 원칙)']},
+      {icon:'🔑',title:'기기 등록 + 정리 안내',sub:'사용자 1명 = 폰 1대, 바뀌면 알려준다',detail:['관리자가 <strong>사용자와 전화번호</strong>로 기기를 등록, 상태는 미등록 · 확인 필요 · 정상','기기를 삭제·사용자 변경·연결 해제하면 담당자에게 \'종료 필요\' 안내 — 자동으로 닫지 않고 담당자가 \'대화 종료\'','담당자 변경은 없음 — 다른 사람에게 배정하면 새 방이 생김']},
+      {icon:'📝',title:'STT 스크립트 + AI 요약',sub:'녹음을 듣지 않고도 내용 파악',detail:['녹음이 올라오면 카드가 업로드 대기 → 변환중 → 요약중 → 완료로 바뀜','발화별 시각이 있는 스크립트: 검색, 줄을 누르면 그 지점부터 재생','AI 요약은 센터 설정으로 켜고, 담당자가 고치면 AI 원본을 보관하고 \'수정됨\' 표시']},
+      {icon:'🔗',title:'알 수 없는 사용자 + 별칭 동기화',sub:'받아두고, 이름만 고치면 반영',detail:['미등록 번호도 \'알 수 없는 사용자\' 방으로 받고, 대화방 헤더에서 바로 이름 수정','앱 주소록의 별칭 동기화는 <strong>내 담당 파트너의 별칭만</strong> 맞춤','새 번호는 앱에서 \'파트너로 등록\' — 이미 있는 번호면 새로 만들지 않고 담당자로 추가']},
+      {icon:'👁️',title:'수집 고지 + 상태 모니터링',sub:'투명하게, 멈추면 보이게',detail:['첫 실행 시 수집 항목과 전송처를 고지하고, 수집 중에는 상태바 알림 표시','기기를 등록하기 전에는 아무것도 수집하지 않음','앱이 5분마다 권한·대기 건수를 보고 — 권한 누락·보고 끊김(3일)·업로드 지연(24시간)이면 \'확인 필요\'']},
     ]
   )
-  + buildFlow('기획 프로세스', [
+  + buildFlow('수집 구조 — 통화가 끝나면 일어나는 일', [
+      {step:'STEP 1',label:'기록은 즉시',desc:'번호·방향·시각·길이\n문자 본문을 바로 전송'},
+      {step:'STEP 2',label:'파일은 Wi-Fi',desc:'녹음·MMS 사진·동영상은\nWi-Fi에서 업로드'},
+      {step:'STEP 3',label:'STT',desc:'녹음이 붙으면\n스크립트 생성'},
+      {step:'STEP 4',label:'AI 요약',desc:'스크립트를 한 단락으로\n요약, 담당자가 수정'},
+      {step:'STEP 5',label:'화면 갱신',desc:'기록이 바뀌면 열린 화면이\n새로고침 없이 갱신'},
+    ])
+  + buildPoints('플랫폼 제약 앞에서의 기획 판단 — 안드로이드 법인폰', [
+      {icon:'🎙️',title:'통화 녹음 — 앱이 직접 녹음하지 않는다',desc:'안드로이드 10 이상에서는 서드파티 앱이 통화 오디오를 녹음할 수 없다. 그래서 삼성 전화앱의 자동 통화녹음 파일을 찾아 올리는 방식으로 정하고, 이 앱은 기본 전화앱이 되지 않는다. 자동 녹음이 꺼져 있거나 다른 제조사 단말이면 녹음은 없다.'},
+      {icon:'✉️',title:'문자(RCS) — 설치 안내로 관리한다',desc:'RCS 채팅은 서드파티 앱이 읽을 수 없고 켜짐 여부도 확인할 수 없다. 법인폰의 채팅(RCS)을 꺼서 일반 문자로만 오가게 하는 것을 설치 안내로 관리하고, 수집 범위도 휴대폰 번호(01x)와의 통화·문자로 한정했다.'},
+      {icon:'📦',title:'배포 — 시연용 APK 직접 설치',desc:'iPhone은 불가하고, 제한 권한이 많아 Google Play 일반 등록도 어렵다. 1차는 기능을 보여주기 위한 데모로 보고 APK 직접 설치로 범위를 잡았으며, 모바일 설정 화면에서 라이선스가 있을 때만 APK를 내려받게 했다.'},
+      {icon:'🚫',title:'1차에서 하지 않는 것을 먼저 정했다',desc:'상담센터, 기기 전용 인증, 화자 구분 표시, RCS·iOS·기본 전화앱 방식, Cowork+에서 문자 보내기·전화 걸기, 담당자 변경, 통계·모니터링, 카카오톡 채널 통합은 범위 밖으로 두고 상용화 과제로 남겼다.'},
+    ])
+  + buildFlow('법인폰 기획 프로세스', [
       {step:'STEP 1',label:'고객 사례 분석',desc:'렌터카 법인영업\n보험사 TM센터'},
       {step:'STEP 2',label:'요구사항 정의',desc:'요구사항정의서\n기능 요구사항 47개'},
       {step:'STEP 3',label:'화면 프로토타입',desc:'목록·상세·\n이력·설정 화면'},
       {step:'STEP 4',label:'Jira 스토리',desc:'User Story·핵심 규칙\nConfirmation'},
-      {step:'STEP 5',label:'검토·공유',desc:'사업전략본부\n검토 요청'},
+      {step:'STEP 5',label:'인수테스트',desc:'시나리오 110건\n화면 기준 확인'},
     ])
   + buildPoints('기획 포인트 — 법인폰 수집의 설계 원칙', [
       {icon:'🧭',title:'단방향 원칙',desc:'데이터는 휴대폰 → Cowork+ 한 방향으로만 흐른다. 클릭투콜·딥링크 발신·서버 → 앱 제어는 범위에서 제외했고, CRM 데이터도 폰을 거치지 않고 CRM → Cowork+로 직접 연동해 원칙을 지켰다.'},
-      {icon:'🛡️',title:'덮어쓰지 않는 동기화',desc:'폰 연락처에서 올라온 정보가 기존 외부사용자 정보를 바꾸지 않는다. CRM에서 보완한 사업자 정보를 보호하고, 폰에서 연락처를 지워도 외부사용자는 유지한다.'},
-      {icon:'🔢',title:'번호 하나로 판단',desc:'이름이 달라도 번호가 같으면 같은 사람으로 본다. 이름은 조회 시점의 최신 값을 조합해 보여주므로 이름이 바뀌어도 별도 동기화 절차가 필요 없다.'},
-      {icon:'📶',title:'누락 없이 쌓기',desc:'단말에서 생성된 이벤트만 전송하고, 문자·메타데이터는 즉시, 용량이 큰 녹음은 Wi-Fi에서 전송한다. 실패해도 시한 없이 재시도하며 쌓인 파일은 최신 건부터 올린다.'},
+      {icon:'🛡️',title:'내 담당만 바꾼다',desc:'폰 연락처가 바꾸는 것은 내가 담당하는 파트너의 별칭뿐이다. 담당이 아닌 번호와 CRM에서 보완한 사업자 정보는 건드리지 않고, 새 번호는 앱에서 직접 파트너로 등록한다.'},
+      {icon:'🔢',title:'번호로 상대를 판단',desc:'외부 사용자와 연결되지 않은 번호의 통화·문자도 버리지 않고 \'알 수 없는 사용자\' 방으로 받는다. 이름만 고치면 외부 사용자 정보에 바로 반영되고, 같은 상대의 이력은 한 대화방에 모인다.'},
+      {icon:'📶',title:'누락 없이 쌓기',desc:'단말에서 생성된 이벤트만 전송하고, 문자·메타데이터는 즉시, 용량이 큰 녹음은 Wi-Fi에서 전송한다. 실패해도 시한 없이 재시도하고, 24시간 넘게 지연되면 기기를 \'확인 필요\'로 표시해 관리자가 알 수 있게 한다.'},
+    ])
+  + buildPoints('법인폰 1차(협업) 범위 — Epic 하위 스토리 11건', [
+      {icon:'🔌',title:'피처 라이선스 · 센터 사용여부 · APP 채널',desc:'라이선스 + APP 채널 연결 + 센터 스위치가 모두 있어야 수집한다. 법인폰 채널은 워크스페이스에 1개, 협업센터만 연결(상담센터 제외). 스위치를 꺼도 기존 대화방은 남고, 다시 켜면 그 뒤 건부터 수집한다.'},
+      {icon:'⚙️',title:'설정 › 채널 관리 › 법인폰 메뉴',desc:'기기 관리(등록·수정·삭제, 상태 필터)와 첨부파일 정책(녹음·MMS 형식·최대 50MB·보관 기간)을 한 메뉴에서 관리한다. 보관 기간이 지나면 파일만 지우고 기록·스크립트·요약은 남긴다.'},
+      {icon:'📱',title:'법인폰 수집 앱 (Android)',desc:'로그인 → 등록 기기 확인 → 수집 고지 → 메인. 등록된 번호와 다른 폰, 다른 사용자에게 등록된 폰은 각각 안내하고, 빠진 권한은 안내 화면에서 시스템 설정으로 이동시킨다.'},
+      {icon:'📇',title:'전화번호 연동 (주소록 → 파트너)',desc:'앱 주소록에는 내가 담당하는 외부 사용자만 보인다. 연락처 등록 시 새 번호면 외부 사용자를 만들고, 이미 있으면 담당자로 추가(담당자 5명 제한)한다. 폰 저장 이름은 별칭으로 맞춘다.'},
+      {icon:'📞',title:'통화 내역 연동',desc:'통화가 끝나면 상대와의 대화방에 통화 카드가 자동으로 생기고, 늦게 올라온 통화도 실제 시각 자리에 들어간다. 카드에서 녹음을 재생·다운로드하고 크게 보기로 정보를 확인한다.'},
+      {icon:'📝',title:'STT 스크립트',desc:'녹음이 올라오면 발화별 시각이 있는 스크립트를 만들고 통화 안에서 검색한다. 말이 없는 녹음은 0줄로 완료하고, 화자 구분 표시는 1차에서 제외했다.'},
+      {icon:'🤖',title:'AI 통화 내용 요약',desc:'AI 라이선스와 협업센터 AI 탭 토글이 켜져 있을 때만 요약한다. 담당자가 2000자까지 수정할 수 있고, 처음 고칠 때 AI 원본을 따로 보관한다. 요약 중이거나 종료된 방에서는 수정할 수 없다.'},
+      {icon:'💬',title:'문자 수발신 이력 연동',desc:'문자는 통화와 같은 대화방에 시각 순서대로 말풍선으로 쌓인다. 받은 문자는 왼쪽, 법인폰에서 보낸 문자는 오른쪽에 두고, 대화 검색에 걸린다.'},
+      {icon:'🖼️',title:'MMS 첨부(사진·동영상) 연동',desc:'본문이 먼저 보이고 사진·동영상은 Wi-Fi에서 올라온 뒤 붙는다. 업로드 대기·업로드됨·제외(이유 표시)·삭제됨으로 상태를 나눠 보여주고, 사진은 썸네일, 동영상은 파일 카드로 내려받는다.'},
+      {icon:'🏠',title:'워크스페이스 법인폰 대화방',desc:'기존 대화 목록에 법인폰 아이콘으로 합치고, 탭·이전 대화 이력·할 일 등록을 붙였다. \'알 수 없는 사용자\' 이름은 헤더에서 바로 고치고, 정리가 필요한 방은 담당자에게만 종료 안내를 보여준다.'},
+      {icon:'📲',title:'모바일 워크스페이스 법인폰 지원',desc:'법인폰 대화방을 PC와 같은 모습으로 보고, 북마크·할 일 상세·검색·푸시에서도 같은 문구로 보인다. 이름 수정·대화 종료·요약 수정은 PC에서만 하도록 구분했다.'},
     ])
   + buildStoryCards('스토리 정의 — Jira 스토리 4건 (User Story · 핵심 규칙 · Confirmation)', [
       {icon:'🔑',title:'앱 최초 실행 · 미등록 안내',rule:'앱에는 로그인 화면이 없고, 관리자가 사전 매핑한 휴대폰번호로 내부사용자를 식별한다. 매핑이 없으면 기기 ID와 등록 안내를 보여주고, 설정 화면에 \'미등록\' 행이 생긴다.',confirm:'관리자가 등록하면 재설치·재로그인 없이 수집 상태로 바뀐다.'},
       {icon:'🗂️',title:'인박스 \'법인폰\' 탭 · 고객별 1행 목록',rule:'법인폰 라이선스가 있을 때만 탭이 보인다. 고객(외부사용자) 1명당 1행이고 미리보기는 가장 최근 건이며, 외부사용자와 일치하지 않는 번호도 번호로 한 행을 만든다.',confirm:'같은 외부사용자와 통화 2건·문자 1건이어도 목록에는 1행으로 보인다.'},
       {icon:'🏷️',title:'상대 이름 표기 규칙',rule:'번호가 외부사용자와 일치하면 \'외부사용자 이름(법인폰 저장 이름)\', 일치하지 않으면 번호와 \'미등록\'으로 표시한다. 판단 기준은 번호 일치 여부 하나다.',confirm:'외부사용자 이름을 바꾸면 목록·상세의 이름도 바뀐 값으로 보인다.'},
       {icon:'🔄',title:'\'외부사용자 동기화\' 수동 버튼 · 결과 노티',rule:'연락처의 이름·번호만 보내고, 같은 번호가 있으면 기존 정보를 그대로 둔다. 없으면 신규 외부사용자를 만들고 변경분만 전송한다.',confirm:'같은 동기화를 두 번 해도 외부사용자가 중복 생성되지 않는다.'},
-    ])
-  + buildDeliverables([
-      {icon:'📋',title:'요구사항정의서',desc:'배경·전제·핵심 기능(기능 요구사항 47개)·화면 구성·정책 결정 사항·개발 체크리스트·비기능·과금·미결 사항'},
-      {icon:'🖥️',title:'화면 프로토타입',desc:'인박스 법인폰 탭·통화 상세(녹취 재생·AI 요약·STT)·이력·설정 화면을 실제 디자인에 맞춰 구성'},
-      {icon:'📝',title:'Jira 스토리 4건',desc:'앱 최초 실행·인박스 탭·이름 표기·외부사용자 동기화를 User Story·핵심 규칙·Confirmation 형식으로 작성'},
+    ], '※ 위 스토리는 10월 작성 기준이에요. 이후 개발을 거치며 앱 로그인·기기 등록 방식, 대화방 구성, 연락처 별칭 동기화가 구체화되어 최종 화면은 아래 \'실제 개발 화면\'을 기준으로 정리했어요.')
+  + buildDevScreens('실제 개발 화면 — 관리자 설정 · 법인폰 앱 · Cowork+ 대화', [
+      {first:true,title:'관리자 설정 — 법인폰을 켜고 기기를 나눠 주는 화면',items:[
+        {n:'04',cap:'기기 관리 — 사용자·전화번호로 등록, 상태 배지'},
+        {n:'07',cap:'첨부파일 — 녹음·MMS 크기와 보관 기간'},
+        {n:'08',cap:'AI — 통화 내용 요약 켜기'},
+      ]},
+      {title:'법인폰 앱 — 직원이 폰에서 보는 화면',items:[
+        {n:'12',cap:'업무 데이터 수집 안내 — 수집 항목과 전송처 고지'},
+        {n:'16',cap:'관리자 등록 대기 중 — 기기 정보 전달'},
+        {n:'18',cap:'연락 이력 — Wi-Fi 대기, 지금 보내기'},
+        {n:'19',cap:'주소록 — 내 담당 파트너와 별칭 동기화'},
+      ]},
+      {title:'Cowork+ 대화 — 담당자가 통화·문자를 보는 화면',items:[
+        {n:'24',cap:'법인폰 대화방 — 통화·문자 시간순'},
+        {n:'28',cap:'통화 탭 — 업로드 대기에서 완료까지'},
+        {n:'29',cap:'통화 크게 보기 — 정보와 AI 요약'},
+        {n:'30',cap:'스크립트 — 발화별 재생·검색'},
+        {n:'27',cap:'알 수 없는 사용자 — 이름 바로 수정'},
+        {n:'31',cap:'대화 조회 — 관리자 읽기 전용'},
+        {n:'33',cap:'모바일 워크스페이스 — 법인폰 대화방'},
+      ]},
+    ], {href:'docs/corp-phone-screens.html',title:'법인폰 화면안내서 — 개발 완료 화면 23개',desc:'관리자 설정 8 · 법인폰 앱 7 · 대화·조회 8개 화면을 번호 핀과 함께 설명한 안내서예요.',label:'안내서 열기 →'})
+  + buildFacts('인수테스트 — 22개 화면 영역을 화면 기준으로 확인', [
+      {eyebrow:'스토리',num:'11',unit:'건',label:'Epic 하위 스토리 전체가 인수테스트 단계 — Confirmation 항목 기준으로 확인'},
+      {eyebrow:'시나리오',num:'110',unit:'건',label:'설정·앱·대화방·모바일을 22개 화면 영역으로 나눠 구성한 인수테스트 시나리오'},
+      {eyebrow:'통과 / 실패',num:'100',unit:'건 · 0',label:'통과 100건, 실패 0건 (시트 집계 기준)'},
     ]);
 }
 
-/* ===== ERMS 메일 채널 기획 ===== */
-function buildErmsSections(){
+function buildErmsPart(){
   return buildPvs(
-    'Painpoint — 메일 업무에 맞지 않던 위치·권한·작성 경험',
+    'PART 2 · ERMS 메일 — 메일 업무에 맞지 않던 위치·권한·작성 경험',
     '"메일 설정은 센터운영 안에 섞여 있고, 답변 템플릿은 코드를 알아야 고칠 수 있었다."',
     [
       {icon:'🗂️',title:'메일 설정이 센터운영 하위에 혼재',sub:'대표메일은 접속채널인데 협업센터 안에 위치',detail:['대표메일은 "접속채널"의 하나로 관리되어야 하는 개념','센터운영 접근 권한자와 메일 채널 관리 권한자가 다를 수 있음','대화조회에서 대표메일 계정별 조회가 어려움']},
@@ -2923,15 +3003,32 @@ function buildErmsSections(){
       {icon:'🔭',title:'조회 범위는 포함 관계로',desc:'타임라인 조회는 개인·팀·센터 3단계이고 상위 범위가 하위를 포함한다(센터 ⊇ 팀 ⊇ 개인). 상대방 도메인이 같은 메일끼리만 묶는 조건은 모든 범위에 공통으로 적용했다.'},
       {icon:'🧰',title:'코드를 몰라도 쓸 수 있게',desc:'답변 템플릿을 HTML 직접 편집에서 리치 텍스트 에디터로 바꾸고, 키워드는 편집 불가 토큰 배지로 삽입한다. 저장 포맷은 그대로 두어 백엔드 변경 없이 화면 표현만 개선했다.'},
     ])
+;
+}
+
+/* ===== 옴니채널 확장 — 법인폰 · ERMS 메일 ===== */
+function buildOmniSections(){
+  return buildPoints('프로젝트 구성 — 두 개의 채널', [
+      {icon:'📞',title:'법인폰 — 휴대폰의 통화·문자·녹음을 이력으로',desc:'개인 단말에만 남던 고객 통화·문자를 Cowork+ 이력으로 수집하는 신규 채널. 현장 사례 2곳 분석 → 요구사항정의서 → 화면 프로토타입 → Jira 스토리 4건으로 MVP를 정의했다.'},
+      {icon:'✉️',title:'ERMS 메일 — 메일 응대의 설정·권한·작성 경험',desc:'메일 응대(ERMS)를 B2B 현장에서 쓰기 좋게 다듬는 개선. 메일 채널 메뉴 분리, 토픽 구조 개편, 타임라인 조회 권한, 새 메일 작성, 답변 템플릿 전환 등 1차 개선사항 5건을 이슈 단위로 정의했다.'},
+    ])
+  + buildCorpPhonePart()
+  + buildErmsPart()
   + buildDeliverables([
-      {icon:'📋',title:'1차 개선사항 이슈 5건',desc:'메일 채널 메뉴 분리·토픽 구조 개편·타임라인 조회 권한·새 메일 보내기·답변 템플릿 WYSIWYG를 배경·AS-IS·TO-BE·상세 요구사항으로 정리'},
-      {icon:'🗺️',title:'용어 매핑표 · 구조도',desc:'토픽 → 메일 담당자 그룹 용어 매핑표와 센터 운영 메뉴의 AS-IS → TO-BE 구조'},
-      {icon:'🖥️',title:'화면 프로토타입',desc:'메일 담당자 그룹 화면을 플랫 리스트·테이블·클릭 시 수정 레이어 형태로 3차례 개선'},
+      {icon:'📋',title:'법인폰 요구사항정의서',desc:'배경·전제·핵심 기능(기능 요구사항 47개)·화면 구성·정책 결정 사항·개발 체크리스트·비기능·과금·미결 사항'},
+      {icon:'🖥️',title:'법인폰 기획 프로토타입',desc:'기획 단계에서 만든 화면 4개(인박스·통화 상세·기기 등록·외부사용자 동기화)를 직접 눌러볼 수 있어요',href:'docs/corp-phone-prototype.html',cta:'프로토타입 열기 →'},
+      {icon:'📖',title:'법인폰 화면안내서',desc:'개발이 끝난 화면 23개를 번호 핀과 함께 설명한 안내서 (개인정보 가림)',href:'docs/corp-phone-screens.html',cta:'안내서 열기 →'},
+      {icon:'📝',title:'법인폰 Jira 스토리 4건',desc:'앱 최초 실행·인박스 탭·이름 표기·외부사용자 동기화를 User Story·핵심 규칙·Confirmation 형식으로 작성',anchor:'#stories',cta:'스토리 정의 보기 ↑'},
+      {icon:'📑',title:'ERMS 1차 개선사항 이슈 5건',desc:'메일 채널 메뉴 분리·토픽 구조 개편·타임라인 조회 권한·새 메일 보내기·답변 템플릿 WYSIWYG를 배경·AS-IS·TO-BE·상세 요구사항으로 정리',href:'docs/erms-phase1-issues.pdf',cta:'PDF 열기 →'},
+      {icon:'🗺️',title:'ERMS 용어 매핑표 · 구조도',desc:'토픽 → 메일 담당자 그룹 용어 매핑표와 센터 운영 메뉴의 AS-IS → TO-BE 구조, 배분 폴백 체인',img:'images/erms-structure.png',cta:'클릭해서 보기 →'},
+      {icon:'🧪',title:'ERMS 화면 프로토타입',desc:'메일 담당자 그룹(플랫 리스트·수정 레이어) · 타임라인 조회 권한 · 새 메일 보내기 · 답변 템플릿(토큰 배지) 4개 화면',href:'docs/erms-prototype.html',cta:'프로토타입 열기 →'},
     ]);
 }
 
 /* ===================== 렌더 ===================== */
-const id = new URLSearchParams(location.search).get('id') || 'noa-agent';
+const ID_ALIAS = {'corp-phone':'omni-channel','erms':'omni-channel'};
+const rawId = new URLSearchParams(location.search).get('id') || 'noa-agent';
+const id = ID_ALIAS[rawId] || rawId;
 const p = DATA[id];
 document.getElementById('nav-title').textContent = p.title;
 document.getElementById('next-link').href = `project.html?id=${p.next}`;
@@ -2955,8 +3052,7 @@ if(p.wip){
   else if(p.type==='mock-exam') sections += buildMockExamSections();
   else if(p.type==='mega-renewal') sections += buildMegaRenewalSections();
   else if(p.type==='cowork-deputy') sections += buildCoworkDeputySections();
-  else if(p.type==='corp-phone') sections += buildCorpPhoneSections();
-  else if(p.type==='erms') sections += buildErmsSections();
+  else if(p.type==='omni-channel') sections += buildOmniSections();
   document.getElementById('content').innerHTML = sections;
 
   // 인사이트 화면 바 초기 애니메이션
